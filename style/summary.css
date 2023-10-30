@@ -1,0 +1,358 @@
+main {
+    background-color: #F6F7F8;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+#summaryTaskContainer {
+    background: #F6F7F8;
+}
+
+#summaryContainer {
+    display: flex;
+    align-items: center;
+    padding: 20px 116px;
+}
+
+.summaryHeadline {
+    display: flex;
+    align-items: center;
+    padding: 20px 116px;
+    gap: 30px;
+}
+
+.marginZero {
+    margin: 0;
+}
+
+.firstHeadline {
+    font-family: Inter;
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.secondHeadline {
+    font-family: Inter;
+    font-size: 27px;
+    color: #2A3647;
+}
+
+#summaryInfo {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 35px;
+    /* margin-left: 135px;
+    margin-top: 75px; */
+}
+
+.taskBtn {
+    display: flex;
+    width: 170px;
+    height: 170px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.summaryBtn {
+    border-radius: 30px;
+    background-color: white;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+}
+
+#tasksOverview {
+    display: flex;
+    align-items: flex-start;
+    gap: 35px;
+}
+
+.tasksOverviewCount {
+    text-align: center;
+    font-family: Inter;
+    font-size: 64px;
+}
+
+.tasksOverviewText {
+    color: #2A3647;
+    text-align: center;
+    font-family: Inter;
+    font-size: 21px;
+    word-wrap: break-word;
+    padding: 0 25px;
+}
+
+#taskUrgentContainer {
+    display: flex;
+    width: 580px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    border-radius: 30px;
+}
+
+#taskUrgent {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+#urgentCount {
+    text-align: center;
+    font-family: Inter;
+    font-size: 47px;
+}
+
+#urgentText {
+    color: #2A3647;
+    font-family: Inter;
+}
+
+#urgentDeadlineDate {
+    color: #2A3647;
+    font-family: Inter;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+#urgentDeadlineText {
+    color: #2A3647;
+    font-family: Inter;
+    font-size: 16px;
+}
+
+#tasksProgress {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+#tasksToDo {
+    display: flex;
+    width: 272.5px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    border-radius: 30px;
+}
+
+#toDoInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#toDoCount,
+#doneCount {
+    text-align: center;
+    font-family: Inter;
+    font-size: 64px;
+}
+
+#toDoText,
+#doneText {
+    color: #2A3647;
+    font-family: Inter;
+    font-size: 21px;
+}
+
+#tasksDone {
+    display: flex;
+    width: 272.5px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    border-radius: 30px;
+}
+
+#summaryTaskContainer {
+    display: flex;
+    align-items: center;
+}
+
+#summaryToDoPencilIcon,
+#summaryToDoDoneIcon {
+    gap: 10px;
+}
+
+#greetingContainer {
+    margin-top: 70px;
+}
+
+#greetingText {
+    color: #2A3647;
+    font-family: Inter;
+    font-size: 47px;
+}
+
+#greetingName {
+    color: var(--ligth-blue, #29ABE2);
+    font-family: Inter;
+    font-size: 64px;
+}
+
+.btnHover {
+    transition: transform .2s;
+    cursor: pointer;
+}
+
+.btnHover:hover {
+    background-color: #2A3647;
+    transform: scale(1.1);
+    box-shadow: 0px 15px 10px -15px #111;
+}
+
+.btnHover:hover div {
+    color: white !important;
+}
+
+.btnHover:hover .IconHover {
+    display: inline;
+}
+
+.IconHover {
+    display: none;
+}
+
+.btnHover:hover .progressIcon {
+    display: none;
+}
+
+@media (max-width: 1200px) {
+    /* #greetingContainer {
+        margin-left: 10px;
+    } */
+
+    #summaryContainer {
+        padding-right: 50px;
+    }
+
+    .taskBtn {
+        flex-shrink: 0;
+    }
+}
+
+
+@media (max-width: 1025px) {
+
+    .summaryHeadline {
+        padding-inline: 36px;
+    }
+
+    #summaryContainer {
+        padding-inline: 36px 50px;
+    }
+}
+
+@media (max-width: 1000px) {
+
+    #greetingContainer {
+        display: none;
+        position: relative;
+    }
+
+    #summaryInfo {
+        width: 100%;
+    }
+
+    #tasksOverview {
+        width: 100%;
+        justify-content: space-between;
+        gap: 0;
+    }
+
+    .summaryHeadline {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    #summaryContainer {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding-inline: 0;
+        margin: 30px;
+    }
+
+    #summaryTaskContainer {
+        justify-content: center;
+    }
+
+    #allTasks, #taskInProgress, #taskAwaiting {
+        width: 25vw;
+    }
+
+    #taskUrgentContainer {
+        width: 100%;
+    }
+
+    #tasksProgress {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    #tasksToDo, #tasksDone {
+        width: 50%;
+    }
+}
+
+@media (max-width: 710px) {
+    .firstHeadline {
+        order: 1;
+        font-size: 47px;
+    }
+
+    .secondHeadline {
+        order: 2;
+        font-size: 20px;
+    }
+
+    .summaryHeadline {
+        flex-direction: column;
+        gap: 0px;
+        align-items: flex-start;
+    }
+
+    #verticalLine {
+        rotate: 90deg;
+        order: 3;
+        margin-left: 27px;
+    }
+}
+
+@media (max-width: 620px) {
+    .tasksOverviewCount {
+        font-size: var(--fntsize47);
+    }
+
+    .tasksOverviewText {
+        font-size: var(--fntsizebase);
+    }
+
+    #taskUrgent {
+        gap: 0;
+    }
+
+    .tasksOverviewText {
+        padding: 0;
+    }
+
+    #taskUrgentContainer {
+        justify-content: space-around;
+        gap: 0;
+    }
+
+    #urgentOverview {
+        justify-content: space-around
+    }
+
+}

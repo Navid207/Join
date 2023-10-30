@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- title -->
+    <title>Join Contacts</title>
+
+    <!-- icon -->
+    <link rel="icon" type="image/png" href="../img/icons/logo_blak.svg">
+
+    <!-- include fonts -->
+    <link rel="stylesheet" href="">
+
+    <!-- add UTF-8 Code -->
+    <meta charset="utf-8">
+
+    <!-- handle resolution with viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- include style -->
+    <link rel="stylesheet" href="../style/addtask.css">
+    <link rel="stylesheet" href="../style/common.css">
+    <link rel="stylesheet" href="../style/responsive.css">
+    <link rel="stylesheet" href="../style/temp_menu.css">
+    <link rel="stylesheet" href="../style/temp_header.css">
+    <link rel="stylesheet" href="../style/temp_impressum.css">
+    <link rel="stylesheet" href="../style/temp_help.css">
+    <link rel="stylesheet" href="../style/contact.css">
+    <!-- CSS files müssen noch getrennt werden (summary und addTask) -->
+
+    <!-- include script -->
+    <script src="../script/helpers.js"></script>
+    <script src="../script/main.js"></script>
+    <script src="../script/HTMLtemplates.js"></script>
+    <script src="../script/contact.js"></script>
+    <script src="../script/addtask.js"></script>
+</head>
+
+<body onload="initContact('tabcontacts')" onclick="hideElement(['alogout'])">
+    <nav w3-include-html="../templates/menu.html"></nav>
+    <main>
+        <div id="header" w3-include-html="../templates/header.html"></div>
+        <div id="content">
+            <div id="wrapperContactlist">
+                <div id="wrapperNewContactBtn">
+                    <button id="btnnewcontact" class="but-dark" onclick="showOvlyCard(getOvlyCardNewContactHTML())">
+                        <span>New contact</span>
+                        <img src="../img/icons/newcontact.svg" alt="icon">
+                    </button>
+                </div>
+                <div id="contactlist" onclick="hideContactDetails()">
+
+                </div>
+            </div>
+            <div id="wrappercontact" onclick="hideBtnResContactDetails()">
+                <div id="wrapperHLDetails">
+                    <div>
+                        <h1>Contacts</h1>
+                        <button id="btnContactDetailsreturn" onclick="hideElement(['wrappercontact'])">
+                            <img src="../img/icons/arrow_left_line.svg" alt="arrow-left">
+                        </button>
+                    </div>
+                    <div id="HLline"></div>
+                    <span>Better with a team</span>
+                </div>
+                <div id="contactCard">
+                    <div id="wrapperName">
+                        <span id="contactinitials">AM</span>
+                        <div>
+                            <span id="contactname">Anton Mayer</span>
+                            <button id="btnaddTask" onclick="showOvlyCard(AddTaskHTML), loadCategory(), loadUser(),loadNewCategoryInput()">
+                                <div w3-include-html="../img/icons/plus.svg"></div>
+                                Add Task
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="wrappersubtitle">
+                        <span>Contact Information</span>
+                        <button id="btneditContact" onclick="showOvlyCard(getOvlyCardEditContactHTML())">
+                            <div w3-include-html="../img/icons/edit.svg"></div>
+                            <span>Edit Contact</span>
+                        </button>
+                    </div>
+                    <div id="wrapperinformation">
+                        <span>Email</span>
+                        <a id="contactemail" href="mailto:antom@gmail.com">antom@gmail.com</a>
+                        <span>Phone</span>
+                        <a id="contactnumber" href="Tel:+49 1111 111 11 1">+49 1111 111 11 1</a>
+                    </div>
+                </div>
+                <button id="btnEditRes" class="but-dark" onclick="showBtnResContactDetails(event)">
+                    <img src="../img/icons/more_vert.svg" alt="">
+                </button>
+                <div id="wrapperBtnResContactDetails">
+                    <button id="btneditContactRes" class="btnResContactDetails" onclick="showOvlyCard(getOvlyCardEditContactHTML())">
+                        <img src="../img/icons/edit.svg" alt="">
+                        <span>Edit</span>
+                    </button>
+                    <button id="btndeleteContactRes" class="btnResContactDetails" onclick="deleteContact()">
+                        <img src="../img/icons/bin.svg" alt="">
+                        <span>Delete</span>
+                    </button>
+                </div>
+            </div>
+            <div id="ovlyContactSuccCreated">
+                <span>Contact succesfully created</span>
+            </div>
+        </div>
+        <div id="contentImpressum" class="display-none" w3-include-html="../templates/Impressum.html"></div>
+        <div id="contentHelp" class="display-none" w3-include-html="../templates/help.html"></div>
+    </main>
+
+    <div id="ovly" onclick="hideOvlyCard()">
+        <div id="ovlyCard" onclick="stopHideElement(event)">
+
+        </div>
+    </div>
+</body>
+
+</html>

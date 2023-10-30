@@ -1,0 +1,84 @@
+#headline {
+    font-size: var(--fntsize21);
+}
+
+#headerlogo{
+    display:none;
+    width: 32px;
+    height: 39px;
+}
+
+#headermenu {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+#ahelp {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+    width: 31px;
+    height: 31px;
+}
+
+#wrapperuser{
+    position: relative;
+}
+
+#btnuser{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 3px solid var(--primcolor);
+    border-radius: 100%;
+    width: 44px;
+    height: 44px;
+    box-sizing: content-box;
+    padding: 0;
+    cursor: pointer;
+}
+
+
+#btnuser span{
+    color: var(--acccolor);
+    font-weight: bold;
+}
+
+#alogout {
+    position: absolute;
+    right: 0;
+    top: 70px;
+    background-color: var(--primcolor);
+    padding: 10px;
+    border: none;
+    border-radius: 20px 0 20px 20px;
+    z-index: 1;
+    text-decoration: none;
+}
+
+#alogout span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fntcolor);
+    width: 94px;
+    height: 17px;
+}
+
+
+
+/*------------------ set responsive design ------------------*/
+@media (max-width: 1024px){
+    #headline{
+        display: none;
+    }
+    #headerlogo{
+        display: block;
+    }
+    #ahelp{
+        display: none;
+    }
+}

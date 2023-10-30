@@ -1,0 +1,566 @@
+#addtaskWrapper{
+    height: 100%;
+    overflow: auto;
+}
+
+.addTaskHeadline {
+    display: flex;
+    margin-left: 9%;
+    margin-top: 7%;
+}
+
+#addTaskHeader {
+    color: #000;
+    font-family: Inter;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+
+.fontStyle {
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+::placeholder {
+    color: #D1D1D1;
+}
+
+#addTaskTitle {
+    display: flex;
+    padding: 13px 21px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 120%;
+}
+
+#addTaskDescription {
+    display: flex;
+    height: 80px;
+    padding: 18px 21px;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 120%;
+}
+
+#addTaskWrapper {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 5vh;
+}
+
+.addTaskStyle {
+    border-radius: 5px;
+    border: 1px solid var(--style, #D1D1D1);
+    background: #FFF;
+}
+
+select {
+    display: flex;
+    width: 422px;
+    height: 51px;
+}
+
+#addTaskDueDate {
+    width: 100%;
+    height: 51px;
+    border-radius: 10px;
+    border: 1px solid var(--style, #D1D1D1);
+    background: #FFF;
+    color: var(--style, #D1D1D1);
+}
+
+.prioContainer {
+    display: flex;
+    height: 61px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.IconHover {
+    display: none;
+}
+
+.priosContainer {
+    display: flex;
+    width: 136px;
+    height: 51px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    background: var(--white, #FFF);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+    border: 1px solid var(--style, #D1D1D1);
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    transition: transform .2s;
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+.priosContainer:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 15px 10px -15px #111;
+}
+
+.fontInter {
+    font-family: Inter;
+}
+
+#subtaskContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    border-radius: 10px;
+    border: 1px solid var(--style, #D1D1D1);
+    background: #FFF;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+}
+
+#addTaskSubTask {
+    border: none;
+    outline: none;
+}
+
+#leftSideAddTask {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+#rightSideAddTask {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+#subtaskCheckContainer {
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+}
+
+#titleSubtask {
+    color: #000;
+    font-family: Inter;
+    font-size: 12px;
+}
+
+#addtaskBtnContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 25vh;
+    gap: 10px;
+}
+
+.addTaskBorder {
+    border: 1px solid var(--style, #D1D1D1);
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+.addTaskUrgentHover {
+    transition: transform .2s;
+    cursor: pointer;
+}
+
+.addTaskUrgentHover:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 15px 10px -15px #111;
+}
+
+.outlineNone {
+    outline: none;
+}
+
+#addSubtask {
+    align-self: center;
+}
+
+#subtaskCheckContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.subtaskWrapper {
+    display: flex;
+    align-items: center;
+}
+
+#addTaskForm {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100vw;
+}
+
+.dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.designColor {
+    background-color: #FF7A00;
+}
+
+#content {
+    display: block;
+}
+
+/*prio test*/
+input[type="radio"] {
+    display: none;
+}
+
+input[id="urgent"] {
+    &:checked {
+        &+label {
+            color: white;
+            background-color: #FF3D00;
+            transform: scale(1.05);
+            box-shadow: 0px 15px 10px -15px #111;
+
+            & .progressIcon {
+                display: none;
+
+                &+.IconHover {
+                    display: inline;
+                }
+            }
+        }
+    }
+}
+
+input[id="medium"] {
+    &:checked {
+        &+label {
+            color: white;
+            background-color: #FFA800;
+            transform: scale(1.05);
+            box-shadow: 0px 15px 10px -15px #111;
+
+            & .progressIcon {
+                display: none;
+
+                &+.IconHover {
+                    display: inline;
+                }
+            }
+        }
+    }
+}
+
+input[id="low"] {
+    &:checked {
+        &+label {
+            color: white;
+            background-color: #7AE229;
+            transform: scale(1.05);
+            box-shadow: 0px 15px 10px -15px #111;
+
+            & .progressIcon {
+                display: none;
+
+                &+.IconHover {
+                    display: inline;
+                }
+            }
+        }
+    }
+}
+
+.container {
+    border-radius: 5px;
+    border: 1px solid var(--style, #D1D1D1);
+    background: #FFF;
+}
+
+.userSelectBtn, .categorySelectBtn {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.userSelectBtn .btn-text, .categorySelectBtn .btn-text {
+    font-size: 17px;
+    font-weight: 400;
+    color: #333;
+}
+
+.userSelectBtn .arrow-dwn, .categorySelectBtn .arrow-dwn {
+    display: flex;
+    height: 21px;
+    width: 21px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.userSelectBtn.open .arrow-dwn, .categorySelectBtn.open .arrow-dwn {
+    transform: rotate(-180deg);
+}
+
+.userListItems, .categoryListItems {
+    margin: 0;
+    height: 150px;
+    position: relative;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    display: none;
+    overflow: auto
+}
+
+.userSelectBtn.open~.userListItems, .categorySelectBtn.open~.categoryListItems {
+    display: block;
+}
+
+.userListItems .item, .categoryListItems .item {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    height: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 8px;
+}
+
+.userListItems .item:hover, .categoryListItems .item:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+#newCategory {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    height: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 8px;
+    padding-left: 21px;
+
+}
+
+.item .item-text {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
+
+.item .checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    border-radius: 4px;
+    margin-right: 12px;
+    border: 1.5px solid #c0c0c0;
+    transition: all 0.3s ease-in-out;
+}
+
+.item.checked .checkbox {
+    background-color: #101218;
+}
+
+.checkbox .check-icon {
+    color: #fff;
+    font-size: 11px;
+    transform: scale(0);
+    transition: all 0.2s ease-in-out;
+}
+
+.item.checked .check-icon {
+    transform: scale(1);
+}
+
+.item {
+    justify-content: space-between;
+}
+
+#newCategoryInputContainer {
+    width: 420px;
+    display: none;
+}
+
+input, textarea {
+    border-radius: 10px;
+    border: unset;
+}
+
+#closeCreateIcons {
+    display: flex;
+    width: 100%;
+    justify-content: end
+}
+
+#closeCreateIcons img {
+    margin: 0 10px;
+}
+
+#categoryColoredDots {
+    display: none;
+}
+
+.groupDotColors {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.categoryListItems .item, .userListItems .item {
+    padding: 0px 21px;
+}
+
+.categoryBtnText, .userBtnText {
+    padding: 18px 21px;
+}
+
+.categoryBtnText {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#ovlyTaskaddedToBoard {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    bottom: -200px;
+    left: calc(50% - 163px);
+    width: 326px;
+    border-radius: 20px;
+    background-color: var(--seccolor);
+    color: #FFFFFF;
+    font-size: var(--fntsize20);
+    padding: 25px 0px;
+    z-index: 2;
+}
+
+#ovlyTaskaddedToBoard.addAnimtaion {
+    animation: showInformation 2s linear 0s 1 normal;
+}
+
+@keyframes showInformation {
+    0% {
+        bottom: -200px;
+    }
+
+    10% {
+        bottom: 200px;
+    }
+
+    90% {
+        bottom: 200px;
+    }
+
+    100% {
+        bottom: -200px;
+    }
+}
+@media only screen and (max-width: 1350px) {
+    #addTaskWrapper {
+        flex-direction: column;
+    }
+    #addtaskBtnContainer{
+        margin-top: 10vh;
+    }
+
+    #leftSideAddTask, #rightSideAddTask {
+        margin: auto 10%;
+    }
+
+    #verticalLine {
+        display: none;
+    }
+
+    #addTaskHeader {
+        font-size: 20px;
+    }
+
+    #leftSideAddTask>*, #rightSideAddTask>* {
+        width: 90%;
+    }
+
+    #addTaskDescription {
+        padding: 18px 0px;
+    }
+
+    #newCategoryInputContainer {
+        width: 100%;
+    }
+
+    #addtaskBtnContainer {
+        margin-bottom: 50px;
+    }
+
+    .categoryBtnText, .userBtnText {
+        padding: 18px 0px;
+    }
+
+    #addTaskDueDate {
+        padding: 13px 12px 13px 21px;
+    }
+
+    #addTaskSubTask {
+        width: 100%;
+    }
+
+    #addSubtask {
+        padding-right: 12px;
+    }
+
+    .prioContainer {
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 840px) {
+    .prioContainer {
+        padding: 0 10px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 500px) {
+    .priosContainer {
+        padding-right: 10px;
+    }
+
+}

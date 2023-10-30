@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../img/icons/logo_blak.svg">
+    <title>Join - Board</title>
+    <link rel="stylesheet" href="../style/addtask.css">
+    <link rel="stylesheet" href="../style/common.css">
+    <link rel="stylesheet" href="../style/responsive.css">
+    <link rel="stylesheet" href="../style/temp_menu.css">
+    <link rel="stylesheet" href="../style/temp_header.css">
+    <link rel="stylesheet" href="../style/board.css">
+    <!-- <link rel="stylesheet" href="../style/summary.css">  -->
+
+    <link rel="stylesheet" href="../style/temp_impressum.css">
+    <link rel="stylesheet" href="../style/temp_help.css">
+
+
+    <script src="../script/helpers.js"></script>
+    <script src="../script/main.js"></script>
+    <script src="../script/board.js"></script>
+    <script src="../script/addtask.js"></script>
+    <script src="../script/HTMLtemplates.js"></script>
+</head>
+
+<body onload="initBoard()" onclick="hideElement(['alogout'])">
+    <nav w3-include-html="../templates/menu.html"></nav>
+    <main>
+        <div id="header" w3-include-html="../templates/header.html"></div>
+        <div id="content">
+            <div class="headline">
+                <div class="headline-area">
+                    <h1>Board</h1>
+                    <button class="but-dark" onclick="showOvlyCard(AddTaskHTML), loadCategory(), loadUser(),loadNewCategoryInput()">
+                        <img src="../img/icons/add_white.svg" alt="add">
+                    </button>
+                </div>
+                <div class="headline-serch">
+                    <form id="search" onsubmit="setSerchTasks(); return false">
+                        <input id="searchInp" type="text" value="" placeholder="Find Task" onkeyup="setSerchTasks()">
+                        <div></div>
+                        <img src="../img/icons/search.svg" alt="search">
+                    </form>
+                    <button class="but-dark" onclick="showOvlyCard(AddTaskHTML), loadCategory(), loadUser(),loadNewCategoryInput()">
+                        Add task
+                        <img src="../img/icons/add_white.svg" alt="add">
+                    </button>
+                </div>
+            </div>
+            <div class="board-content">
+                <div class="board">
+                    <div class="task-Head">
+                        <h2>To do</h2>
+                        <div id="addToDo" onclick="showOvlyCard(AddTaskHTML), loadCategory(), loadUser(),loadNewCategoryInput()"></div>
+                    </div>
+                    <div class="task">
+                        <div id="taskToDo" ondrop="moveTo(0)" ondragleave="deletHighlight('taskToDo')"
+                            ondragover="allowDrop(event);addHighlight('taskToDo')">
+                        </div>
+                    </div>
+                </div>
+                <div class="board">
+                    <div class="task-Head">
+                        <h2>In progress</h2>
+                        <div id="addProgress" onclick="showOvlyCard(AddTaskHTML), loadCategory(), loadUser(),loadNewCategoryInput()"></div>
+                    </div>
+                    <div class="task">
+                        <div id="taskProgress" ondrop="moveTo(1)" ondragleave="deletHighlight('taskProgress')"
+                            ondragover="allowDrop(event);addHighlight('taskProgress')">
+                        </div>
+                    </div>
+                </div>
+                <div class="board">
+                    <div class="task-Head">
+                        <h2>Awaiting Feedback</h2>
+                        <div id="addAwaFeedb" onclick="showOvlyCard(AddTaskHTML), loadCategory(), loadUser(),loadNewCategoryInput()"></div>
+                    </div>
+                    <div class="task">
+                        <div id="taskAwaFeedb" ondrop="moveTo(2)" ondragleave="deletHighlight('taskAwaFeedb')"
+                            ondragover="allowDrop(event);addHighlight('taskAwaFeedb')"></div>
+                    </div>
+                </div>
+                <div class="board">
+                    <div class="task-Head curser-unset">
+                        <h2>Done</h2>
+                        <!-- <div id="addDone" onclick="showOvlyCard(AddTaskHTML)"></div> -->
+                    </div>
+                    <div class="task">
+                        <div id="taskDone" ondrop="moveTo(3)" ondragleave="deletHighlight('taskDone')"
+                            ondragover="allowDrop(event);addHighlight('taskDone')"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="board">
+
+
+
+
+            </div> -->
+            <div id="ovlyTaskaddedToBoard">
+                <span>Task added to board</span>
+                <img src="../img/icons/board.svg" alt="">
+            </div>
+        </div>
+        <div id="contentImpressum" class="display-none" w3-include-html="../templates/Impressum.html"></div>
+        <div id="contentHelp" class="display-none" w3-include-html="../templates/help.html"></div>
+    </main>
+    <div id="ovly" onclick="hideOvlyCard()">
+        <div id="ovlyCard" onclick="stopHideElement(event)">
+
+        </div>
+    </div>
+</body>
+
+</html>

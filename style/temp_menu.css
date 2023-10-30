@@ -1,0 +1,124 @@
+#wrapperMenu{
+    display: flex;
+    gap: 103px;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#menulogo {
+    width: 100px;
+    height: 121.3px;
+}
+
+#menulinks {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 15px;
+    width: 100%;
+}
+
+.menulink {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    padding: 8px 53px;
+    box-sizing: border-box;
+    color: var(--fntcolor);
+    text-decoration: none;
+}
+
+
+.menuicon {
+    width: 26px;
+    height: 26px;
+}
+
+#tabimpressum {
+    margin-top: 0px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+/*------------------ set responsive design ------------------*/
+@media (max-width: 1350px){
+    #menulogo{
+        width: 80px;
+        height: 96px;
+    }
+    .menulink{
+        padding: 8px 30px;
+    }
+ }
+
+@media (max-width: 1155px){
+    #menulogo{
+        width: 48px;
+        height: 57px;
+    }
+
+    .menulink{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .menulink span{
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        position: absolute;
+        left: 90px;
+        background-color: var(--primcolor);
+        box-sizing: border-box;
+        height: 42px;
+        width: 90px;
+        z-index: 2;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .menulink:hover span{
+        display: flex;
+    }
+}
+
+@media (max-width: 1024px){
+    #menulogo{
+        display: none;
+    }
+    #menulinks{
+        flex-direction: row;
+        gap: 0px;
+        justify-content: space-evenly;
+    }
+    .menulink:hover{
+        background-color: grey;
+    }
+    .menulink{
+        flex-direction: column;
+        padding: 0px;
+        width: 20%;
+        height: 76px;
+        border-radius: 16px;
+    }
+    .menulink span{
+        display: flex;
+        padding: 0;
+        position: static;
+        left: unset;
+        background-color: unset;
+        box-sizing: border-box;
+        height: unset;
+        width: unset;
+        z-index: 1;
+        border-radius: unset;
+        font-size: var(--fntsize12);
+    }
+    #tabimpressum{
+        display: none;
+    }
+}

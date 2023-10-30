@@ -1,0 +1,83 @@
+/*------------------ set responsive design ------------------*/
+@media (max-width: 1350px){
+    html{
+        font-size: 14px;
+   }
+    nav {
+        width: 170px;
+    }
+}
+
+@media (max-width: 1155px){
+    input{
+        width: 330px;
+    }
+    
+    nav {
+        width: 90px;
+    }
+    #header {
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 1024px){
+    html{
+        font-size: 12px;
+    }
+    body{
+        flex-direction: column-reverse
+    }
+
+    nav {
+        flex-direction: row;
+        width: 100%;
+        height: 90px;
+        padding: 0px;
+    }
+
+    main {
+        min-height: calc(100vh - 90px);
+    }
+
+    #header {
+        padding: 20px 16px 20px 16px;
+    }
+
+
+    #content {
+        height: calc(100vh - 90px - 90px);
+    }
+}
+
+@media (max-width: 840px){
+    html{
+        font-size: 16px;
+    }
+    h1{
+        font-size: var(--fntsize47);
+    }
+
+    #ovlyCard{
+        left: 0px;
+        bottom: -100vh;
+        flex-direction: column;
+        transition: left var(--transtime) ease-in-out;
+    }
+    
+    #ovlyCard.showovlyCard{
+        bottom: 0px;
+        transition: all var(--transtime) ease-in-out;
+    }
+}
+
+@media (max-width: 500px){
+    html{
+        font-size: 14px;
+    }
+
+    input{
+        width: 250px;
+        font-size: var(--fntsizebase);
+    }
+}
