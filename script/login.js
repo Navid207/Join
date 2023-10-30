@@ -3,7 +3,10 @@ let LoginHTML = /*html*/`
         <div id="underline"></div>
         <form onsubmit="login(); return false">
             <input type="email" id="email" name="Email" placeholder="Email" required>
-            <input type="password" id="pwd" name="Password" placeholder="Password" required>
+            <div class="pwd-input" onmouseleave="hidePwd('pwd')">
+                    <input onclick="showPwdBg('pwd')" type="password" id="pwd" name="Password" placeholder="Password" required>
+                    <div onclick="togglPwd('pwd')"></div>
+            </div>
             <span id="msgPwd"></span>
             <div class="pwd-ext">
                 <input type="checkbox" name="Remember" id="saveLogin">
@@ -16,7 +19,6 @@ let LoginHTML = /*html*/`
             </div>
         </form>
 `;
-
 let SingupHTML =/*html*/`
         <img class="arrow-back" src="./img/icons/arrow_left_line.svg" alt="Join Logo" onclick="renderHTML('content',LoginHTML); showElementID('signUp')">
         <h1>Sign up</h1>
@@ -59,11 +61,7 @@ let ChangePwdHTML = /*html*/`
     </div>
 `;
 
-/**
- * 
- * @param {string} id 
- * @param {string} HTML 
- */
+
 function renderHTML(id, HTML) {
     let contentBox = document.getElementById(id);
     contentBox.innerHTML = HTML;
@@ -73,18 +71,22 @@ function togglPwd(id) {
     let element = document.getElementById(id);
     let type = element.getAttribute('type') === 'password' ? 'text' : 'password';
     element.setAttribute('type', type);
-    let bgImg = element.style.backgroundImage;
-    if (type === 'password') {
-        element.setAttribute("style", "background-img:url(./img/icons/visibility_on.svg);");
-    } else {
-        element.setAttribute("style", "background-img:url(./img/icons/visibility_off.svg;)");
-    }
+    element.focus();
+    showPwdBg(id);
+}
 
+function showPwdBg(id) {
+    let element = document.getElementById(id);
+    let type = element.getAttribute('type');
+    if (type === 'password') element.setAttribute("style", "background-image:url(./img/icons/visibility_on.svg);");
+    else element.setAttribute("style", "background-image:url(./img/icons/visibility_off.svg);");
 }
 
 function hidePwd(id) {
     let element = document.getElementById(id);
     element.setAttribute('type', 'password');
+    element.setAttribute("style", "background-image:url(./img/icons/lock.svg);")
+    element.blur()
 }
 
 //------------------------------------------------
@@ -123,11 +125,11 @@ function addUser() {
 }
 
 async function addUserToData(name, email, pwd) {
-    let id=users.length+1;
-    users.push({id: id,name: name, email: email, pwd: pwd });
+    let id = users.length + 1;
+    users.push({ id: id, name: name, email: email, pwd: pwd });
     setItem('users', users);
-    const data = JSON.stringify({ name: name, mail: email});
-    fetch("https://join-615.developerakademie.net/php/send_mail_add_user.php",{method: 'POST',body: data});
+    const data = JSON.stringify({ name: name, mail: email });
+    fetch("https://join-615.developerakademie.net/php/send_mail_add_user.php", { method: 'POST', body: data });
     await initLogin();
     renderHTML('content', LoginHTML);
     showElementID('signUp');
@@ -141,7 +143,7 @@ function login() {
     if (user) {
         safeLogin(JSON.stringify(user));
         console.log('login ok');
-        window.location.href = 'pages/summary.html'+'?user='+user.id;
+        window.location.href = 'pages/summary.html' + '?user=' + user.id;
     }
     else {
         addMsg('pwd', 'msgPwd', 'Ups, wrong password! Try again.');
@@ -184,7 +186,7 @@ function forgotPwd() {
 
 function checkState() {
     const msg = URL_PARAMS.get('msg');
-    if (msg=='send_Mail'){
+    if (msg == 'send_Mail') {
         renderHTML('hidden', SendMailHTML);
         hideElementID('SendMailHTML');
     }
@@ -193,13 +195,13 @@ function checkState() {
 async function changePassword() {
     const mail = URL_PARAMS.get('mail');
     let userID = findIndexByValue('email', mail, users);
-    users[userID]['pwd']=document.getElementById('pwd').value;
+    users[userID]['pwd'] = document.getElementById('pwd').value;
     setItem('users', users);
     renderHTML('hidden', ChangePwdHTML);
-    setTimeout(function() { goToStartPage(); }, 2000);
+    setTimeout(function () { goToStartPage(); }, 2000);
 }
 
-function goToStartPage(){
+function goToStartPage() {
     window.location = '../index.html';
 }
 

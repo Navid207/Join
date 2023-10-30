@@ -115,6 +115,7 @@ form span {
 #pwd,
 #pwdCon {
     background-image: url("../img/icons/lock.svg");
+    background-size: 20px;
 }
 
 #pwd:focus {
@@ -130,6 +131,19 @@ form span {
 
 .pwd-ext a {
     margin-left: 8px;
+}
+
+.pwd-input{
+    display: flex;
+}
+
+.pwd-input div{
+    margin-left: -60px;
+    width: 60px;
+}
+
+.pwd-input:hover{
+    cursor: pointer;
 }
 
 #saveLogin {
