@@ -402,14 +402,18 @@ form span {
         }
         #content{
             margin-top: 18vh;
-            max-height: 400px;
+            max-height: 100%;
             gap: 16px;
         }
         form {
-            gap: 16px;
+            gap: 26px;
         }
         input {
             height: 40px;
+        }
+
+        header {
+            margin-bottom: 15px;
         }
     }
 }
