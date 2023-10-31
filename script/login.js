@@ -28,8 +28,14 @@ let SingupHTML =/*html*/`
             <span id="msgName"></span>
             <input type="email" id="email" name="Email" placeholder="Email" required>
             <span id="msgEmail"></span>
-            <input type="password" id="pwd" name="Password" placeholder="Password" minlength="8" required>
-            <input type="password" id="pwdCon" name="Password" placeholder="Confirm Password" minlength="8" required>
+            <div class="pwd-input" onmouseleave="hidePwd('pwd')">
+                    <input onclick="showPwdBg('pwd')" type="password" id="pwd" name="Password" placeholder="Password" minlength="8" required>
+                    <div onclick="togglPwd('pwd')"></div>
+            </div>
+            <div class="pwd-input" onmouseleave="hidePwd('pwdCon')">
+                    <input onclick="showPwdBg('pwdCon')" type="password" id="pwdCon" name="Password" placeholder="Password" minlength="8" required>
+                    <div onclick="togglPwd('pwdCon')"></div>
+            </div>
             <span id="msgPwd"></span>
             <button class="but-dark" type="submit">Sign up</button>          
         </form>

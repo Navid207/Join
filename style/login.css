@@ -118,9 +118,9 @@ form span {
     background-size: 20px;
 }
 
-#pwd:focus {
+#pwd:focus,#pwdCon:focus {
     background-image: url("../img/icons/visibility_off.svg");
-    background-size: 28px;
+    background-size: 24px;
 }
 
 .pwd-ext {
