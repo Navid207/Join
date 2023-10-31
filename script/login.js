@@ -323,12 +323,30 @@ function goToStartPage() {
 //------------------------------------------------
 
 // move later to main.js!
+
+/**
+ * Hides an HTML element with the specified ID by adding the 'display-none' class.
+ *
+ * @param {string} elementID - The ID of the HTML element to hide.
+ */
 function hideElementID(ElementID) {
     document.getElementById(ElementID).classList.add('display-none');
 }
+/**
+ * Shows an HTML element with the specified ID by removing the 'display-none' class.
+ *
+ * @param {string} elementID - The ID of the HTML element to show.
+ */
 function showElementID(ElementID) {
     document.getElementById(ElementID).classList.remove('display-none');
 }
+/**
+ * Adds an error message for a specified input field and clears its value.
+ *
+ * @param {string} inpID - The ID of the input field to which the error message is associated.
+ * @param {string} msgID - The ID of the element where the error message will be displayed.
+ * @param {string} msgString - The error message string to be displayed.
+ */
 function addMsg(inpID, msgID, msgString) {
     let inp = document.getElementById(inpID);
     inp.classList.add('border-wrg');
