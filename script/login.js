@@ -300,6 +300,10 @@ function checkState() {
     }
 }
 
+/**
+ * Changes the password for a user based on the provided email in the URL parameters.
+ * Updates the user data, renders HTML content, and redirects to the start page after a delay.
+ */
 async function changePassword() {
     const mail = URL_PARAMS.get('mail');
     let userID = findIndexByValue('email', mail, users);
@@ -309,6 +313,9 @@ async function changePassword() {
     setTimeout(function () { goToStartPage(); }, 2000);
 }
 
+/**
+ * Redirects the user to the Log in page.
+ */
 function goToStartPage() {
     window.location = '../index.html';
 }
