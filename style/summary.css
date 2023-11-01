@@ -185,6 +185,7 @@ main {
 
 #greetingContainer {
     margin-top: 70px;
+    font-weight: 700;
 }
 
 #greetingText {
@@ -206,7 +207,7 @@ main {
 
 .btnHover:hover {
     background-color: #2A3647;
-    transform: scale(1.1);
+    transform: scale(1.05);
     box-shadow: 0px 15px 10px -15px #111;
 }
 
@@ -224,6 +225,13 @@ main {
 
 .btnHover:hover .progressIcon {
     display: none;
+}
+
+#urgentIcon,
+#tasksDone img,
+#tasksToDo img {
+    height: 70px;
+    width: 70px;
 }
 
 @media (max-width: 1200px) {
@@ -280,14 +288,16 @@ main {
         justify-content: center;
         width: 100%;
         padding-inline: 0;
-        margin: 30px;
+        margin-inline: 30px;
     }
 
     #summaryTaskContainer {
         justify-content: center;
     }
 
-    #allTasks, #taskInProgress, #taskAwaiting {
+    #allTasks,
+    #taskInProgress,
+    #taskAwaiting {
         width: 25vw;
     }
 
@@ -300,7 +310,8 @@ main {
         justify-content: space-between;
     }
 
-    #tasksToDo, #tasksDone {
+    #tasksToDo,
+    #tasksDone {
         width: 50%;
     }
 }
@@ -327,10 +338,18 @@ main {
         order: 3;
         margin-left: 27px;
     }
+
+    #summaryContainer {
+        padding: 0;
+    }
 }
 
 @media (max-width: 620px) {
-    .tasksOverviewCount {
+
+    .tasksOverviewCount,
+    .tasksOverviewCount,
+    #toDoCount,
+    #doneCount {
         font-size: var(--fntsize47);
     }
 
@@ -339,7 +358,7 @@ main {
     }
 
     #taskUrgent {
-        gap: 0;
+        justify-content: space-around;
     }
 
     .tasksOverviewText {
@@ -354,5 +373,95 @@ main {
     #urgentOverview {
         justify-content: space-around
     }
+}
 
+@media (max-width: 410px) {
+
+    #urgentIcon,
+    #tasksDone img,
+    #tasksToDo img {
+        height: 45px;
+        width: 45px;
+    }
+
+    #tasksToDo,
+    #tasksDone {
+        justify-content: space-around;
+        gap: unset;
+    }
+
+    /* #urgentIcon,
+    #tasksDone img,
+    #tasksToDo img {
+        display: none;
+    } */
+
+}
+
+@media (max-height: 870px) and (max-width: 450px) {
+
+    .summaryHeadline {
+        justify-content: center;
+    }
+
+    .secondHeadline,
+    #verticalLine {
+        display: none;
+    }
+}
+
+@media (max-height: 920px) and (max-width: 710px) {
+    #verticalLine {
+        order: 2;
+    }
+}
+
+@media (max-height: 920px) {
+
+    #summaryTaskContainer,
+    #summaryContainer {
+        height: 100%;
+    }
+
+    .content {
+        justify-content: unset;
+    }
+
+    #summaryInfo {
+        gap: unset;
+        justify-content: space-evenly;
+        height: 100%;
+    }
+
+    #taskUrgentContainer,
+    #tasksToDo,
+    #tasksDone,
+    .taskBtn {
+        height: 140px;
+    }
+
+    .summaryHeadline {
+        flex-direction: unset;
+        align-items: center;
+        padding-bottom: 0;
+    }
+
+    #verticalLine {
+        rotate: unset;
+        margin-inline: 27px;
+    }
+}
+
+@media (max-height: 730px) {
+
+    #taskUrgentContainer,
+    #tasksToDo,
+    #tasksDone,
+    .taskBtn {
+        height: 100px;
+    }
+
+    #taskUrgentLine {
+        display: none;
+    }
 }

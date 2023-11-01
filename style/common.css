@@ -10,13 +10,20 @@
     --fntcolor: #CDCDCD;
 
     /*font size*/
-    --fntsize12: 0.75rem; /*base:16px, 12px*/
-    --fntsizebase: 1rem; /*base:16px, 16px*/
-    --fntsize20: 1.25rem; /*base:16px, 20px*/
-    --fntsize21: 1.3125rem; /*base:16px, 21px*/
-    --fntsize27: 1.6875rem; /*base:16px, 27px*/
-    --fntsize47: 2.9375rem; /*base:16px, 47px*/
-    --fntsize61: 3.8125rem; /*base:16px, 61px*/
+    --fntsize12: 0.75rem;
+    /*base:16px, 12px*/
+    --fntsizebase: 1rem;
+    /*base:16px, 16px*/
+    --fntsize20: 1.25rem;
+    /*base:16px, 20px*/
+    --fntsize21: 1.3125rem;
+    /*base:16px, 21px*/
+    --fntsize27: 1.6875rem;
+    /*base:16px, 27px*/
+    --fntsize47: 2.9375rem;
+    /*base:16px, 47px*/
+    --fntsize61: 3.8125rem;
+    /*base:16px, 61px*/
 
     /* transition */
     --transtime: 500ms;
@@ -35,9 +42,10 @@
 }
 
 /* common styles */
-html{
+html {
     font-size: 16px;
 }
+
 h1 {
     margin: 0;
     font-size: var(--fntsize61);
@@ -136,7 +144,7 @@ nav {
     justify-content: space-between;
     background-color: var(--primcolor);
     box-sizing: border-box;
-    width: 232px;
+    width: 230px;
     height: 100vh;
     padding: 66px 0px;
 }
@@ -157,6 +165,7 @@ main {
     padding: 20px 36px 20px 116px;
     box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.10);
     z-index: 3;
+    background-color: #FFFF;
 }
 
 
@@ -166,7 +175,7 @@ main {
     height: calc(100vh - 90px);
 }
 
-#ovly{
+#ovly {
     position: fixed;
     left: 0;
     top: 0;
@@ -182,13 +191,13 @@ main {
     z-index: -1;
 }
 
-#ovly.showovly{
+#ovly.showovly {
     opacity: 1;
     z-index: 3;
     transition: opacity var(--transtime) ease-in-out;
 }
 
-#ovlyCard{
+#ovlyCard {
     position: relative;
     left: 1500px;
     display: flex;
@@ -197,7 +206,7 @@ main {
     transition: left var(--transtime) ease-in-out;
 }
 
-#ovlyCard.showovlyCard{
+#ovlyCard.showovlyCard {
     left: 0;
     transition: left var(--transtime) ease-in-out;
 }
