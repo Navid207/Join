@@ -3,7 +3,7 @@
     gap: 103px;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 100%; /*230px; */
 }
 
 #menulogo {
