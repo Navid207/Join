@@ -1,44 +1,20 @@
 <div id="addtaskContainer">
+    <h1>Add Task</h1>
     <form action="javascript:createTask()">
-        <div class="addTaskHeadline">
-            <h1 class="fontInter" id="addTaskHeader">Add Task</h1>
-        </div>
-        <div id="addTaskWrapper">
-            <div id="leftSideAddTask">
-                <label for="addTaskTitle" class="fontInter fontStyle">Title</label>
-                <input type="text" id="addTaskTitle" class="addTaskStyle outlineNone" placeholder="Enter a title"
-                    required>
-
-                <label for="addTaskDescription" class="fontInter fontStyle">Description</label>
-                <textarea id="addTaskDescription" class="addTaskStyle cursorPointer outlineNone"
-                    placeholder="Enter a Description" required></textarea>
-
-                <div class="fontInter fontStyle">Category</div>
-                    <div class="container">
-                        <div id="categorySelect">
-                            <div class="categorySelectBtn"
-                                onclick="renderUserList('.categorySelectBtn','newCategoryListItems')">
-                                <span id="choosedCatagory" class="categoryBtnText">Select task category</span>
-                                <span class="arrow-dwn">
-                                    <img src="../img/icons/down-arrow.png" alt="">
-                                </span>
-                            </div>
-                            <ul class="categoryListItems" id="newCategoryListItems">
-
-                            </ul>
-                        </div>
-                        <div class="newCategoryContainer" id="newCategoryInputContainer">
-                            <input placeholder="New category name" type="text" name="" id="newCategoryInput">
-                            <div id="closeCreateIcons">
-                                <img src="../img/icons/close.png" alt="" onclick="closeNewCategory()">
-                                <img src="../img/icons/check.png" alt="" onclick="saveNewCategory()">
-                            </div>                            
-                        </div>
-                    </div>
-                    <div id="categoryColoredDots">
-
-                    </div>
-                <div class="fontInter fontStyle">Assigned to</div>
+        <div id="leftSideAddTask">
+            <section>
+                <h3>Title</h3>
+                <input type="text" id="addTaskTitle" class="addTaskStyle" placeholder="Enter a title" required>
+                <p id="msgTitle">This field is required</p>
+            </section>
+            <section>
+                <h3>Description</h3>
+                <textarea id="addTaskDescription" class="addTaskStyle cursorPointer" placeholder="Enter a Description"
+                    required></textarea>
+                <p id="msgDescrip">This field is required</p>
+            </section>
+            <section>
+                <h3>Assigned to</h3>
                 <div class="container">
                     <div class="userSelectBtn" onclick="renderUserList('.userSelectBtn', 'userList')">
                         <span class="userBtnText" id="userBtnText">Select contacts to assign</span>
@@ -48,40 +24,68 @@
                     </div>
                     <ul class="userListItems" id="userList"></ul>
                 </div>
-            </div>
-            <div id="verticalLine">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2" height="553" viewBox="0 0 2 553" fill="none">
-                    <path d="M0.999512 1L1 552" stroke="#D1D1D1" stroke-linecap="round" />
-                </svg>
-            </div>
-            <div id="rightSideAddTask">
-                <label for="addTaskDueDate" class="fontInter fontStyle">Due date</label>
-                <input type="date" name="Due Date" id="addTaskDueDate" class="fontInter outlineNone" required>
-
-                <p class="fontInter fontStyle marginZero">Prio</p>
-                <div class="prioContainer fontInter">
+            </section>
+        </div>
+        <div class="verticalLine">
+        </div>
+        <div id="rightSideAddTask">
+            <section>
+                <h3>Due date</h3>
+                <input type="date" name="Due Date" id="addTaskDueDate" required>
+                <p id="msgDate">This field is required</p>
+            </section>
+            <section>
+                <h3>Prio</h3>
+                <div class="prioContainer">
                     <input type="radio" id="urgent" name="tabs" value="2" />
-                    <label class="tab priosContainer" for="urgent">Urgent
+                    <label class="priosContainer" for="urgent">Urgent
                         <img class="progressIcon" src="../img/icons/Add-Task-Prio-Urgent.svg" alt="">
                         <img class="IconHover" src="../img/icons/Add-Task-Prio-Urgent-hover.svg" alt="">
                     </label>
                     <input type="radio" id="medium" name="tabs" value="1" />
-                    <label class="tab priosContainer" for="medium">Medium
+                    <label class="priosContainer" for="medium">Medium
                         <img class="progressIcon" src="../img/icons/Add-Task-Prio-Medium.svg" alt="">
                         <img class="IconHover" src="../img/icons/Add-Task-Prio-Medium-hover.svg" alt="">
                     </label>
                     <input type="radio" id="low" name="tabs" value="0" />
-                    <label class="tab priosContainer" for="low">Low
+                    <label class="priosContainer" for="low">Low
                         <img class="progressIcon" src="../img/icons/Add-Task-Prio-Low.svg" alt="">
                         <img class="IconHover" src="../img/icons/Add-Task-Prio-Low-hover.svg" alt="">
                     </label>
                 </div>
+            </section>
+            <section>
+                <h3>Category</h3>
+                <div class="container">
+                    <div id="categorySelect">
+                        <div class="categorySelectBtn"
+                            onclick="renderUserList('.categorySelectBtn','newCategoryListItems')">
+                            <input id="choosedCatagory" type="text" placeholder="Select task category">
+                            <span class="arrow-dwn">
+                                <img src="../img/icons/down-arrow.png" alt="">
+                            </span>
+                        </div>
+                        <ul class="categoryListItems" id="newCategoryListItems">
 
-                <div id="subtaskWrapper">
-                    <p class="fontInter fontStyle">Subtask</p>
+                        </ul>
+                    </div>
+                    <div class="newCategoryContainer" id="newCategoryInputContainer">
+                        <input placeholder="New category name" type="text" name="" id="newCategoryInput">
+                        <div id="closeCreateIcons">
+                            <img src="../img/icons/close.png" alt="" onclick="closeNewCategory()">
+                            <img src="../img/icons/check.png" alt="" onclick="saveNewCategory()">
+                        </div>
+                    </div>
+                </div>
+                <div id="categoryColoredDots">
+
+                </div>
+                <p id="msgCateg">This field is required</p>
+            </section>
+            <section id="subtaskWrapper">
+                    <h3>Subtask</h3>
                     <div id="subtaskContainer">
-                        <input type="text" id="addTaskSubTask" class="fontInter outlineNone"
-                            placeholder="Add new subtask">
+                        <input type="text" id="addTaskSubTask" placeholder="Add new subtask">
                         <img id="addSubtask" src="../img/icons/Add-Task-Subtask-Add-Icon.svg" alt=""
                             onclick="createSubtask()">
                     </div>
@@ -89,12 +93,12 @@
                         <div class="subtaskWrapper">
                         </div>
                     </div>
-                    <div id="addtaskBtnContainer">
-                        <button class="but-light" onclick="clearTask()">Clear</button>
-                        <button type="submit" class="but-dark">Create Task</button>
-                    </div>
-                </div>
-            </div>
+            </section>
+        </div>
+        <div id="addtaskBtnContainer">
+            <button class="but-light" onclick="clearTask()">Clear</button>
+            <button type="submit" class="but-dark">Create Task</button>
         </div>
     </form>
+
 </div>

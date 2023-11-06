@@ -1,10 +1,11 @@
+let category = [];
+
 async function addtaskInit() {
     await init('tabaddtask');
     loadCategory();
     loadUser();
     loadNewCategoryInput();
 }
-
 
 function loadCategory() {
     let newCategoryListItems = document.getElementById('newCategoryListItems');
@@ -25,8 +26,6 @@ function loadCategory() {
     }
 }
 
-
-
 function loadUser() {
     let listItems = document.getElementsByClassName('userListItems');
     for (let i = 0; i < contactListSorted.length; i++) {
@@ -39,7 +38,6 @@ function loadUser() {
         </li>`;
     }
 }
-
 
 function createSubtask() {
     let subtask = document.getElementById('addTaskSubTask').value;
@@ -59,8 +57,6 @@ function createSubtask() {
 
 }
 
-
-let category = [];
 async function createTask() {
     let taskTitle = document.getElementById('addTaskTitle').value;
     let taskDescription = document.getElementById('addTaskDescription').value;
@@ -80,13 +76,11 @@ async function createTask() {
     setTimeout(function(){clearTask()},2000);
 }
 
-
 function loadChoosedCategory() {
     let categorylistItems = document.getElementById('newCategoryListItems');
     let categoryName = categorylistItems.getElementsByClassName('item checked')[0].querySelector('input').value;
     return categoryName;
 }
-
 
 function loadSubtasks(taskPrio, subtasks) {
 
@@ -100,7 +94,6 @@ function loadSubtasks(taskPrio, subtasks) {
     return subtasks;
 
 }
-
 
 function renderUserList(bntClass, listId) {
     const selectBtn = document.querySelector(bntClass);
@@ -117,8 +110,6 @@ function renderUserList(bntClass, listId) {
     }
 }
 
-
-
 function loadAssignedUsers() {
     let assignedUsers = [];
     let users = document.getElementById('userList').getElementsByClassName('item');
@@ -130,11 +121,9 @@ function loadAssignedUsers() {
     return assignedUsers;
 }
 
-
 function clearTask() {
     location.reload();
 }
-
 
 async function newCategory() {
     let newCategoryInput = document.getElementById('newCategoryInputContainer');
@@ -144,7 +133,6 @@ async function newCategory() {
     categorySelect.style.display = 'none';
     categoryColoredDots.style = 'display:flex; justify-content:space-around;margin-top:10px;';
 }
-
 
 function loadNewCategoryInput() {
     for (let i = 0; i < 5; i++) {
@@ -158,7 +146,6 @@ function loadNewCategoryInput() {
     }
 }
 
-
 function closeNewCategory() {
     let newCategoryInput = document.getElementById('newCategoryInputContainer');
     let categorySelect = document.getElementById('categorySelect');
@@ -171,7 +158,6 @@ function closeNewCategory() {
 
 }
 
-
 function animateDot(value) {
     let baseScales = document.querySelectorAll('.groupDotColors');
     let colorChoosed = document.getElementById(value);
@@ -180,7 +166,6 @@ function animateDot(value) {
     })
     colorChoosed.style.scale = '1.2';
 }
-
 
 async function saveNewCategory() {
     let newCategoryName = document.getElementById('newCategoryInput').value;
@@ -193,11 +178,12 @@ async function saveNewCategory() {
 }
 
 function chooseCategory(category){
-    let group = groups.filter(g => g['name'] == category)[0];
-    document.getElementById('choosedCatagory').innerHTML = /*html*/`
-        ${group['name']}
-        <div class = "groupDotColors" style="background-color:${group['color']}"></div>
-    `
+    // let group = groups.filter(g => g['name'] == category)[0];
+    // document.getElementById('choosedCatagory').innerHTML = /*html*/`
+    //     ${group['name']}
+    //     <div class = "groupDotColors" style="background-color:${group['color']}"></div>
+    // `
+    document.getElementById('choosedCatagory').value = category;
     renderUserList('.categorySelectBtn','newCategoryListItems');
 }
 
@@ -212,3 +198,21 @@ function showOvlyTaskAdded(){
         setTimeout(function(){document.getElementById('ovlyTaskaddedToBoard').classList.remove("addAnimtaion")},2000);
     }
   }
+
+
+  //////////////
+
+function checkForm(){
+    let title = document.getElementById('addTaskTitle').value;
+    let descr = document.getElementById('addTaskDescription').value;
+    let date = document.getElementById('addTaskDueDate').value;
+    let categ = document.getElementById('categoryColoredDots').value;
+    if (title && descr && date && categ) return true;
+    if (!title) setMsgTitel();
+  
+  }
+  
+  function setMsgTitel() {
+    document.getElementById('msgTitle').classList.add('display')
+  }
+
