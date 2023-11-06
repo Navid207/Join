@@ -26,8 +26,10 @@
     <link rel="stylesheet" href="../style/temp_help.css">
     <link rel="stylesheet" href="../style/temp_impressum.css">
 
+    <!-- include moduls -->
+    <script src="../script/models/task.class.js"></script>
+
     <!-- include script -->
-    <script src="../script/helpers.js"></script>
     <script src="../script/main.js"></script>
     <script src="../script/summary.js"></script>
 </head>
@@ -38,99 +40,102 @@
         <div id="header" w3-include-html="../templates/header.html"></div>
         <!-- Code for HTML page -->
         <div id="content" class="content">
-        <div class="summaryHeadline">
-            <div class="firstHeadline">Summary</div>
-            <div id="verticalLine">
-                <svg xmlns="http://www.w3.org/2000/svg" width="4" height="63" viewBox="0 0 4 63" fill="none">
-                    <path d="M2 2V61" stroke="#29ABE2" stroke-width="3" stroke-linecap="round" />
-                </svg>
+            <div class="summaryHeadline">
+                <div class="firstHeadline">Summary</div>
+                <div id="verticalLine">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="4" height="63" viewBox="0 0 4 63" fill="none">
+                        <path d="M2 2V61" stroke="#29ABE2" stroke-width="3" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div class="secondHeadline">Everything in a nutshell</div>
             </div>
-            <div class="secondHeadline">Everything in a nutshell</div>
-        </div>
-        <div id="summaryTaskContainer">
-            <div id="summaryContainer">
-                <div id="summaryInfo">
-                    <div id="tasksOverview">
-                        <div onclick="location.href='board.html';" id="allTasks" class="summaryBtn taskBtn btnHover">
-                            <div class="tasksOverviewCount" id="allTasksCount">5</div>
-                            <div class="tasksOverviewText">Tasks in Board</div>
+            <div id="summaryTaskContainer">
+                <div id="summaryContainer">
+                    <div id="summaryInfo">
+                        <div id="tasksOverview">
+                            <div onclick="location.href='board.html';" id="allTasks"
+                                class="summaryBtn taskBtn btnHover">
+                                <div class="tasksOverviewCount" id="allTasksCount">5</div>
+                                <div class="tasksOverviewText">Tasks in Board</div>
+                            </div>
+                            <div onclick="location.href='board.html';" id="taskInProgress"
+                                class="summaryBtn taskBtn btnHover">
+                                <div class="tasksOverviewCount" id="tasksProgressCount">2</div>
+                                <div class="tasksOverviewText">Tasks in progress</div>
+                            </div>
+                            <div onclick="location.href='board.html';" id="taskAwaiting"
+                                class="summaryBtn taskBtn btnHover">
+                                <div class="tasksOverviewCount" id="tasksAwaitingCount">2</div>
+                                <div class="tasksOverviewText">Awaiting Feedback </div>
+                            </div>
                         </div>
-                        <div onclick="location.href='board.html';" id="taskInProgress" class="summaryBtn taskBtn btnHover">
-                            <div class="tasksOverviewCount" id="tasksProgressCount">2</div>
-                            <div class="tasksOverviewText">Tasks in progress</div>
-                        </div>
-                        <div onclick="location.href='board.html';" id="taskAwaiting" class="summaryBtn taskBtn btnHover">
-                            <div class="tasksOverviewCount" id="tasksAwaitingCount">2</div>
-                            <div class="tasksOverviewText">Awaiting Feedback </div>
-                        </div>
-                    </div>
-                    <div onclick="location.href='board.html';" id="taskUrgentContainer" class="summaryBtn btnHover">
-                        <div id="taskUrgent">
-                            <div id="urgentIcon">
-                                <svg viewBox="0 0 60 60" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="30" cy="30" r="30" fill="#FF3D00" />
-                                    <g clip-path="url(#clip0_68028_3860)">
-                                        <path
-                                            d="M44.8709 41.1626C44.4699 41.1633 44.0792 41.0337 43.7564 40.7929L29.6511 30.263L15.5458 40.7929C15.3478 40.941 15.1229 41.0482 14.8839 41.1084C14.645 41.1685 14.3966 41.1805 14.1531 41.1435C13.9096 41.1066 13.6757 41.0214 13.4647 40.893C13.2536 40.7645 13.0697 40.5953 12.9233 40.3949C12.777 40.1945 12.6711 39.9669 12.6116 39.7251C12.5522 39.4832 12.5404 39.2319 12.5769 38.9855C12.6507 38.4878 12.9168 38.0402 13.3167 37.7411L28.5365 26.3677C28.8591 26.126 29.2498 25.9956 29.6511 25.9956C30.0524 25.9956 30.4431 26.126 30.7657 26.3677L45.9855 37.7411C46.3033 37.9781 46.5389 38.3106 46.6588 38.6912C46.7788 39.0718 46.7768 39.481 46.6532 39.8604C46.5296 40.2398 46.2907 40.57 45.9706 40.8039C45.6506 41.0377 45.2657 41.1633 44.8709 41.1626Z"
-                                            fill="white" />
-                                        <path
-                                            d="M44.8708 31.2109C44.4698 31.2116 44.0791 31.082 43.7562 30.8413L29.651 20.3114L15.5457 30.8413C15.1458 31.1404 14.6448 31.2665 14.153 31.1919C13.6612 31.1172 13.2188 30.8479 12.9232 30.4432C12.6276 30.0385 12.503 29.5315 12.5768 29.0339C12.6506 28.5362 12.9167 28.0885 13.3166 27.7894L28.5364 16.416C28.859 16.1744 29.2497 16.0439 29.651 16.0439C30.0523 16.0439 30.443 16.1744 30.7655 16.416L45.9854 27.7894C46.3031 28.0264 46.5388 28.359 46.6587 28.7396C46.7786 29.1202 46.7767 29.5294 46.6531 29.9088C46.5295 30.2882 46.2906 30.6184 45.9705 30.8522C45.6505 31.0861 45.2656 31.2116 44.8708 31.2109Z"
-                                            fill="white" />
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_68028_3860">
-                                            <rect width="34.186" height="25.1163" fill="white"
-                                                transform="translate(12.5581 16.0464)" />
-                                        </clipPath>
-                                    </defs>
+                        <div onclick="location.href='board.html';" id="taskUrgentContainer" class="summaryBtn btnHover">
+                            <div id="taskUrgent">
+                                <div id="urgentIcon">
+                                    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="30" cy="30" r="30" fill="#FF3D00" />
+                                        <g clip-path="url(#clip0_68028_3860)">
+                                            <path
+                                                d="M44.8709 41.1626C44.4699 41.1633 44.0792 41.0337 43.7564 40.7929L29.6511 30.263L15.5458 40.7929C15.3478 40.941 15.1229 41.0482 14.8839 41.1084C14.645 41.1685 14.3966 41.1805 14.1531 41.1435C13.9096 41.1066 13.6757 41.0214 13.4647 40.893C13.2536 40.7645 13.0697 40.5953 12.9233 40.3949C12.777 40.1945 12.6711 39.9669 12.6116 39.7251C12.5522 39.4832 12.5404 39.2319 12.5769 38.9855C12.6507 38.4878 12.9168 38.0402 13.3167 37.7411L28.5365 26.3677C28.8591 26.126 29.2498 25.9956 29.6511 25.9956C30.0524 25.9956 30.4431 26.126 30.7657 26.3677L45.9855 37.7411C46.3033 37.9781 46.5389 38.3106 46.6588 38.6912C46.7788 39.0718 46.7768 39.481 46.6532 39.8604C46.5296 40.2398 46.2907 40.57 45.9706 40.8039C45.6506 41.0377 45.2657 41.1633 44.8709 41.1626Z"
+                                                fill="white" />
+                                            <path
+                                                d="M44.8708 31.2109C44.4698 31.2116 44.0791 31.082 43.7562 30.8413L29.651 20.3114L15.5457 30.8413C15.1458 31.1404 14.6448 31.2665 14.153 31.1919C13.6612 31.1172 13.2188 30.8479 12.9232 30.4432C12.6276 30.0385 12.503 29.5315 12.5768 29.0339C12.6506 28.5362 12.9167 28.0885 13.3166 27.7894L28.5364 16.416C28.859 16.1744 29.2497 16.0439 29.651 16.0439C30.0523 16.0439 30.443 16.1744 30.7655 16.416L45.9854 27.7894C46.3031 28.0264 46.5388 28.359 46.6587 28.7396C46.7786 29.1202 46.7767 29.5294 46.6531 29.9088C46.5295 30.2882 46.2906 30.6184 45.9705 30.8522C45.6505 31.0861 45.2656 31.2116 44.8708 31.2109Z"
+                                                fill="white" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_68028_3860">
+                                                <rect width="34.186" height="25.1163" fill="white"
+                                                    transform="translate(12.5581 16.0464)" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div id="urgentOverview">
+                                    <div class="tasksOverviewCount" id="urgentCount">1</div>
+                                    <div class="tasksOverviewText" id="urgentText">Urgent</div>
+                                </div>
+                            </div>
+                            <div id="taskUrgentLine">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="2" height="106" viewBox="0 0 2 106"
+                                    fill="none">
+                                    <path d="M1 1.98828V104.011" stroke="#D1D1D1" stroke-width="2"
+                                        stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <div id="urgentOverview">
-                                <div class="tasksOverviewCount" id="urgentCount">1</div>
-                                <div class="tasksOverviewText" id="urgentText">Urgent</div>
+                            <div id="deadline">
+                                <div id="urgentDeadlineDate">October 16, 2022</div>
+                                <div id="urgentDeadlineText">Upcoming Deadline</div>
                             </div>
                         </div>
-                        <div id="taskUrgentLine">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="2" height="106" viewBox="0 0 2 106"
-                                fill="none">
-                                <path d="M1 1.98828V104.011" stroke="#D1D1D1" stroke-width="2" stroke-linecap="round" />
-                            </svg>
-                        </div>
-                        <div id="deadline">
-                            <div id="urgentDeadlineDate">October 16, 2022</div>
-                            <div id="urgentDeadlineText">Upcoming Deadline</div>
-                        </div>
-                    </div>
-                    <div id="tasksProgress">
-                        <div onclick="location.href='board.html';" id="tasksToDo" class="summaryBtn btnHover">
-                            <img class="progressIcon" src="../img/icons/summary-pencil.svg" alt="">
-                            <img class="IconHover" src="../img/icons/summary-pencil-hover.svg" alt="">
-                            <div id="toDoInfoContainer">
-                                <div id="toDoCount">1</div>
-                                <div id="toDoText">To-Do</div>
+                        <div id="tasksProgress">
+                            <div onclick="location.href='board.html';" id="tasksToDo" class="summaryBtn btnHover">
+                                <img class="progressIcon" src="../img/icons/summary-pencil.svg" alt="">
+                                <img class="IconHover" src="../img/icons/summary-pencil-hover.svg" alt="">
+                                <div id="toDoInfoContainer">
+                                    <div id="toDoCount">1</div>
+                                    <div id="toDoText">To-Do</div>
+                                </div>
                             </div>
-                        </div>
-                        <div onclick="location.href='board.html';" id="tasksDone" class="summaryBtn btnHover">
-                            <img class="progressIcon" src="../img/icons/summary-check.svg" alt="">
-                            <img class="IconHover" src="../img/icons/summary-check-hover.svg" alt="">
-                            <div>
-                                <div id="doneCount">1</div>
-                                <div id="doneText">Done</div>
+                            <div onclick="location.href='board.html';" id="tasksDone" class="summaryBtn btnHover">
+                                <img class="progressIcon" src="../img/icons/summary-check.svg" alt="">
+                                <img class="IconHover" src="../img/icons/summary-check-hover.svg" alt="">
+                                <div>
+                                    <div id="doneCount">1</div>
+                                    <div id="doneText">Done</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="greetingContainer">
-                <div id="greetingText">Good morning</div>
-                <div id="greetingName"></div>
+                <div id="greetingContainer">
+                    <div id="greetingText">Good morning</div>
+                    <div id="greetingName"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="contentImpressum" class="display-none" w3-include-html="../templates/Impressum.html"></div>
-    <div id="contentHelp" class="display-none" w3-include-html="../templates/help.html"></div>
+        <div id="contentImpressum" class="display-none" w3-include-html="../templates/Impressum.html"></div>
+        <div id="contentHelp" class="display-none" w3-include-html="../templates/help.html"></div>
     </main>
 </body>
 

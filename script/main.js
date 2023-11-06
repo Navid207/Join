@@ -10,89 +10,27 @@ let contactListSorted = [];
 let tasks = [];
 let groups = [];
 
-let dummyTasks = [
+let dummyGroups = [
     {
-        title: 'Test1',
-        group: 'Sales',
-        descr: 'ushliuhkjahfkj',
-        users: ['antom@yahoo.de','simon.huber@gmail.com'],
-        prio: 1,                                     // 0=low 1=medium 2=high
-        deadline: '2023-07-07',
-        created: '13.07.2023',
-        condit: 0,                                  // 0=ToDo 1=InProgress 2=AwaitingFeedback 3=Done
-        subTask: [
-            {
-                descr: '212121',
-                state: 0,
-            },
-            {
-                descr: 'jhghjk',
-                state: 1,
-            }
-
-        ]
+        name: 'Design',
+        color: '#ff7a00',
     },
     {
-        title: 'Test2',
-        group: 'Backoffice',
-        descr: 'lhdjlqkjdqldjjhiqwdoiqziowdlqlkdwhlqhd',
-        users: ['johndoe@yahoo.de', 'julia.maier@yahoo.de'],
-        prio: 1,                                     // 0=low 1=medium 2=high
-        deadline: '2023-07-11',
-        created: '11.07.2023',
-        condit: 1,                                  // 0=ToDo 1=InProgress 2=AwaitingFeedback 3=Done
-        subTask: [
-            {
-                descr: '212121',
-                state: 0,
-            },
-            {
-                descr: 'jhghjk',
-                state: 1,
-            },
-            {
-                descr: '212121',
-                state: 1,
-            },
-            {
-                descr: 'jhghjk',
-                state: 1,
-            }]
+        name: 'Sales',
+        color: '#fc71ff',
     },
     {
-        title: 'Test3',
-        group: 'Design',
-        descr: 'lhdjlqkscascascacsascjdqldjjhiqwdoiqziowdlqlkdwhlqhd',
-        users: ['sabrina.berger@web.de', 'sarahw@gmail.com','johndoe@yahoo.de', 'julia.maier@yahoo.de'],
-        prio: 2,                                     // 0=low 1=medium 2=high
-        deadline: '2023-07-14',
-        created: '10.07.2023',
-        condit: 2,                                  // 0=ToDo 1=InProgress 2=AwaitingFeedback 3=Done
-        subTask: []
-    }
-];
-
-let dummyGroups =[
-    {
-        name:'Design',
-        color:'#ff7a00',
+        name: 'Backoffice',
+        color: '#1fd7c1',
     },
     {
-        name:'Sales',
-        color:'#fc71ff',
-    },
-    {
-        name:'Backoffice',
-        color:'#1fd7c1',
-    },
-    {
-        name:'Media',
-        color:'#ffc701',
+        name: 'Media',
+        color: '#ffc701',
 
     },
     {
-        name:'Marketing',
-        color:'#0038ff',
+        name: 'Marketing',
+        color: '#0038ff',
     },
 ]
 
@@ -100,18 +38,38 @@ let dummyGroups =[
 
 async function init(tabID) {
     await includeHTMLasync();
-    contactListSorted = await getItem('contacts');
-    tasks = await getItem('tasks');
-    groups =  await getItem('groups');
+    await getData();
     setActiveMenuTab(tabID);
     activeTab = tabID;
     setHeaderUserData();
-    setTabLink(USER);//getURLparam());
+    setTabLink(USER);
+}
+
+async function getData(){
+    contactListSorted = await getItem('contacts');
+    tasks = await getItem('tasks');
+    groups = await getItem('groups');
+    mapTasks();
+}
+
+function mapTasks() {
+    tasks = tasks.map(task => new Task(
+        task.title,
+        task.descr,
+        task.group,
+        task.users,
+        task.deadline,
+        task.prio,
+        task.condit,
+        task.subTask,
+    ))
 }
 
 
+
+
 function showElement(ID, event) {
-    if(event){event.stopPropagation()};
+    if (event) { event.stopPropagation() };
     for (let i = 0; i < ID.length; i++) {
         document.getElementById(ID[i]).classList.remove('display-none');
     }
@@ -154,19 +112,19 @@ function getURLparam(){
 */
 
 
-function getContactInitials(name){
+function getContactInitials(name) {
     let separatedName = name.split(" ");
     return separatedName[0][0] + separatedName[1][0];
 }
 
 function findIndexByValue(ValueToSearch, valueToFind, dataArray) {
     for (let i = 0; i < dataArray.length; i++) {
-      if (dataArray[i][ValueToSearch] == valueToFind) {
-        return i;
-      }
+        if (dataArray[i][ValueToSearch] == valueToFind) {
+            return i;
+        }
     }
     return -1; // Wenn die Emailadresse nicht gefunden wurde, wird -1 zurückgegeben
-  }
+}
 
 // menu related functions
 
@@ -181,12 +139,12 @@ function setActiveMenuTab(tabID) {
 }
 
 
-function setTabLink(userID){
+function setTabLink(userID) {
     if (userID) {
-        document.getElementById('tabsummary').setAttribute('href',`../pages/summary.html?user=${userID}`);
-        document.getElementById('tabboard').setAttribute('href',`../pages/board.html?user=${userID}`);
-        document.getElementById('tabaddtask').setAttribute('href',`../pages/addtask.html?user=${userID}`);
-        document.getElementById('tabcontacts').setAttribute('href',`../pages/contacts.html?user=${userID}`);
+        document.getElementById('tabsummary').setAttribute('href', `../pages/summary.html?user=${userID}`);
+        document.getElementById('tabboard').setAttribute('href', `../pages/board.html?user=${userID}`);
+        document.getElementById('tabaddtask').setAttribute('href', `../pages/addtask.html?user=${userID}`);
+        document.getElementById('tabcontacts').setAttribute('href', `../pages/contacts.html?user=${userID}`);
     }
 }
 
@@ -198,15 +156,15 @@ function logout(event) {
 }
 
 
-async function setHeaderUserData(){
+async function setHeaderUserData() {
     let userID = USER; //getURLparam();
     if (userID) {
         let users = await getItem('users');
-        let user = users.filter(u=>u['id']==userID);
-        if (user.length != 0 ){
+        let user = users.filter(u => u['id'] == userID);
+        if (user.length != 0) {
             let initials = getContactInitials(user[0]['name']);
             document.getElementById('headerInitials').innerHTML = initials;
-        }else{
+        } else {
             console.warn('userID not found');
         }
     } else {
@@ -218,14 +176,31 @@ async function setHeaderUserData(){
 // server relatede functions
 async function setItem(key, value) {
     const payload = { key, value, token: STORAGE_TOKEN };
-    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload)})
-    .then(res => res.json());
+    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
+        .then(res => res.json());
 }
 
 
 async function getItem(key) {
     const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
     let response = await fetch(url).then(res => res.json());
-    response = response['data']['value'].replace(/\'/g,'"'); // answer from server in case of JSON array not correct
+    response = response['data']['value'].replace(/\'/g, '"'); // answer from server in case of JSON array not correct
     return JSON.parse(response);
 }
+
+
+
+  // include HTML Code of other file in HTML code inside a div (asynchron, change content via JS possible)
+  async function includeHTMLasync (){
+    let includeElements = document.querySelectorAll('[w3-include-html]'); // get all Elements with attribut [w3-include-html]
+    for (let i = 0; i < includeElements.length; i++) {
+        let element = includeElements[i];
+        file = element.getAttribute("w3-include-html"); // get value of attribut w3-include-html of this element
+        let response = await fetch(file); // load file and save HTML code in response
+        if (response.ok) { // check if response is ok (file found)
+            element.innerHTML = await response.text(); // change inner HTML of element to new HTML code
+        } else {
+            element.innerHTML = "Page not found."; // change inner HTML of element to "Page not found."
+        }
+    }
+  }

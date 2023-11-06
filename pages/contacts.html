@@ -28,8 +28,10 @@
     <link rel="stylesheet" href="../style/contact.css">
     <!-- CSS files müssen noch getrennt werden (summary und addTask) -->
 
+    <!-- include moduls -->
+    <script src="../script/models/task.class.js"></script>
+
     <!-- include script -->
-    <script src="../script/helpers.js"></script>
     <script src="../script/main.js"></script>
     <script src="../script/HTMLtemplates.js"></script>
     <script src="../script/contact.js"></script>
@@ -68,7 +70,8 @@
                         <span id="contactinitials">AM</span>
                         <div>
                             <span id="contactname">Anton Mayer</span>
-                            <button id="btnaddTask" onclick="showOvlyCard(AddTaskHTML), loadCategory(), loadUser(),loadNewCategoryInput()">
+                            <button id="btnaddTask"
+                                onclick="showOvlyCard(AddTaskHTML), loadCategory(), loadUser(),loadNewCategoryInput()">
                                 <div w3-include-html="../img/icons/plus.svg"></div>
                                 Add Task
                             </button>
@@ -93,7 +96,8 @@
                     <img src="../img/icons/more_vert.svg" alt="">
                 </button>
                 <div id="wrapperBtnResContactDetails">
-                    <button id="btneditContactRes" class="btnResContactDetails" onclick="showOvlyCard(getOvlyCardEditContactHTML())">
+                    <button id="btneditContactRes" class="btnResContactDetails"
+                        onclick="showOvlyCard(getOvlyCardEditContactHTML())">
                         <img src="../img/icons/edit.svg" alt="">
                         <span>Edit</span>
                     </button>
