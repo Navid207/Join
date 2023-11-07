@@ -1,4 +1,31 @@
-let category = [];
+const CATEGORY = [
+    {
+        name: 'Design',
+        color: '#ff7a00',
+    },
+    {
+        name: 'Sales',
+        color: '#fc71ff',
+    },
+    {
+        name: 'Backoffice',
+        color: '#1fd7c1',
+    },
+    {
+        name: 'Media',
+        color: '#ffc701',
+
+    },
+    {
+        name: 'Marketing',
+        color: '#0038ff',
+    },
+]
+const HTML_NEW_CATEGORY_LI = /*html*/`
+                            <li id="newCategory" onclick="newCategory()">
+                                <span>New category</span>
+                            </li>
+                            `;
 
 async function addtaskInit() {
     await init('tabaddtask');
@@ -9,21 +36,23 @@ async function addtaskInit() {
 
 function loadCategory() {
     let newCategoryListItems = document.getElementById('newCategoryListItems');
-    newCategoryListItems.innerHTML = /*html*/`
-            <li id="newCategory" onclick="newCategory()">
-                <span>New category</span>
-            </li>
-        `;
+    newCategoryListItems.innerHTML = HTML_NEW_CATEGORY_LI;
     for (let j = 0; j < groups.length; j++) {
         const group = groups[j];
-        newCategoryListItems.innerHTML += /*html*/`
-        <li class="item" onclick="chooseCategory('${group['name']}')">
-            <span>${group['name']}</span>
-            <input type="radio" id="" name="tabs" value="${group['name']}" />
-            <span class = "groupDotColors" id="color${j}"></span>
-        </li>`;
+        newCategoryListItems.innerHTML += categoryLiHTML(group, j);
         document.getElementById(`color${j}`).style.backgroundColor = group['color'];
     }
+}
+
+function categoryLiHTML(group, i) {
+    return /*html*/`
+    <li class="item">
+        <div onclick="chooseCategory('${group['name']}')">
+            <span>${group['name']}</span>
+            <span class = "groupDotColors" id="color${i}" ></span>
+        </div>            
+        <img src="../img/icons/bin.svg" alt="bin-img" onclick="deletCategory(${i})">
+    </li>`
 }
 
 function loadUser() {
@@ -42,9 +71,8 @@ function loadUser() {
 function createSubtask() {
     let subtask = document.getElementById('addTaskSubTask').value;
     let subtaskContainer = document.getElementById('subtaskCheckContainer');
-    if (subtask == '') {
-        alert("Please enter a valid Sub Task");
-    } else {
+    if (subtask == '') setMsg('msgSubTask','subtaskContainer');
+    else {
         subtaskContainer.innerHTML += /*html*/`
     <div class="subtaskWrapper">
         <input type="checkbox" name="subtask">
@@ -54,14 +82,20 @@ function createSubtask() {
         document.getElementById('addTaskSubTask').value = ''
     }
     let chkbox = document.querySelector('input[name="tabs"]:checked');
+}
 
+function removeMsg() {
+    let msg = document.getElementById('msgSubTask');
+    let input = document.getElementById('subtaskContainer')
+    msg.classList.add('d-none');
+    input.classList.remove('redBoarder');
 }
 
 async function createTask() {
     let taskTitle = document.getElementById('addTaskTitle').value;
     let taskDescription = document.getElementById('addTaskDescription').value;
     let taskDueDate = document.getElementById('addTaskDueDate').value;
-    let taskPrio = +document.querySelector(".prioContainer input[type='radio']:checked").value;
+    let taskPrio = checkPrioStatus();
     let subtasks = [];
 
     loadSubtasks(taskPrio, subtasks);
@@ -72,13 +106,18 @@ async function createTask() {
     await setItem('tasks', tasks);
     showOvlyTaskAdded()
     hideOvlyCard();
-    if(typeof(render)!="undefined"){render(tasks)};
-    setTimeout(function(){clearTask()},2000);
+    if (typeof (render) != "undefined") { render(tasks) };
+    //setTimeout(function () { clearTask() }, 2000);
+}
+
+function checkPrioStatus() {
+    let taskPrio = +document.querySelector(".prioContainer input[type='radio']:checked");
+    if (taskPrio != 0) return +document.querySelector(".prioContainer input[type='radio']:checked").value;
+    else return taskPrio; // no Prio is located set Prio to LOW
 }
 
 function loadChoosedCategory() {
-    let categorylistItems = document.getElementById('newCategoryListItems');
-    let categoryName = categorylistItems.getElementsByClassName('item checked')[0].querySelector('input').value;
+    let categoryName = document.getElementById('choosedCatagory').value;
     return categoryName;
 }
 
@@ -99,13 +138,13 @@ function renderUserList(bntClass, listId) {
     const selectBtn = document.querySelector(bntClass);
     const listElement = document.getElementById(listId);
     const items = listElement.getElementsByClassName('item');
-  
+
     selectBtn.classList.toggle("open");
     for (let i = 0; i < items.length; i++) {
         const item = items[i];
-        item.addEventListener("click", () => {   
-            item.classList.toggle('checked');         
-            }
+        item.addEventListener("click", () => {
+            item.classList.toggle('checked');
+        }
         )
     }
 }
@@ -114,9 +153,9 @@ function loadAssignedUsers() {
     let assignedUsers = [];
     let users = document.getElementById('userList').getElementsByClassName('item');
     for (let i = 0; i < users.length; i++) {
-        if (users[i].classList.contains('checked')){
+        if (users[i].classList.contains('checked')) {
             assignedUsers.push(contactListSorted[i]['email']);
-        }        
+        }
     }
     return assignedUsers;
 }
@@ -131,12 +170,12 @@ async function newCategory() {
     let categoryColoredDots = document.getElementById('categoryColoredDots');
     newCategoryInput.style = 'display: flex;align-items: baseline;';
     categorySelect.style.display = 'none';
-    categoryColoredDots.style = 'display:flex; justify-content:space-around;margin-top:10px;';
+    categoryColoredDots.style = 'display:flex; justify-content:space-around;margin-block:10px -25px;';
 }
 
 function loadNewCategoryInput() {
-    for (let i = 0; i < 5; i++) {
-        const group = groups[i];
+    for (let i = 0; i < CATEGORY.length; i++) {
+        const group = CATEGORY[i];
 
         categoryColoredDots.innerHTML += /*html*/`
         <input type="radio" id="${group['color']}" name="newCatColor${i}" value="${group['color']}" onclick="animateDot(this.name)" />
@@ -164,7 +203,7 @@ function animateDot(value) {
     baseScales.forEach(baseScale => {
         baseScale.style.scale = '1';
     })
-    colorChoosed.style.scale = '1.2';
+    colorChoosed.style.scale = '1.5';
 }
 
 async function saveNewCategory() {
@@ -177,42 +216,44 @@ async function saveNewCategory() {
 
 }
 
-function chooseCategory(category){
-    // let group = groups.filter(g => g['name'] == category)[0];
-    // document.getElementById('choosedCatagory').innerHTML = /*html*/`
-    //     ${group['name']}
-    //     <div class = "groupDotColors" style="background-color:${group['color']}"></div>
-    // `
+function chooseCategory(category) {
     document.getElementById('choosedCatagory').value = category;
-    renderUserList('.categorySelectBtn','newCategoryListItems');
+    const selectBtn = document.querySelector('.categorySelectBtn');
+    selectBtn.classList.toggle("open");
 }
 
-function closeLists(){
+async function deletCategory(index) {
+    groups.splice(index, 1);
+    loadCategory();
+}
+
+function closeLists() {
     document.querySelector('.categorySelectBtn').classList.remove('open');
     document.querySelector('.userSelectBtn').classList.toggle('open');
 }
 
-function showOvlyTaskAdded(){
+function showOvlyTaskAdded() {
     if (document.getElementById('ovlyTaskaddedToBoard')) {
         document.getElementById('ovlyTaskaddedToBoard').classList.add("addAnimtaion");
-        setTimeout(function(){document.getElementById('ovlyTaskaddedToBoard').classList.remove("addAnimtaion")},2000);
+        setTimeout(function () { document.getElementById('ovlyTaskaddedToBoard').classList.remove("addAnimtaion") }, 2000);
     }
-  }
+}
 
-
-  //////////////
-
-function checkForm(){
+function checkForm() {
     let title = document.getElementById('addTaskTitle').value;
     let descr = document.getElementById('addTaskDescription').value;
     let date = document.getElementById('addTaskDueDate').value;
-    let categ = document.getElementById('categoryColoredDots').value;
-    if (title && descr && date && categ) return true;
-    if (!title) setMsgTitel();
-  
-  }
-  
-  function setMsgTitel() {
-    document.getElementById('msgTitle').classList.add('display')
-  }
+    let categ = document.getElementById('choosedCatagory').value;
+    if (title && descr && date && categ) return document.getElementById('addTask').submit();
+    if (!title) setMsg('msgTitle', 'addTaskTitle');
+    if (!descr) setMsg('msgDescrip', 'addTaskDescription');
+    if (!date) setMsg('msgDate', 'addTaskDueDate');
+    if (!categ) setMsg('msgCateg', 'addTaskCateg');
+}
+
+function setMsg(idMsg, idInput) {
+    document.getElementById(idMsg).classList.remove('d-none');
+    document.getElementById(idInput).classList.add('redBoarder');
+}
+
 

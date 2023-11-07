@@ -2,29 +2,28 @@
     display: flex;
 }
 
-#addtaskWrapper h1 {
+#addtaskContainer h1 {
     text-align: left;
-    padding-block: 50px;
+    padding-block: 0 50px;
 }
 
 #addtaskContainer {
     width: 100%;
-    padding-inline: 116px;
 }
 
 form {
     display: flex;
     justify-content: space-between;
-
+    gap: 40px;
 }
 
-input {
-    width: 650px;
+form input {
     outline-color: var(--acccolor);
+    width: 422px;
 }
 
 textarea {
-    width: calc(650px - 42px);
+    width: calc(422px - 42px);
     /* -42px pecause of the padding*/
     min-height: 80px;
     resize: vertical;
@@ -33,6 +32,20 @@ textarea {
     padding: 13px 21px;
     outline-color: var(--acccolor);
     margin: 0;
+}
+
+form h3 {
+    color: #000;
+    font-family: Inter;
+    font-size: var(--fntsize27);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    margin-block: 0 8px;
+}
+
+form .container {
+    width: 422px;
 }
 
 #addtaskContainer section {
@@ -45,21 +58,10 @@ textarea {
     margin-bottom: -20px
 }
 
-h3 {
-    color: #000;
-    font-family: Inter;
-    font-size: var(--fntsize27);
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%;
-    margin-block: 0 8px;
-}
-
 #leftSideAddTask {
     display: inline-flex;
     flex-direction: column;
     gap: 14px;
-    width: 45%;
 }
 
 #rightSideAddTask {
@@ -67,7 +69,6 @@ h3 {
     flex-direction: column;
     /* align-items: flex-start; */
     gap: 14px;
-    width: 45%;
 }
 
 .verticalLine {
@@ -95,13 +96,14 @@ h3 {
 
 #choosedCatagory {
     outline: none;
+    border: none;
 }
 
 #subtaskContainer:active {
     outline-color: var(--acccolor);
 }
 
-#msgSubTask{
+#msgSubTask {
     margin-bottom: 0 !important;
 }
 
@@ -109,11 +111,9 @@ h3 {
     display: none;
 }
 
-.redBoarder{
+.redBoarder {
     border: 1px solid red !important;
 }
-
-/* not used */
 
 .addTaskStyle {
     border-radius: 5px;
@@ -121,14 +121,8 @@ h3 {
     background: #FFF;
 }
 
-/* select {
-    display: flex;
-    width: 422px;
-    height: 51px;
-} */
-
 #addTaskDueDate {
-    width: 100%;
+    width: 422px;
     border-radius: 5px;
     border: 1px solid var(--style, #D1D1D1);
     background: #FFF;
@@ -164,6 +158,7 @@ h3 {
 
 #subtaskContainer {
     display: flex;
+    width: 422px;
     align-items: flex-start;
     gap: 8px;
     border-radius: 5px;
@@ -193,10 +188,8 @@ h3 {
 
 #addtaskBtnContainer {
     display: flex;
+    justify-content: flex-end;
     gap: 10px;
-    position: absolute;
-    bottom: 50px;
-    right: 116px;
 }
 
 .addTaskBorder {
@@ -335,6 +328,7 @@ input[id="low"] {
 .userSelectBtn input,
 #newCategoryInputContainer input {
     outline: none;
+    border: none;
 }
 
 .userSelectBtn.open,
@@ -367,7 +361,7 @@ input[id="low"] {
     transform: rotate(-180deg);
 }
 
-.categoryListItems .item  div {
+.categoryListItems .item div {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -382,7 +376,9 @@ input[id="low"] {
     margin: 0;
     height: 150px;
     position: relative;
-    border-radius: 0 8px;
+    border: 1px solid #D1D1D1;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
     padding: 16px;
     background-color: #fff;
     display: none;
@@ -393,7 +389,7 @@ input[id="low"] {
 .categorySelectBtn.open~.categoryListItems {
     display: block;
     position: absolute;
-    width: calc(655px - 32px);
+    width: calc(422px - 32px);
 }
 
 .userListItems .item,
@@ -503,6 +499,7 @@ textarea {
 .categoryBtnText,
 .userBtnText {
     padding: 18px 21px;
+    border: none;
 }
 
 .categoryBtnText {

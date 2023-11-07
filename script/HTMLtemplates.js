@@ -214,7 +214,10 @@ function getAssignedToHTML(members,includeName){
 }
 
 function getGroupHTML (groupName){
-    let color = groups.filter(g => g['name'] == groupName)[0]['color'];
+    let color;
+    let filter = (groups.filter(g => g['name'] == groupName)[0]);
+    if (filter) color=filter['color'];
+    else color = '#9797a5'
     return /*html*/`
         <span style="background-color: ${color}" id="ovlyTaskGroup">${groupName}</span>
     `

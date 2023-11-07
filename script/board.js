@@ -65,7 +65,8 @@ function progressHTML(showTasks,i) {
 
 function getGroupColor(showTasks,index) {
   let groupsId = findIndexByValue('name', showTasks[index]['group'], groups);
-  return groups[groupsId]['color']
+  if (groupsId>=0) return groups[groupsId]['color']
+  else return "#9797a5"
 }
 
 function useresHTML(showTasks,index) {
@@ -89,14 +90,14 @@ function useresHTML(showTasks,index) {
   return html
 }
 
-// function findIndexByValue(ValueToSearch, valueToFind, dataArray) {
-//   for (let i = 0; i < dataArray.length; i++) {
-//     if (dataArray[i][ValueToSearch] == valueToFind) {
-//       return i;
-//     }
-//   }
-//   return -1; // Wenn die Emailadresse nicht gefunden wurde, wird -1 zurückgegeben
-// }
+function findIndexByValue(ValueToSearch, valueToFind, dataArray) {
+  for (let i = 0; i < dataArray.length; i++) {
+    if (dataArray[i][ValueToSearch] == valueToFind) {
+      return i;
+    }
+  }
+  return -1; // Wenn die Emailadresse nicht gefunden wurde, wird -1 zurückgegeben
+}
 
 
 // drag and drop  
