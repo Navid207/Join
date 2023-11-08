@@ -30,7 +30,7 @@ const HTML_NEW_CATEGORY_LI = /*html*/`
 async function addtaskInit() {
     await init('tabaddtask');
     loadCategory();
-    loadUser();
+    loadUser(contactListSorted);
     loadNewCategoryInput();
     setMinDate('addTaskDueDate');
 }
@@ -56,23 +56,54 @@ function categoryLiHTML(group, i) {
     </li>`
 }
 
-function loadUser() {
+function loadUser(UserrArray) {
     let listItems = document.getElementsByClassName('userListItems');
-    for (let i = 0; i < contactListSorted.length; i++) {
-        const user = contactListSorted[i];
+    listItems.innerHTML = '';
+    for (let i = 0; i < UserrArray.length; i++) {
+        const user = UserrArray[i];
+        const initials = getContactInitials(user.name);
         listItems[0].innerHTML += /*html*/`
         <li class="item">
-            <span class="item-text">${user['name']}</span>
+            <div class="item-user">
+                <div style="background-color: ${user['color']}">${initials}</div>
+                <span>${user['name']}</span>
+            </div>
             <i class="fa-solid fa-check check-icon"></i>
             <span class="checkbox"></span>
         </li>`;
     }
 }
 
+function serchUsers() {
+    return
+    let contactListFiltered = [];
+    let serch = document.getElementById('userBtnText');
+    let indexFilteredUser = getArrayOfIncludes('name', serch.value, contactListSorted);
+    for (let i = 0; i < indexFilteredUser.length; i++) {
+        const j = indexFilteredUser[i]
+        contactListFiltered.push(contactListSorted[j]);        
+    }
+    loadUser(contactListFiltered);
+}
+
+function loadSelectetUsers(){
+    let assignedUsers = loadAssignedUsers();
+    let userSlot = document.getElementById('selectetUsers');
+    userSlot.innerHTML = '';
+    for (let i = 0; i < assignedUsers.length; i++) {
+        const userMail = assignedUsers[i];
+        let userIndex = getArrayOfIncludes('email', userMail , contactListSorted)[0];
+        let initials = getContactInitials(contactListSorted[userIndex].name);
+        userSlot.innerHTML += /*html*/`
+           <div style="background-color: ${contactListSorted[userIndex]['color']}">${initials}</div> 
+        `
+    }
+}
+
 function createSubtask() {
     let subtask = document.getElementById('addTaskSubTask').value;
     let subtaskContainer = document.getElementById('subtaskCheckContainer');
-    if (subtask == '') setMsg('msgSubTask','subtaskContainer');
+    if (subtask == '') setMsg('msgSubTask', 'subtaskContainer');
     else {
         subtaskContainer.innerHTML += /*html*/`
     <div class="subtaskWrapper">
@@ -162,7 +193,26 @@ function loadAssignedUsers() {
 }
 
 function clearTask() {
-    location.reload();
+    document.getElementById('addTaskTitle').value = '';
+    document.getElementById('addTaskDescription').value = '';
+    document.getElementById('addTaskDueDate').value = '';
+    document.getElementById('choosedCatagory').value = '';
+    document.getElementById('subtaskCheckContainer').innerHTML = '';
+    clearPrio();
+    clearAssignedTo();
+}
+
+function clearPrio() {
+    document.getElementById('urgent').checked = false;
+    document.getElementById('medium').checked = false;
+    document.getElementById('low').checked = false;
+}
+
+function clearAssignedTo() {
+    let users = document.getElementById('userList').getElementsByClassName('item');
+    for (let i = 0; i < users.length; i++) {
+        users[i].classList.remove('checked')
+    }
 }
 
 async function newCategory() {
@@ -257,7 +307,7 @@ function setMsg(idMsg, idInput) {
     document.getElementById(idInput).classList.add('redBoarder');
 }
 
-function setMinDate(id){
+function setMinDate(id) {
     let input = document.getElementById(id);
     let min = new Date().toLocaleDateString('fr-ca');
     input.setAttribute("min", min);

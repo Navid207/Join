@@ -15,7 +15,7 @@
             <section>
                 <h3>Assigned to</h3>
                 <div class="container">
-                    <div class="userSelectBtn" onclick="renderUserList('.userSelectBtn', 'userList')">
+                    <div class="userSelectBtn" onkeydown="serchUsers()" onclick="renderUserList('.userSelectBtn', 'userList'),loadSelectetUsers()">
                         <input class="userBtnText" id="userBtnText" placeholder="Select contacts to assign">
                         <span class="arrow-dwn">
                             <img src="../img/icons/down-arrow.png" alt="">
@@ -23,6 +23,7 @@
                     </div>
                     <ul class="userListItems" id="userList"></ul>
                 </div>
+                <div id="selectetUsers"></div>
             </section>
         </div>
         <div class="verticalLine">
@@ -30,7 +31,7 @@
         <div id="rightSideAddTask">
             <section>
                 <h3>Due date</h3>
-                <input type="date" name="Due Date" id="addTaskDueDate" min=`${date}`>
+                <input type="date" name="Due Date" id="addTaskDueDate">
                 <p id="msgDate" class="d-none">This field is required</p>
             </section>
             <section>

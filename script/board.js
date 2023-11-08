@@ -143,17 +143,18 @@ function setSerchTasks() {
   render(filtertTasks);
   //VisibilTasks=filtertTasks;
 }
-function getArrayOfIncludes(ValueToSearch, valueToFind, dataArray) {
-  let Indexs=[];
-  for (let i = 0; i < dataArray.length; i++) {
-    let toSearch = dataArray[i][ValueToSearch].toLowerCase();
-    let toFind = valueToFind.toLowerCase();
-    if (toSearch.includes(toFind)) {
-      Indexs.push(i);
-    }
-  }
-  return Indexs;
-}
+// function getArrayOfIncludes(ValueToSearch, valueToFind, dataArray) {
+//   let Indexs=[];
+//   for (let i = 0; i < dataArray.length; i++) {
+//     let toSearch = dataArray[i][ValueToSearch].toLowerCase();
+//     let toFind = valueToFind.toLowerCase();
+//     if (toSearch.includes(toFind)) {
+//       Indexs.push(i);
+//     }
+//   }
+//   return Indexs;
+// }
+
 function mergeArraysWithoutDuplicates(arr1, arr2) {
   const mergedArray = arr1;
   for (let i = 0; i < arr2.length; i++) {

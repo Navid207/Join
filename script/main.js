@@ -204,3 +204,16 @@ async function getItem(key) {
         }
     }
   }
+
+
+  function getArrayOfIncludes(ValueToSearch, valueToFind, dataArray) {
+    let Indexs=[];
+    for (let i = 0; i < dataArray.length; i++) {
+      let toSearch = dataArray[i][ValueToSearch].toLowerCase();
+      let toFind = valueToFind.toLowerCase();
+      if (toSearch.includes(toFind)) {
+        Indexs.push(i);
+      }
+    }
+    return Indexs;
+  }
