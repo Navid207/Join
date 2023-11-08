@@ -240,7 +240,7 @@ function getOvlyEditTaskHTML (idx){
             </div>
             <div>
                 <label for="editTasktaskDate">Due date</label>
-                <input type="date" id="editTasktaskDate" required value="${task['deadline']}">
+                <input type="date" id="editTasktaskDate" required value="${task['deadline']}" onclick = "setMinDate('editTasktaskDate')">
             </div>
             <div>
                 <span>Prio</span>

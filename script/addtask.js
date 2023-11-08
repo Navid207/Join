@@ -32,6 +32,7 @@ async function addtaskInit() {
     loadCategory();
     loadUser();
     loadNewCategoryInput();
+    setMinDate('addTaskDueDate');
 }
 
 function loadCategory() {
@@ -256,4 +257,8 @@ function setMsg(idMsg, idInput) {
     document.getElementById(idInput).classList.add('redBoarder');
 }
 
-
+function setMinDate(id){
+    let input = document.getElementById(id);
+    let min = new Date().toLocaleDateString('fr-ca');
+    input.setAttribute("min", min);
+}
