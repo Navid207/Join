@@ -133,6 +133,58 @@ function getContactListContactHTML(idx, contactData) {
 
 // Board page related templates
 
+function cardHTML(index, task, prio, progress, useres, color) { // drag(event)
+    return /*html*/`
+      <div class="card" id="task${index}" draggable="true" ondragstart="startDragging(${index})" onclick="showOvlyCard(getOvlyTaskHTML(${index}))" oncontextmenu="ContectMoveTo()">
+        <div class="group" style="background-color:${color}">${task['group']}</div>
+        <h3>${task['title']}</h3>
+        <p>${task['descr']}</p>
+        <div id="progress${index}" class="progress">
+          ${progress}
+        </div>
+        <div class="btm-line">
+          <div id='users${index}'>${useres}</div>
+          <img src="${prio}" alt="prio">
+        </div>
+       </div>
+  `
+}
+
+function progressHTML(showTasks, i) {
+    if (!showTasks[i]['subTask'].length || showTasks[i]['subTask'].length < 1) { return '' }
+    const subTask = showTasks[i]['subTask'];
+    let done = 0;
+    for (let i = 0; i < subTask.length; i++) {
+        if (subTask[i]['state'] == 1) { done++ }
+    }
+    let progress = 100 / subTask.length * done;
+    return/*html*/`
+        <div><div style="width: ${progress}%"></div></div>
+        <span>${done}/${subTask.length} Done</span> 
+    `
+}
+
+function useresHTML(showTasks, index) {
+    let html = ``;
+    for (let i = 0; i < showTasks[index]['users'].length; i++) {
+        if (showTasks[index]['users'].length <= 3 || i < 2) {
+            let userId = findIndexByValue('email', showTasks[index]['users'][i], contactListSorted);
+            let initials = contactListSorted[userId]['initials'];
+            let color = contactListSorted[userId]['color'];
+            html +=/*html*/`
+        <div style="background-color:${color}">${initials}</div>    
+      `
+        } else {
+            let leftUsers = showTasks[index]['users'].length + 1 - i;
+            html +=/*html*/`
+        <div style="background-color:#2A3647">+${leftUsers}</div>    
+      `
+            return html
+        }
+    }
+    return html
+}
+
 function getOvlyTaskHTML(idx) {
     let task = tasks[idx];
     let assignedToHTML = getAssignedToHTML(task['users'], 'withName');
@@ -160,6 +212,9 @@ function getOvlyTaskHTML(idx) {
                 <div id="ovlyTaskWrapperAssignedToList">
                     ${assignedToHTML}
                 </div>
+            </div>
+            <div>
+                ${getSubtasksHTML(task)}
             </div>
             <div id="ovlyTaskWrapperBtn">
                 <button class="but-light" onclick="deleteTask(${idx})">
@@ -196,6 +251,35 @@ function getPriorityHTML(prio) {
     `
 }
 
+function getSubtasksHTML(task) {
+    let HTML ='';
+    if (task.subTask.length <= 0) return
+    else {
+        Subtasks = getSubtasksListHTML(task.subTask);
+        HTML = /*html*/`<span><b>Subtasks:</b></span>`+Subtasks;
+    }    
+    return HTML
+}
+
+function getSubtasksListHTML(subTasks) {
+    let HTML = '';
+    subTasks.forEach(subTasks => {
+        HTML += /*html*/`
+        <div>
+            <input type="checkbox">
+            <span>${subTasks.descr}</span>
+        </div>
+        `});
+    return HTML
+}
+
+function getSubtaskCheckboxHTML(state) {
+    debugger
+    if (state > 0) return 'checked="true"'
+    else return 'checked="false"'
+    
+}
+
 function getAssignedToHTML(members, includeName) {
     let member, HTML = '';
     for (let i = 0; i < members.length; i++) {
@@ -227,7 +311,6 @@ function getGroupHTML(groupName) {
         <span style="background-color: ${color}" id="ovlyTaskGroup">${groupName}</span>
     `
 }
-
 
 function getOvlyEditTaskHTML(idx) {
     let task = tasks[idx];
@@ -301,7 +384,6 @@ function getPrioHTML(prio) {
     `
 }
 
-
 function getMemberListHTML(task) {
     let HTML = '';
     for (let i = 0; i < contactListSorted.length; i++) {
@@ -331,11 +413,10 @@ function categoryLiHTML(group, i) {
     </li>`
 }
 
-function getCreateSubtaskHTML(subtask,number){
-   return /*html*/`
+function getCreateSubtaskHTML(subtask, number) {
+    return /*html*/`
     <li class="subtaskWrapper" id="Subtask${number}">
         <div class="subtaskWrapperLine" onmouseover="subtaskShowEdit(${number})" onmouseout ="subtaskHideEdit(${number})">
-            <!-- <input type="checkbox" name="subtask"> -->
             <span id="titleSubtask${number}" class="subtasksTitles" >${subtask}</span>
             <div class="d-none" id="editSubtask${number}">
                 <!-- <svg viewBox="0 0 21 30" xmlns="http://www.w3.org/2000/svg">

@@ -28,66 +28,15 @@ function render(showTasks) {
       1: '../img/icons/prio_medium.svg',
       2: '../img/icons/prio_high.svg',
     }[task['prio']];
-    document.getElementById(condition).innerHTML += cardHTML(i, task, prio, progressHTML(showTasks,i), useresHTML(showTasks,i), getGroupColor(showTasks,i));
+    const slot = document.getElementById(condition);
+    slot.innerHTML += cardHTML(i, task, prio, progressHTML(showTasks,i), useresHTML(showTasks,i), getGroupColor(showTasks,i));
   }
-}
-
-function cardHTML(index, task, prio, progress, useres, color) { // drag(event)
-  return /*html*/`
-    <div class="card" id="task${index}" draggable="true" ondragstart="startDragging(${index})" onclick="showOvlyCard(getOvlyTaskHTML(${index}))" oncontextmenu="ContectMoveTo()">
-      <div class="group" style="background-color:${color}">${task['group']}</div>
-      <h3>${task['title']}</h3>
-      <p>${task['descr']}</p>
-      <div id="progress${index}" class="progress">
-        ${progress}
-      </div>
-      <div class="btm-line">
-        <div id='users${index}'>${useres}</div>
-        <img src="${prio}" alt="prio">
-      </div>
-     </div>
-`
-}
-
-function progressHTML(showTasks,i) {
-  if (!showTasks[i]['subTask'].length || showTasks[i]['subTask'].length <= 1) { return '' }
-  const subTask = showTasks[i]['subTask'];
-  let done = 0;
-  for (let i = 0; i < subTask.length; i++) {
-    if (subTask[i]['state'] == 1) { done++ }
-  }
-  let progress = 100 / subTask.length * done;
-  return/*html*/`
-      <div><div style="width: ${progress}%"></div></div>
-      <span>${done}/${subTask.length} Done</span> 
-  `
 }
 
 function getGroupColor(showTasks,index) {
   let groupsId = findIndexByValue('name', showTasks[index]['group'], groups);
   if (groupsId>=0) return groups[groupsId]['color']
   else return "#9797a5"
-}
-
-function useresHTML(showTasks,index) {
-  let html = ``;
-  for (let i = 0; i < showTasks[index]['users'].length; i++) {
-    if (showTasks[index]['users'].length <= 3 || i < 2) {
-      let userId = findIndexByValue('email', showTasks[index]['users'][i], contactListSorted);
-      let initials = contactListSorted[userId]['initials'];
-      let color = contactListSorted[userId]['color'];
-      html +=/*html*/`
-      <div style="background-color:${color}">${initials}</div>    
-    `
-    } else {
-      let leftUsers = showTasks[index]['users'].length + 1 - i;
-      html +=/*html*/`
-      <div style="background-color:#2A3647">+${leftUsers}</div>    
-    `
-      return html
-    }
-  }
-  return html
 }
 
 function findIndexByValue(ValueToSearch, valueToFind, dataArray) {
