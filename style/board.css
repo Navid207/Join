@@ -329,6 +329,7 @@ html {
 .ovlyAssignedToElement span:first-child {
     padding: 10px 8px;
     border-radius: 58px;
+    color: white;
 }
 
 
@@ -371,14 +372,24 @@ html {
     position: absolute;
     right: 46px;
     top: 26px;
-    background-color: var(--primcolor);
+    background-color: white;
     border: none;
+    border-radius: 100%;
     cursor: pointer;
+    width: 42px;
+    height: 42px;
+}
+
+#ovlyBtnClose:hover {
+    background-color: var(--fntcolor);
+}
+
+#ovlyBtnClose svg{
+    fill: var(--primcolor);
     width: 30px;
     height: 30px;
-    -webkit-mask-image: url(../img/icons/close.svg);
-    mask-image: url(../img/icons/close.svg);
 }
+
 
 
 /*Edit Task overlay*/

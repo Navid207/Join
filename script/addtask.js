@@ -1,3 +1,4 @@
+let conditNewTask = 0;
 const CATEGORY = [
     {
         name: 'Design',
@@ -45,18 +46,8 @@ function loadCategory() {
     }
 }
 
-function categoryLiHTML(group, i) {
-    return /*html*/`
-    <li class="item">
-        <div onclick="chooseCategory('${group['name']}')">
-            <span>${group['name']}</span>
-            <span class = "groupDotColors" id="color${i}" ></span>
-        </div>            
-        <img src="../img/icons/bin.svg" alt="bin-img" onclick="deletCategory(${i})">
-    </li>`
-}
-
 function loadUser(UserrArray) {
+    if (!UserrArray) UserrArray = contactListSorted;
     let listItems = document.getElementsByClassName('userListItems');
     listItems.innerHTML = '';
     for (let i = 0; i < UserrArray.length; i++) {
@@ -81,18 +72,18 @@ function serchUsers() {
     let indexFilteredUser = getArrayOfIncludes('name', serch.value, contactListSorted);
     for (let i = 0; i < indexFilteredUser.length; i++) {
         const j = indexFilteredUser[i]
-        contactListFiltered.push(contactListSorted[j]);        
+        contactListFiltered.push(contactListSorted[j]);
     }
     loadUser(contactListFiltered);
 }
 
-function loadSelectetUsers(){
+function loadSelectetUsers() {
     let assignedUsers = loadAssignedUsers();
     let userSlot = document.getElementById('selectetUsers');
     userSlot.innerHTML = '';
     for (let i = 0; i < assignedUsers.length; i++) {
         const userMail = assignedUsers[i];
-        let userIndex = getArrayOfIncludes('email', userMail , contactListSorted)[0];
+        let userIndex = getArrayOfIncludes('email', userMail, contactListSorted)[0];
         let initials = getContactInitials(contactListSorted[userIndex].name);
         userSlot.innerHTML += /*html*/`
            <div style="background-color: ${contactListSorted[userIndex]['color']}">${initials}</div> 
@@ -102,18 +93,23 @@ function loadSelectetUsers(){
 
 function createSubtask() {
     let subtask = document.getElementById('addTaskSubTask').value;
+    let number = document.getElementsByClassName('subtaskWrapper').length;
     let subtaskContainer = document.getElementById('subtaskCheckContainer');
     if (subtask == '') setMsg('msgSubTask', 'subtaskContainer');
     else {
-        subtaskContainer.innerHTML += /*html*/`
-    <div class="subtaskWrapper">
-        <input type="checkbox" name="subtask">
-        <div id="titleSubtask" class="subtasksTitles" >${subtask}</div>
-    </div>
-    `;
+        subtaskContainer.innerHTML += getCreateSubtaskHTML(subtask,number);
         document.getElementById('addTaskSubTask').value = ''
     }
-    let chkbox = document.querySelector('input[name="tabs"]:checked');
+}
+
+function subtaskHideEdit(id){
+    document.getElementById(`editSubtask${id}`).classList.add('d-none');
+}
+function subtaskShowEdit(id){
+    document.getElementById(`editSubtask${id}`).classList.remove('d-none');
+}
+function deletSubtask(id) {
+    document.getElementById(`Subtask${id}`).remove();   
 }
 
 function removeMsg() {
@@ -128,17 +124,16 @@ async function createTask() {
     let taskDescription = document.getElementById('addTaskDescription').value;
     let taskDueDate = document.getElementById('addTaskDueDate').value;
     let taskPrio = checkPrioStatus();
-    let subtasks = [];
-
-    loadSubtasks(taskPrio, subtasks);
+    let subtasks = loadSubtasks();
     let assignedUsers = loadAssignedUsers();
     let group = loadChoosedCategory();
 
-    tasks.push({ title: taskTitle, descr: taskDescription, group: group, users: assignedUsers, prio: taskPrio, deadline: taskDueDate, condit: 0, subTask: subtasks });
+    tasks.push({ title: taskTitle, descr: taskDescription, group: group, users: assignedUsers, prio: taskPrio, deadline: taskDueDate, condit: conditNewTask, subTask: subtasks });
     await setItem('tasks', tasks);
     showOvlyTaskAdded()
     hideOvlyCard();
     if (typeof (render) != "undefined") { render(tasks) };
+    setTimeout(() => clearTask(), 1000);
     //setTimeout(function () { clearTask() }, 2000);
 }
 
@@ -153,15 +148,13 @@ function loadChoosedCategory() {
     return categoryName;
 }
 
-function loadSubtasks(taskPrio, subtasks) {
-
-    let subtasksTitles = document.getElementsByClassName('subtasksTitles');
-    if (taskPrio != null) {
-        for (let i = 0; i < subtasksTitles.length; i++) {
+function loadSubtasks() {
+let subtasks =[];
+    let subtasksTitles = document.getElementsByClassName('subtaskWrapper');
+    for (let i = 0; i < subtasksTitles.length; i++) {
             const subtaskTitle = subtasksTitles[i].innerText;
             subtasks.push({ descr: subtaskTitle, state: 0 });
         }
-    }
     return subtasks;
 
 }
@@ -200,6 +193,7 @@ function clearTask() {
     document.getElementById('subtaskCheckContainer').innerHTML = '';
     clearPrio();
     clearAssignedTo();
+    loadSelectetUsers();
 }
 
 function clearPrio() {
@@ -311,4 +305,9 @@ function setMinDate(id) {
     let input = document.getElementById(id);
     let min = new Date().toLocaleDateString('fr-ca');
     input.setAttribute("min", min);
+}
+
+function openBoardPage(){
+    let currentURL = window.location.href;
+    console.log(currentURL);
 }

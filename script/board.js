@@ -99,6 +99,14 @@ function findIndexByValue(ValueToSearch, valueToFind, dataArray) {
   return -1; // Wenn die Emailadresse nicht gefunden wurde, wird -1 zurückgegeben
 }
 
+function addNewTask(condit){
+  showOvlyCard(AddTaskHTML);
+  loadCategory();
+  loadUser();
+  loadNewCategoryInput();
+  setMinDate('addTaskDueDate')
+  conditNewTask = condit;
+}
 
 // drag and drop  
 let currentDraggedElement;

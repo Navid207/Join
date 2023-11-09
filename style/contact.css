@@ -73,7 +73,7 @@
     align-items: center;
     justify-content: center;
     background-color: #29ABE2;
-    border-radius: 45px;
+    border-radius: 100%;
     width: 42px;
     height: 42px;
     font-size: var(--fntsize12);
@@ -83,6 +83,7 @@
 .wrapperContact{
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     gap: 5px;
 }
 
@@ -92,6 +93,13 @@
 
 .contactemailList{
     color: var(--acccolor);
+}
+
+.contactnameList,
+.contactemailList {
+    overflow:hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
 }
 
 #wrapperNoContacts{

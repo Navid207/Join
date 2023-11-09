@@ -105,10 +105,6 @@ h3 {
     margin-bottom: 0 !important;
 }
 
-.d-none {
-    display: none;
-}
-
 .redBoarder{
     border: 1px solid red !important;
 }
@@ -185,12 +181,6 @@ h3 {
     overflow: auto;
 }
 
-#titleSubtask {
-    color: #000;
-    font-family: Inter;
-    font-size: 12px;
-}
-
 #addtaskBtnContainer {
     display: flex;
     gap: 10px;
@@ -223,6 +213,12 @@ h3 {
 
 #addSubtask {
     align-self: center;
+    margin-right: 10px;
+}
+#addSubtask:hover {
+    cursor: pointer;
+    background-color: var(--fntcolor);
+    border-radius: 100%;
 }
 
 #subtaskCheckContainer {
@@ -232,8 +228,38 @@ h3 {
 }
 
 .subtaskWrapper {
+    display: list-item;
+    width: 100%;
+}
+
+.subtaskWrapperLine {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    font-size: var(--fntsize20);
+    padding:0 15px;
+    height: 25px;
+}
+
+.subtaskWrapperLine:hover {
+    background-color: var(--fntcolor);
+    border-radius: 5px;
+}
+
+.subtaskWrapperLine div{
+    display: flex;
+    gap:20px;
+}
+
+.subtaskWrapperLine svg{
+    height: 20px;
+    width: 20px;
+    fill: var(--primcolor);
+}
+
+.subtaskWrapperLine svg:hover{
+    fill: var(--acccolor);
+    cursor: pointer;
 }
 
 #addTaskForm {
@@ -448,6 +474,7 @@ input[id="low"] {
 
 #selectetUsers{
     display:flex;
+    flex-wrap: wrap;
     padding: 5px;
     gap:5px;
 }
@@ -563,6 +590,10 @@ textarea {
 
 #ovlyTaskaddedToBoard.addAnimtaion {
     animation: showInformation 2s linear 0s 1 normal;
+}
+
+.d-none {
+    display: none !important;
 }
 
 @keyframes showInformation {

@@ -1,6 +1,6 @@
 // contact page related templates
 
-function getOvlyCardNewContactHTML (){
+function getOvlyCardNewContactHTML() {
     return /*html*/`
         <div id="ovlyCardHeader">
             <img src="../img/logo.svg" alt="logo">
@@ -48,7 +48,7 @@ function getOvlyCardNewContactHTML (){
 }
 
 
-function getOvlyCardEditContactHTML(idx){
+function getOvlyCardEditContactHTML(idx) {
     let contactData = contactListSorted[idx];
     return /*html*/`
         <div id="ovlyCardHeader">
@@ -96,7 +96,7 @@ function getOvlyCardEditContactHTML(idx){
 }
 
 let AddTaskHTML;
-async function getAddTaskHTML(){
+async function getAddTaskHTML() {
     let response = await fetch('../templates/addtask.html');
     AddTaskHTML = await response.text();
     AddTaskHTML = /*html*/`
@@ -108,7 +108,7 @@ async function getAddTaskHTML(){
 }
 
 
-function getContactListLetterHTML(letter){
+function getContactListLetterHTML(letter) {
     return /*html*/`
         <div class="ContactlistelementLetter">
             <span class="listLetter">${letter}</span>
@@ -118,7 +118,7 @@ function getContactListLetterHTML(letter){
 }
 
 
-function getContactListContactHTML(idx,contactData){
+function getContactListContactHTML(idx, contactData) {
     return /*html*/`
         <div id="contact${idx}" class="Contactlistelement" onclick="showContactDetails(event,'${idx}')">
             <span id="contactinitialsList${idx}" class="contactinitialsList">${contactData['initials']}</span>
@@ -133,13 +133,18 @@ function getContactListContactHTML(idx,contactData){
 
 // Board page related templates
 
-function getOvlyTaskHTML(idx){
+function getOvlyTaskHTML(idx) {
     let task = tasks[idx];
-    let assignedToHTML= getAssignedToHTML(task['users'],'withName');
+    let assignedToHTML = getAssignedToHTML(task['users'], 'withName');
     return /*html*/`
         <div id="ovlyCardTask">
-            <button id="ovlyBtnClose" onclick="hideOvlyCard()"></button>
-            ${getGroupHTML (task['group'])}
+            <button id="ovlyBtnClose" onclick="hideOvlyCard()">
+                <svg viewBox="0 0 31 31" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.9616 7.65393L7.65388 22.9617" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M22.8172 23.1061L7.50941 7.79832" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            ${getGroupHTML(task['group'])}
             <span id="ovlyTaskTitle">${task['title']}</span>
             <span id="ovlyTaskDescription">${task['descr']}</span>
             <div id="ovlyTaskWrapperDueDate">
@@ -168,20 +173,20 @@ function getOvlyTaskHTML(idx){
     `
 }
 
-function getPriorityHTML(prio){
+function getPriorityHTML(prio) {
     let prioName, prioImg, prioColor;
     if (prio == 2) {
         prioName = 'Urgent';
         prioImg = '../img/icons/Add-Task-Prio-Urgent-hover.svg';
-        prioColor='#FF3D00';
-    } else if(prio == 1){
+        prioColor = '#FF3D00';
+    } else if (prio == 1) {
         prioName = 'Medium';
         prioImg = '../img/icons/Add-Task-Prio-Medium-hover.svg';
-        prioColor='#FFA800';
+        prioColor = '#FFA800';
     } else {
         prioName = 'Low';
         prioImg = '../img/icons/Add-Task-Prio-Low-hover.svg';
-        prioColor='#7AE229';
+        prioColor = '#7AE229';
     }
     return /*html*/`
         <div id="ovlyTaskPrio" style="background-color: ${prioColor};">
@@ -191,8 +196,8 @@ function getPriorityHTML(prio){
     `
 }
 
-function getAssignedToHTML(members,includeName){
-    let member, HTML='';
+function getAssignedToHTML(members, includeName) {
+    let member, HTML = '';
     for (let i = 0; i < members.length; i++) {
         member = contactListSorted.filter(c => c['email'] == members[i])[0]; // email is unique
         if (includeName) {
@@ -213,10 +218,10 @@ function getAssignedToHTML(members,includeName){
     return HTML;
 }
 
-function getGroupHTML (groupName){
+function getGroupHTML(groupName) {
     let color;
     let filter = (groups.filter(g => g['name'] == groupName)[0]);
-    if (filter) color=filter['color'];
+    if (filter) color = filter['color'];
     else color = '#9797a5'
     return /*html*/`
         <span style="background-color: ${color}" id="ovlyTaskGroup">${groupName}</span>
@@ -224,11 +229,16 @@ function getGroupHTML (groupName){
 }
 
 
-function getOvlyEditTaskHTML (idx){
+function getOvlyEditTaskHTML(idx) {
     let task = tasks[idx];
-    let assignedToHTML= getAssignedToHTML(task['users']);
+    let assignedToHTML = getAssignedToHTML(task['users']);
     return /*html*/`
-        <button id="ovlyBtnClose" onclick="hideOvlyCard()"></button>
+        <button id="ovlyBtnClose" onclick="hideOvlyCard()">
+            <svg viewBox="0 0 31 31" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.9616 7.65393L7.65388 22.9617" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
+                <path d="M22.8172 23.1061L7.50941 7.79832" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
         <form id="ovlyTaskEditform" action="" onsubmit="return false">
             <div>
                 <label for="editTasktaskTitle">Title</label>
@@ -269,9 +279,9 @@ function getOvlyEditTaskHTML (idx){
     `
 }
 
-function getPrioHTML(prio){
-    let checked = ['', '',''];
-    checked[prio]='checked';
+function getPrioHTML(prio) {
+    let checked = ['', '', ''];
+    checked[prio] = 'checked';
     return /*html*/`
         <input id="editTaskPrioUrgent" type="radio" name="editTaskPrio" ${checked[2]} required value=2>
         <label id="editTaskPrioUrgentlabel" for="editTaskPrioUrgent">
@@ -292,12 +302,12 @@ function getPrioHTML(prio){
 }
 
 
-function getMemberListHTML(task){
+function getMemberListHTML(task) {
     let HTML = '';
     for (let i = 0; i < contactListSorted.length; i++) {
         let contact = contactListSorted[i];
         let checked;
-        checked = task['users'].indexOf(contact['email']) == -1? '' : 'checked';
+        checked = task['users'].indexOf(contact['email']) == -1 ? '' : 'checked';
         HTML += /*html*/`
             <div id="ovlyEditTaskWrapperMemberListElement">
                 <label for="member${i}">${contact['name']}</label>
@@ -306,4 +316,37 @@ function getMemberListHTML(task){
         `
     }
     return HTML;
+}
+
+// Add Task
+
+function categoryLiHTML(group, i) {
+    return /*html*/`
+    <li class="item">
+        <div onclick="chooseCategory('${group['name']}')">
+            <span>${group['name']}</span>
+            <span class = "groupDotColors" id="color${i}" ></span>
+        </div>            
+        <img src="../img/icons/bin.svg" alt="bin-img" onclick="deletCategory(${i})">
+    </li>`
+}
+
+function getCreateSubtaskHTML(subtask,number){
+   return /*html*/`
+    <li class="subtaskWrapper" id="Subtask${number}">
+        <div class="subtaskWrapperLine" onmouseover="subtaskShowEdit(${number})" onmouseout ="subtaskHideEdit(${number})">
+            <!-- <input type="checkbox" name="subtask"> -->
+            <span id="titleSubtask${number}" class="subtasksTitles" >${subtask}</span>
+            <div class="d-none" id="editSubtask${number}">
+                <!-- <svg viewBox="0 0 21 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.87121 22.0156L7.69054 24.9405L20.3337 4.10836C20.6203 3.63622 20.4698 3.02119 19.9977 2.73465L16.8881 0.847421C16.4159 0.560878 15.8009 0.71133 15.5144 1.18347L2.87121 22.0156Z"/>
+                    <path d="M2.28614 22.9793L7.10547 25.9042L2.37685 28.1891L2.28614 22.9793Z"/>
+                </svg> -->
+                <svg viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg" onclick="deletSubtask(${number})">
+                    <path d="M3.5 18C2.95 18 2.47917 17.8042 2.0875 17.4125C1.69583 17.0208 1.5 16.55 1.5 16V3C1.21667 3 0.979167 2.90417 0.7875 2.7125C0.595833 2.52083 0.5 2.28333 0.5 2C0.5 1.71667 0.595833 1.47917 0.7875 1.2875C0.979167 1.09583 1.21667 1 1.5 1H5.5C5.5 0.716667 5.59583 0.479167 5.7875 0.2875C5.97917 0.0958333 6.21667 0 6.5 0H10.5C10.7833 0 11.0208 0.0958333 11.2125 0.2875C11.4042 0.479167 11.5 0.716667 11.5 1H15.5C15.7833 1 16.0208 1.09583 16.2125 1.2875C16.4042 1.47917 16.5 1.71667 16.5 2C16.5 2.28333 16.4042 2.52083 16.2125 2.7125C16.0208 2.90417 15.7833 3 15.5 3V16C15.5 16.55 15.3042 17.0208 14.9125 17.4125C14.5208 17.8042 14.05 18 13.5 18H3.5ZM3.5 3V16H13.5V3H3.5ZM5.5 13C5.5 13.2833 5.59583 13.5208 5.7875 13.7125C5.97917 13.9042 6.21667 14 6.5 14C6.78333 14 7.02083 13.9042 7.2125 13.7125C7.40417 13.5208 7.5 13.2833 7.5 13V6C7.5 5.71667 7.40417 5.47917 7.2125 5.2875C7.02083 5.09583 6.78333 5 6.5 5C6.21667 5 5.97917 5.09583 5.7875 5.2875C5.59583 5.47917 5.5 5.71667 5.5 6V13ZM9.5 13C9.5 13.2833 9.59583 13.5208 9.7875 13.7125C9.97917 13.9042 10.2167 14 10.5 14C10.7833 14 11.0208 13.9042 11.2125 13.7125C11.4042 13.5208 11.5 13.2833 11.5 13V6C11.5 5.71667 11.4042 5.47917 11.2125 5.2875C11.0208 5.09583 10.7833 5 10.5 5C10.2167 5 9.97917 5.09583 9.7875 5.2875C9.59583 5.47917 9.5 5.71667 9.5 6V13Z"/>
+                </svg>
+            </div>
+        </div>
+    </li>
+    `;
 }

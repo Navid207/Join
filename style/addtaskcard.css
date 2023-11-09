@@ -108,7 +108,7 @@ form .container {
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 .redBoarder {
@@ -217,6 +217,11 @@ form .container {
 #addSubtask {
     align-self: center;
 }
+#addSubtask:hover {
+    cursor: pointer;
+    background-color: var(--fntcolor);
+    border-radius: 100%;
+}
 
 #subtaskCheckContainer {
     display: flex;
@@ -225,8 +230,38 @@ form .container {
 }
 
 .subtaskWrapper {
+    display: list-item;
+    width: 100%;
+}
+
+.subtaskWrapperLine {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    font-size: var(--fntsize20);
+    padding:0 15px;
+    height: 25px;
+}
+
+.subtaskWrapperLine:hover {
+    background-color: var(--fntcolor);
+    border-radius: 5px;
+}
+
+.subtaskWrapperLine div{
+    display: flex;
+    gap:20px;
+}
+
+.subtaskWrapperLine svg{
+    height: 20px;
+    width: 20px;
+    fill: var(--primcolor);
+}
+
+.subtaskWrapperLine svg:hover{
+    fill: var(--acccolor);
+    cursor: pointer;
 }
 
 #addTaskForm {
@@ -444,6 +479,8 @@ input[id="low"] {
 
 #selectetUsers{
     display:flex;
+    flex-wrap: wrap;
+    width: 422px;
     padding: 5px;
     gap:5px;
 }
