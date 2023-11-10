@@ -47,7 +47,6 @@ function getOvlyCardNewContactHTML() {
     `
 }
 
-
 function getOvlyCardEditContactHTML(idx) {
     let contactData = contactListSorted[idx];
     return /*html*/`
@@ -107,7 +106,6 @@ async function getAddTaskHTML() {
     `
 }
 
-
 function getContactListLetterHTML(letter) {
     return /*html*/`
         <div class="ContactlistelementLetter">
@@ -116,7 +114,6 @@ function getContactListLetterHTML(letter) {
         </div>
     `
 }
-
 
 function getContactListContactHTML(idx, contactData) {
     return /*html*/`
@@ -135,7 +132,8 @@ function getContactListContactHTML(idx, contactData) {
 
 function cardHTML(index, task, prio, progress, useres, color) { // drag(event)
     return /*html*/`
-      <div class="card" id="task${index}" draggable="true" ondragstart="startDragging(${index})" onclick="showOvlyCard(getOvlyTaskHTML(${index}))" oncontextmenu="ContectMoveTo()">
+      <div class="card" id="task${index}" draggable="true" ondragstart="startDragging(${index})" 
+      onclick="showOvlyCard(getOvlyTaskHTML(${index})), checkSubtasks(${index})" oncontextmenu="ContectMoveTo()">
         <div class="group" style="background-color:${color}">${task['group']}</div>
         <h3>${task['title']}</h3>
         <p>${task['descr']}</p>
@@ -213,8 +211,8 @@ function getOvlyTaskHTML(idx) {
                     ${assignedToHTML}
                 </div>
             </div>
-            <div>
-                ${getSubtasksHTML(task)}
+            <div id="ovlySubTask">
+                ${getSubtasksHTML(task,idx)}
             </div>
             <div id="ovlyTaskWrapperBtn">
                 <button class="but-light" onclick="deleteTask(${idx})">
@@ -251,37 +249,32 @@ function getPriorityHTML(prio) {
     `
 }
 
-function getSubtasksHTML(task) {
+function getSubtasksHTML(task,idx) {
     let HTML ='';
     if (task.subTask.length <= 0) return
     else {
-        Subtasks = getSubtasksListHTML(task.subTask);
+        Subtasks = getSubtasksListHTML(task.subTask, idx);
         HTML = /*html*/`<span><b>Subtasks:</b></span>`+Subtasks;
     }    
     return HTML
 }
 
-function getSubtasksListHTML(subTasks) {
+function getSubtasksListHTML(subTasks, idx) {
     let HTML = '';
-    subTasks.forEach(subTasks => {
+    for (let i = 0; i < subTasks.length; i++) {
         HTML += /*html*/`
-        <div>
-            <input type="checkbox">
-            <span>${subTasks.descr}</span>
-        </div>
-        `});
+        <li>
+            <input type="checkbox" id="subTask${i}" onclick="toggleSubtask(${idx},${i})">
+            <label for="subTask${i}">${subTasks[i].descr}</label>
+    </li>
+        `        
+    }
     return HTML
-}
-
-function getSubtaskCheckboxHTML(state) {
-    debugger
-    if (state > 0) return 'checked="true"'
-    else return 'checked="false"'
-    
-}
+} 
 
 function getAssignedToHTML(members, includeName) {
-    let member, HTML = '';
+    let member = '';
+    let HTML = '';
     for (let i = 0; i < members.length; i++) {
         member = contactListSorted.filter(c => c['email'] == members[i])[0]; // email is unique
         if (includeName) {
@@ -353,6 +346,17 @@ function getOvlyEditTaskHTML(idx) {
                 <div id="ovlyEditTaskWrapperAssignedToActual">
                     ${assignedToHTML}
                 </div>
+            </div>
+            <div id="ovlyEditTaskWrapperSubTask">
+                <span>Subtask</span>
+                    <div onmouseleave="removeMsg()" >
+                        <input type="text" id="ovlyEditTaskSubtaskInp" placeholder="Add new subtask">
+                        <img src="../img/icons/Add-Task-Subtask-Add-Icon.svg" alt=""
+                            onclick="createSubtask()">
+                    </div>
+                    <p id="ovlyEditTaskSubTaskmsg" class="d-none">Subtask missing</p>
+                    <ul id="ovlyEditTaskSubTaskUl">
+                    </ul>
             </div>
             <button id="ovlyEditTaskOkBtn" class="but-dark" onclick="editTask(${idx})">
                 <span>OK</span>

@@ -29,13 +29,13 @@ function render(showTasks) {
       2: '../img/icons/prio_high.svg',
     }[task['prio']];
     const slot = document.getElementById(condition);
-    slot.innerHTML += cardHTML(i, task, prio, progressHTML(showTasks,i), useresHTML(showTasks,i), getGroupColor(showTasks,i));
+    slot.innerHTML += cardHTML(i, task, prio, progressHTML(showTasks, i), useresHTML(showTasks, i), getGroupColor(showTasks, i));
   }
 }
 
-function getGroupColor(showTasks,index) {
+function getGroupColor(showTasks, index) {
   let groupsId = findIndexByValue('name', showTasks[index]['group'], groups);
-  if (groupsId>=0) return groups[groupsId]['color']
+  if (groupsId >= 0) return groups[groupsId]['color']
   else return "#9797a5"
 }
 
@@ -48,7 +48,7 @@ function findIndexByValue(ValueToSearch, valueToFind, dataArray) {
   return -1; // Wenn die Emailadresse nicht gefunden wurde, wird -1 zurückgegeben
 }
 
-function addNewTask(condit){
+function addNewTask(condit) {
   showOvlyCard(AddTaskHTML);
   loadCategory();
   loadUser();
@@ -56,6 +56,22 @@ function addNewTask(condit){
   setMinDate('addTaskDueDate')
   conditNewTask = condit;
 }
+
+function checkSubtasks(idx) {
+  let subtasks = tasks[idx].subTask;
+  for (let i = 0; i < subtasks.length; i++) {
+    let checkbox = document.getElementById('subTask' + i);
+    (subtasks[i].state >= 1) ? checkbox.checked = true : checkbox.checked = false
+  }
+}
+
+async function toggleSubtask(TaskIdx,SubtasksIdx){
+  let checkbox = document.getElementById('subTask' + SubtasksIdx).checked;
+  (checkbox == true) ? tasks[TaskIdx].subTask[SubtasksIdx].state = 1 : tasks[TaskIdx].subTask[SubtasksIdx].state = 0;
+  setItem('tasks', tasks);
+  render(tasks);
+}
+
 
 // drag and drop  
 let currentDraggedElement;
@@ -90,7 +106,7 @@ function deletHighlight(id) {
 // functions for searching
 function setSerchTasks() {
   let serch = document.getElementById("search").elements["searchInp"];
-  let filtertTasks=[];
+  let filtertTasks = [];
   let ArrayTitle = getArrayOfIncludes('title', serch.value, tasks);
   let ArrayDesc = getArrayOfIncludes('descr', serch.value, tasks);
   let mergedArray = mergeArraysWithoutDuplicates(ArrayDesc, ArrayTitle);
@@ -123,52 +139,52 @@ function mergeArraysWithoutDuplicates(arr1, arr2) {
 }
 
 // overlay related functions
-async function editTask(idx){
+async function editTask(idx) {
   tasks[idx]['title'] = document.getElementById('editTasktaskTitle').value;
   tasks[idx]['descr'] = document.getElementById('editTasktaskDescription').value;
   tasks[idx]['deadline'] = document.getElementById('editTasktaskDate').value;
   tasks[idx]['prio'] = document.querySelector("#ovlyCard input[type='radio']:checked").value;
   tasks[idx]['users'] = getSelectedMembers();
-  await setItem('tasks',tasks);
+  await setItem('tasks', tasks);
   hideOvlyCard();
   render(tasks);
 }
 
 
-async function deleteTask(idx){
-  tasks.splice(idx,1);
-  await setItem('tasks',tasks);
+async function deleteTask(idx) {
+  tasks.splice(idx, 1);
+  await setItem('tasks', tasks);
   hideOvlyCard();
   render(tasks);
 }
 
 
-function showOvlyContactAdded(){
+function showOvlyContactAdded() {
   document.getElementById('ovlyTaskaddedToBoard').classList.add("addAnimtaion");
-        setTimeout(function(){document.getElementById('ovlyTaskaddedToBoard').classList.remove("addAnimtaion")},2000);
+  setTimeout(function () { document.getElementById('ovlyTaskaddedToBoard').classList.remove("addAnimtaion") }, 2000);
 }
 
-function getSelectedMembers(){
+function getSelectedMembers() {
   let selectedUsers = document.querySelectorAll('#ovlyEditTaskWrapperMemberList input[type="checkbox"]:checked');
   let members = [];
   for (let i = 0; i < selectedUsers.length; i++) {
-      members.push(selectedUsers[i].value)  
+    members.push(selectedUsers[i].value)
   }
   return members;
 }
 
-function openDropdown(ID){
+function openDropdown(ID) {
   showElement(ID, '');
   document.getElementById('ovlyEditTaskwrapperAssignedToHL').classList.add('styleOpen');
   document.getElementById('ovlyEditTaskwrapperAssignedToHLImg').classList.add('styleOpen');
-  document.getElementById('ovlyEditTaskwrapperAssignedToHL').setAttribute('onclick','closeDropdown(["ovlyEditTaskWrapperMemberList"])');
+  document.getElementById('ovlyEditTaskwrapperAssignedToHL').setAttribute('onclick', 'closeDropdown(["ovlyEditTaskWrapperMemberList"])');
 }
 
 function closeDropdown(ID) {
-  hideElement(ID,'');
+  hideElement(ID, '');
   document.getElementById('ovlyEditTaskwrapperAssignedToHL').classList.remove('styleOpen');
   document.getElementById('ovlyEditTaskwrapperAssignedToHLImg').classList.remove('styleOpen');
-  document.getElementById('ovlyEditTaskwrapperAssignedToHL').setAttribute('onclick','openDropdown(["ovlyEditTaskWrapperMemberList"])');
+  document.getElementById('ovlyEditTaskwrapperAssignedToHL').setAttribute('onclick', 'openDropdown(["ovlyEditTaskWrapperMemberList"])');
 }
 
 // for moving tasks whith touchscreen

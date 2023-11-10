@@ -31,13 +31,14 @@ html {
     gap: 40px;
 }
 
-.headline-serch button{
+.headline-serch button {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     width: fit-content;
 }
+
 #search {
     display: flex;
     align-items: center;
@@ -110,7 +111,7 @@ html {
     background-color: var(--bg-color);
 }
 
-.curser-unset{
+.curser-unset {
     cursor: unset;
 }
 
@@ -279,7 +280,7 @@ html {
     font-weight: bold;
 }
 
-#ovlyTaskDescription{
+#ovlyTaskDescription {
     overflow: auto;
     min-height: 75px;
     scrollbar-width: thin;
@@ -311,13 +312,13 @@ html {
     gap: 25px;
 }
 
-#ovlyTaskWrapperAssignedToList{
+#ovlyTaskWrapperAssignedToList {
     display: flex;
     flex-direction: column;
     gap: 25px;
     max-height: 300px;
     overflow: auto;
-    scrollbar-width: thin;   
+    scrollbar-width: thin;
 }
 
 .ovlyAssignedToElement {
@@ -332,6 +333,31 @@ html {
     color: white;
 }
 
+#ovlySubTask{
+    display: flex;
+    flex-direction: column;
+}
+
+#ovlySubTask span{
+    margin-bottom: 8px;
+}
+
+#ovlySubTask li{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border-radius: 8px;
+    margin-bottom: 4px;
+}
+
+#ovlySubTask label{
+    padding-right: 16px;
+    cursor: pointer;
+}
+
+#ovlySubTask li:hover{
+    background-color: var(--fntcolor);
+}
 
 #ovlyTaskWrapperBtn {
     position: absolute;
@@ -384,7 +410,7 @@ html {
     background-color: var(--fntcolor);
 }
 
-#ovlyBtnClose svg{
+#ovlyBtnClose svg {
     fill: var(--primcolor);
     width: 30px;
     height: 30px;
@@ -403,6 +429,7 @@ html {
     min-width: 400px;
     box-sizing: border-box;
     max-height: calc((100vh - 90px - 90px) * 0.9);
+    overflow: auto;
 }
 
 #ovlyTaskEditform div {
@@ -515,11 +542,11 @@ html {
     border-bottom-right-radius: unset;
 }
 
-#ovlyEditTaskwrapperAssignedToHLImg{
+#ovlyEditTaskwrapperAssignedToHLImg {
     transition: all var(--transtime) ease-in;
 }
 
-#ovlyEditTaskwrapperAssignedToHLImg.styleOpen{
+#ovlyEditTaskwrapperAssignedToHLImg.styleOpen {
     transform: rotate(180deg);
     transition: all var(--transtime) ease-in;
 }
@@ -536,32 +563,32 @@ html {
 }
 
 
-#ovlyEditTaskWrapperMemberListElement{
+#ovlyEditTaskWrapperMemberListElement {
     flex-direction: row !important;
     justify-content: space-between;
     padding: 8px 21px;
     cursor: pointer;
 }
 
-#ovlyEditTaskWrapperMemberListElement:hover{
+#ovlyEditTaskWrapperMemberListElement:hover {
     background-color: #d3cfcf;
     transition: all var(--transtime) ease-in;
 }
 
 
-#ovlyEditTaskWrapperMemberListElement{
+#ovlyEditTaskWrapperMemberListElement {
     flex-direction: row !important;
     justify-content: space-between;
     padding: 8px 21px;
     cursor: pointer;
 }
 
-#ovlyEditTaskWrapperMemberListElement:hover{
+#ovlyEditTaskWrapperMemberListElement:hover {
     background-color: #d3cfcf;
     transition: all var(--transtime) ease-in;
 }
 
-#ovlyEditTaskWrapperAssignedToActual{
+#ovlyEditTaskWrapperAssignedToActual {
     flex-direction: row !important;
     flex-wrap: wrap;
     margin-top: 15px;
@@ -572,8 +599,23 @@ html {
     justify-content: space-between;
 }
 
+#ovlyEditTaskWrapperSubTask div{
+    flex-direction:row !important;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+}
+#ovlyEditTaskWrapperSubTask div:hover{
+    cursor: pointer;
+}
+#ovlyEditTaskSubtaskInp{
+    border: none;
+    outline: none;
+    width: 100%;
+}
 
-
+#ovlyEditTaskWrapperSubTask div img{
+    margin-right: 16px;
+}
 
 #ovlyTaskEditform button {
     width: fit-content;
@@ -681,7 +723,7 @@ html {
         display: none;
     }
 
-    .headline-area{
+    .headline-area {
         width: 100%;
     }
 
@@ -720,12 +762,13 @@ html {
     }
 
     /* Overlay task*/
-    #ovlyCard{
+    #ovlyCard {
         max-width: unset;
         width: 100vw;
     }
-    
-    #ovlyCardTask, #ovlyTaskEditform{
+
+    #ovlyCardTask,
+    #ovlyTaskEditform {
         border-radius: unset;
         max-height: unset;
         height: 100vh;
@@ -740,32 +783,36 @@ html {
         -webkit-mask-image: url(../img/icons/arrow_left_line.svg);
         mask-image: url(../img/icons/arrow_left_line.svg);
     }
-    #ovlyTaskDescription{
+
+    #ovlyTaskDescription {
         max-height: 30%;
     }
-    #ovlyTaskWrapperAssignedTo{
+
+    #ovlyTaskWrapperAssignedTo {
         height: 40%;
         flex-grow: 1;
     }
-    #ovlyTaskWrapperAssignedToList{
+
+    #ovlyTaskWrapperAssignedToList {
         max-height: unset;
     }
 
 
     /* overlay edit task */
-    #editTasktaskTitle, #editTasktaskDate{
+    #editTasktaskTitle,
+    #editTasktaskDate {
         width: 100%;
     }
 
-    #editTasktaskDescription{
+    #editTasktaskDescription {
         height: 80%;
     }
 
-    #wrapperEditTaskDescription{
+    #wrapperEditTaskDescription {
         height: 30%;
     }
 
-    #ovlyEditTaskOkBtn{
+    #ovlyEditTaskOkBtn {
         position: absolute;
         bottom: 50px;
         right: 30px;
@@ -779,7 +826,7 @@ html {
     }
 
     /* overlay */
-    #ovlyCardTask{
+    #ovlyCardTask {
         padding: 50px 20px;
     }
 
