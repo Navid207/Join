@@ -212,7 +212,7 @@ function getOvlyTaskHTML(idx) {
                 </div>
             </div>
             <div id="ovlySubTask">
-                ${getSubtasksHTML(task,idx)}
+                ${getSubtasksHTML(task, idx)}
             </div>
             <div id="ovlyTaskWrapperBtn">
                 <button class="but-light" onclick="deleteTask(${idx})">
@@ -249,13 +249,13 @@ function getPriorityHTML(prio) {
     `
 }
 
-function getSubtasksHTML(task,idx) {
-    let HTML ='';
+function getSubtasksHTML(task, idx) {
+    let HTML = '';
     if (task.subTask.length <= 0) return
     else {
         Subtasks = getSubtasksListHTML(task.subTask, idx);
-        HTML = /*html*/`<span><b>Subtasks:</b></span>`+Subtasks;
-    }    
+        HTML = /*html*/`<span><b>Subtasks:</b></span>` + Subtasks;
+    }
     return HTML
 }
 
@@ -267,10 +267,10 @@ function getSubtasksListHTML(subTasks, idx) {
             <input type="checkbox" id="subTask${i}" onclick="toggleSubtask(${idx},${i})">
             <label for="subTask${i}">${subTasks[i].descr}</label>
     </li>
-        `        
+        `
     }
     return HTML
-} 
+}
 
 function getAssignedToHTML(members, includeName) {
     let member = '';
@@ -349,13 +349,14 @@ function getOvlyEditTaskHTML(idx) {
             </div>
             <div id="ovlyEditTaskWrapperSubTask">
                 <span>Subtask</span>
-                    <div onmouseleave="removeMsg()" >
+                     <div> <!--onmouseleave="removeMsg()" -->
                         <input type="text" id="ovlyEditTaskSubtaskInp" placeholder="Add new subtask">
                         <img src="../img/icons/Add-Task-Subtask-Add-Icon.svg" alt=""
-                            onclick="createSubtask()">
+                            onclick="createSubtask('ovlyEditTaskSubtaskInp','ovlyEditTaskSubTaskUl')">
                     </div>
                     <p id="ovlyEditTaskSubTaskmsg" class="d-none">Subtask missing</p>
                     <ul id="ovlyEditTaskSubTaskUl">
+                        ${getEditSubtasksHTML(task.subTask)}
                     </ul>
             </div>
             <button id="ovlyEditTaskOkBtn" class="but-dark" onclick="editTask(${idx})">
@@ -402,6 +403,15 @@ function getMemberListHTML(task) {
         `
     }
     return HTML;
+}
+
+function getEditSubtasksHTML(subTask) {
+    let HTML = '';
+    if (subTask.length<=0) return HTML
+    for (let i = 0; i < subTask.length; i++) {
+        HTML += getCreateSubtaskHTML(subTask[i].descr, i)
+    }
+    return HTML
 }
 
 // Add Task

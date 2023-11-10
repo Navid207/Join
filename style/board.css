@@ -611,10 +611,22 @@ html {
     border: none;
     outline: none;
     width: 100%;
+    font-size: var(--fntsizebase);
 }
 
 #ovlyEditTaskWrapperSubTask div img{
     margin-right: 16px;
+}
+
+#ovlyEditTaskSubTaskUl li{
+    height: 20px;
+}
+#ovlyEditTaskSubTaskUl li::marker{
+    font-size: 16px;
+}
+#ovlyEditTaskSubTaskUl li div{
+    padding-left: 4px;
+    border: none;
 }
 
 #ovlyTaskEditform button {

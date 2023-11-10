@@ -145,6 +145,7 @@ async function editTask(idx) {
   tasks[idx]['deadline'] = document.getElementById('editTasktaskDate').value;
   tasks[idx]['prio'] = document.querySelector("#ovlyCard input[type='radio']:checked").value;
   tasks[idx]['users'] = getSelectedMembers();
+  tasks[idx].subTask = loadSubtasks();
   await setItem('tasks', tasks);
   hideOvlyCard();
   render(tasks);

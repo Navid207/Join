@@ -91,14 +91,14 @@ function loadSelectetUsers() {
     }
 }
 
-function createSubtask() {
-    let subtask = document.getElementById('addTaskSubTask').value;
+function createSubtask(subtaskId,ulId) {
+    let subtask = document.getElementById(subtaskId).value;
     let number = document.getElementsByClassName('subtaskWrapper').length;
-    let subtaskContainer = document.getElementById('subtaskCheckContainer');
+    let subtaskContainer = document.getElementById(ulId);
     if (subtask == '') setMsg('msgSubTask', 'subtaskContainer');
     else {
         subtaskContainer.innerHTML += getCreateSubtaskHTML(subtask,number);
-        document.getElementById('addTaskSubTask').value = ''
+        document.getElementById(subtaskId).value = ''
     }
 }
 
