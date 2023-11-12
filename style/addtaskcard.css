@@ -618,55 +618,21 @@ textarea {
 }
 
 @media only screen and (max-width: 1350px) {
+
+    #addtaskContainer {
+        padding-inline: 40px;
+    }
+
     #addTaskWrapper {
         flex-direction: column;
-    }
-
-    #addtaskBtnContainer {
-        margin-top: 10vh;
-    }
-
-    #leftSideAddTask,
-    #rightSideAddTask {
-        margin: auto 10%;
-    }
-
-    .verticalLine {
-        display: none;
     }
 
     #addTaskHeader {
         font-size: 20px;
     }
 
-    #leftSideAddTask>*,
-    #rightSideAddTask>* {
-        width: 90%;
-    }
-
-    #addTaskDescription {
-        padding: 18px 0px;
-    }
-
-    #newCategoryInputContainer {
-        width: 100%;
-    }
-
-    #addtaskBtnContainer {
-        margin-bottom: 50px;
-    }
-
-    .categoryBtnText,
-    .userBtnText {
-        padding: 18px 0px;
-    }
-
     #addTaskSubTask {
         width: 100%;
-    }
-
-    #addSubtask {
-        padding-right: 12px;
     }
 
     .prioContainer {
@@ -675,10 +641,38 @@ textarea {
 }
 
 @media (max-width: 840px) {
-    .prioContainer {
-        padding: 0 10px;
-        justify-content: center;
+
+    #addtaskWrapper h1 {
+        padding-block: 20px;
     }
+
+    #addtaskContainer form{
+        flex-direction: column;
+        justify-content: unset;
+        overflow: auto;
+        height: calc(100vh - 180px - 120px);
+        gap: 14px;
+    }
+
+    #leftSideAddTask,
+    #rightSideAddTask {
+        width: 100%;
+    }
+
+    #addtaskContainer section{
+        margin-bottom: 0;
+    }
+
+    .verticalLine{
+        display: none;
+    }
+
+    #addtaskBtnContainer{
+        position: unset;
+        justify-content: flex-end;
+        margin-top: 0;
+    }
+
 }
 
 @media (max-width: 500px) {

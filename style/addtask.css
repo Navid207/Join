@@ -9,23 +9,21 @@
 
 #addtaskContainer {
     width: 100%;
-    padding-inline: 116px;
+    padding-inline: 40px;
 }
 
 form {
     display: flex;
-    justify-content: space-between;
-
+    flex-direction: column;
 }
 
 input {
-    width: 650px;
+    width: 100%;
     outline-color: var(--acccolor);
 }
 
 textarea {
-    width: calc(650px - 42px);
-    /* -42px pecause of the padding*/
+    width: -webkit-fill-available;
     min-height: 80px;
     resize: vertical;
     font-family: Inter;
@@ -33,6 +31,15 @@ textarea {
     padding: 13px 21px;
     outline-color: var(--acccolor);
     margin: 0;
+}
+
+section {
+    width: 100%;
+}
+
+.inputAddTask{
+    display: flex;
+     justify-content: space-between;
 }
 
 #addtaskContainer section {
@@ -183,10 +190,8 @@ h3 {
 
 #addtaskBtnContainer {
     display: flex;
+    justify-content: flex-end;
     gap: 10px;
-    position: absolute;
-    bottom: 50px;
-    right: 116px;
 }
 
 .addTaskBorder {
@@ -418,8 +423,8 @@ input[id="low"] {
 .userSelectBtn.open~.userListItems,
 .categorySelectBtn.open~.categoryListItems {
     display: block;
-    position: absolute;
-    width: calc(655px - 32px);
+    margin-bottom: -130px;
+    height: 130px;
 }
 
 .userListItems .item,
@@ -615,55 +620,24 @@ textarea {
 }
 
 @media only screen and (max-width: 1350px) {
+    #addtaskWrapper h1 {
+        padding-block: 20px;
+    }
+
+    #addtaskContainer {
+        padding-inline: 40px;
+    }
+
     #addTaskWrapper {
         flex-direction: column;
-    }
-
-    #addtaskBtnContainer {
-        margin-top: 10vh;
-    }
-
-    #leftSideAddTask,
-    #rightSideAddTask {
-        margin: auto 10%;
-    }
-
-    .verticalLine {
-        display: none;
     }
 
     #addTaskHeader {
         font-size: 20px;
     }
 
-    #leftSideAddTask>*,
-    #rightSideAddTask>* {
-        width: 90%;
-    }
-
-    #addTaskDescription {
-        padding: 18px 0px;
-    }
-
-    #newCategoryInputContainer {
-        width: 100%;
-    }
-
-    #addtaskBtnContainer {
-        margin-bottom: 50px;
-    }
-
-    .categoryBtnText,
-    .userBtnText {
-        padding: 18px 0px;
-    }
-
     #addTaskSubTask {
         width: 100%;
-    }
-
-    #addSubtask {
-        padding-right: 12px;
     }
 
     .prioContainer {
@@ -672,10 +646,36 @@ textarea {
 }
 
 @media (max-width: 840px) {
-    .prioContainer {
-        padding: 0 10px;
-        justify-content: center;
+
+    #addtaskContainer form{
+        overflow: auto;
+        height: calc(100vh - 180px - 120px);
+        gap: 14px;
     }
+    .inputAddTask{
+        flex-direction: column;
+        justify-content: unset;
+    }
+
+    #leftSideAddTask,
+    #rightSideAddTask {
+        width: 100%;
+    }
+
+    #addtaskContainer section{
+        margin-bottom: 0;
+    }
+
+    .verticalLine{
+        display: none;
+    }
+
+    #addtaskBtnContainer{
+        position: unset;
+        justify-content: flex-end;
+        margin-top: 0;
+    }
+
 }
 
 @media (max-width: 500px) {

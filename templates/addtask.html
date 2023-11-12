@@ -1,90 +1,93 @@
 <div id="addtaskContainer">
     <h1>Add Task</h1>
     <form id="addTask" action="javascript:createTask()" autocomplete="off">
-        <div id="leftSideAddTask">
-            <section>
-                <h3>Title</h3>
-                <input type="text" id="addTaskTitle" class="addTaskStyle" placeholder="Enter a title">
-                <p id="msgTitle" class="d-none">This field is required</p>
-            </section>
-            <section>
-                <h3>Description</h3>
-                <textarea id="addTaskDescription" class="addTaskStyle cursorPointer" placeholder="Enter a Description"></textarea>
-                <p id="msgDescrip" class="d-none">This field is required</p>
-            </section>
-            <section>
-                <h3>Assigned to</h3>
-                <div class="container">
-                    <div class="userSelectBtn" onkeydown="serchUsers()" onclick="renderUserList('.userSelectBtn', 'userList'),loadSelectetUsers()">
-                        <input class="userBtnText" id="userBtnText" placeholder="Select contacts to assign">
-                        <span class="arrow-dwn">
-                            <img src="../img/icons/down-arrow.png" alt="">
-                        </span>
-                    </div>
-                    <ul class="userListItems" id="userList"></ul>
-                </div>
-                <div id="selectetUsers"></div>
-            </section>
-        </div>
-        <div class="verticalLine">
-        </div>
-        <div id="rightSideAddTask">
-            <section>
-                <h3>Due date</h3>
-                <input type="date" name="Due Date" id="addTaskDueDate">
-                <p id="msgDate" class="d-none">This field is required</p>
-            </section>
-            <section>
-                <h3>Prio</h3>
-                <div class="prioContainer">
-                    <input type="radio" id="urgent" name="tabs" value="2" />
-                    <label class="priosContainer" for="urgent">Urgent
-                        <img class="progressIcon" src="../img/icons/Add-Task-Prio-Urgent.svg" alt="">
-                        <img class="IconHover" src="../img/icons/Add-Task-Prio-Urgent-hover.svg" alt="">
-                    </label>
-                    <input type="radio" id="medium" name="tabs" value="1" />
-                    <label class="priosContainer" for="medium">Medium
-                        <img class="progressIcon" src="../img/icons/Add-Task-Prio-Medium.svg" alt="">
-                        <img class="IconHover" src="../img/icons/Add-Task-Prio-Medium-hover.svg" alt="">
-                    </label>
-                    <input type="radio" id="low" name="tabs" value="0" />
-                    <label class="priosContainer" for="low">Low
-                        <img class="progressIcon" src="../img/icons/Add-Task-Prio-Low.svg" alt="">
-                        <img class="IconHover" src="../img/icons/Add-Task-Prio-Low-hover.svg" alt="">
-                    </label>
-                </div>
-            </section>
-            <section>
-                <h3>Category</h3>
-                <div class="container">
-                    <div id="categorySelect">
-                        <div id="addTaskCateg" class="categorySelectBtn"
-                            onclick="renderUserList('.categorySelectBtn','newCategoryListItems')">
-                            <input id="choosedCatagory" type="text" placeholder="Select task category">
+        <div class="inputAddTask">
+            <div id="leftSideAddTask">
+                <section>
+                    <h3>Title</h3>
+                    <input type="text" id="addTaskTitle" class="addTaskStyle" placeholder="Enter a title">
+                    <p id="msgTitle" class="d-none">This field is required</p>
+                </section>
+                <section>
+                    <h3>Description</h3>
+                    <textarea id="addTaskDescription" class="addTaskStyle cursorPointer"
+                        placeholder="Enter a Description"></textarea>
+                    <p id="msgDescrip" class="d-none">This field is required</p>
+                </section>
+                <section>
+                    <h3>Assigned to</h3>
+                    <div class="container">
+                        <div class="userSelectBtn" onkeydown="serchUsers()"
+                            onclick="renderUserList('.userSelectBtn', 'userList'),loadSelectetUsers()">
+                            <input class="userBtnText" id="userBtnText" placeholder="Select contacts to assign">
                             <span class="arrow-dwn">
                                 <img src="../img/icons/down-arrow.png" alt="">
                             </span>
                         </div>
-                        <ul class="categoryListItems" id="newCategoryListItems">
-
-                        </ul>
+                        <ul class="userListItems" id="userList"></ul>
                     </div>
-                    <div class="newCategoryContainer" id="newCategoryInputContainer">
-                        <input placeholder="New category name" type="text" name="" id="newCategoryInput">
-                        <div id="closeCreateIcons">
-                            <img src="../img/icons/close.png" alt="" onclick="closeNewCategory()">
-                            <img src="../img/icons/check.png" alt="" onclick="saveNewCategory()">
+                    <div id="selectetUsers"></div>
+                </section>
+            </div>
+            <div class="verticalLine">
+            </div>
+            <div id="rightSideAddTask">
+                <section>
+                    <h3>Due date</h3>
+                    <input type="date" name="Due Date" id="addTaskDueDate">
+                    <p id="msgDate" class="d-none">This field is required</p>
+                </section>
+                <section>
+                    <h3>Prio</h3>
+                    <div class="prioContainer">
+                        <input type="radio" id="urgent" name="tabs" value="2" />
+                        <label class="priosContainer" for="urgent">Urgent
+                            <img class="progressIcon" src="../img/icons/Add-Task-Prio-Urgent.svg" alt="">
+                            <img class="IconHover" src="../img/icons/Add-Task-Prio-Urgent-hover.svg" alt="">
+                        </label>
+                        <input type="radio" id="medium" name="tabs" value="1" />
+                        <label class="priosContainer" for="medium">Medium
+                            <img class="progressIcon" src="../img/icons/Add-Task-Prio-Medium.svg" alt="">
+                            <img class="IconHover" src="../img/icons/Add-Task-Prio-Medium-hover.svg" alt="">
+                        </label>
+                        <input type="radio" id="low" name="tabs" value="0" />
+                        <label class="priosContainer" for="low">Low
+                            <img class="progressIcon" src="../img/icons/Add-Task-Prio-Low.svg" alt="">
+                            <img class="IconHover" src="../img/icons/Add-Task-Prio-Low-hover.svg" alt="">
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <h3>Category</h3>
+                    <div class="container">
+                        <div id="categorySelect">
+                            <div id="addTaskCateg" class="categorySelectBtn"
+                                onclick="renderUserList('.categorySelectBtn','newCategoryListItems')">
+                                <input id="choosedCatagory" type="text" placeholder="Select task category">
+                                <span class="arrow-dwn">
+                                    <img src="../img/icons/down-arrow.png" alt="">
+                                </span>
+                            </div>
+                            <ul class="categoryListItems" id="newCategoryListItems">
+
+                            </ul>
+                        </div>
+                        <div class="newCategoryContainer" id="newCategoryInputContainer">
+                            <input placeholder="New category name" type="text" name="" id="newCategoryInput">
+                            <div id="closeCreateIcons">
+                                <img src="../img/icons/close.png" alt="" onclick="closeNewCategory()">
+                                <img src="../img/icons/check.png" alt="" onclick="saveNewCategory()">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id="categoryColoredDots">
+                    <div id="categoryColoredDots">
 
-                </div>
-                <p id="msgCateg" class="d-none">This field is required</p>
-            </section>
-            <section id="subtaskWrapper">
+                    </div>
+                    <p id="msgCateg" class="d-none">This field is required</p>
+                </section>
+                <section id="subtaskWrapper">
                     <h3>Subtask</h3>
-                    <div id="subtaskContainer" onmouseleave="removeMsg()" >
+                    <div id="subtaskContainer" onmouseleave="removeMsg()">
                         <input type="text" id="addTaskSubTask" placeholder="Add new subtask">
                         <img id="addSubtask" src="../img/icons/Add-Task-Subtask-Add-Icon.svg" alt=""
                             onclick="createSubtask('addTaskSubTask','subtaskCheckContainer')">
@@ -92,12 +95,12 @@
                     <p id="msgSubTask" class="d-none">Subtask missing</p>
                     <ul id="subtaskCheckContainer">
                     </ul>
-            </section>
+                </section>
+            </div>
+        </div>
+        <div id="addtaskBtnContainer">
+            <button type="button" class="but-light" onclick="clearTask()">Clear</button>
+            <button type="button" class="but-dark" onclick="checkForm()">Create Task</button>
         </div>
     </form>
-    <div id="addtaskBtnContainer">
-        <button type="button" class="but-light" onclick="clearTask()">Clear</button>
-        <button type="button" class="but-dark" onclick="checkForm()">Create Task</button>
-    </div>
-
 </div>
