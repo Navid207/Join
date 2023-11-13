@@ -101,7 +101,12 @@ async function getAddTaskHTML() {
     AddTaskHTML = /*html*/`
         <div id="ovlyCardAddTask">
             ${AddTaskHTML}
-            <button id="ovlyBtnClose" onclick="hideOvlyCard()"></button>
+            <button id="ovlyBtnClose" onclick="hideOvlyCard()">
+                <svg viewBox="0 0 31 31" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.9616 7.65393L7.65388 22.9617" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M22.8172 23.1061L7.50941 7.79832" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
         </div>
     `
 }
@@ -130,22 +135,69 @@ function getContactListContactHTML(idx, contactData) {
 
 // Board page related templates
 
-function cardHTML(index, task, prio, progress, useres, color) { // drag(event)
+function cardHTML(index, task, prio, progress, useres, color) {
+    let cardControl = cardControlHTML(task, index);
     return /*html*/`
-      <div class="card" id="task${index}" draggable="true" ondragstart="startDragging(${index})" 
-      onclick="showOvlyCard(getOvlyTaskHTML(${index})), checkSubtasks(${index})" oncontextmenu="ContectMoveTo()">
-        <div class="group" style="background-color:${color}">${task['group']}</div>
-        <h3>${task['title']}</h3>
-        <p>${task['descr']}</p>
-        <div id="progress${index}" class="progress">
-          ${progress}
+    <div class="card">
+        <div class="cardContend" id="task${index}" draggable="true" ondragstart="startDragging(${index})" 
+          onclick="showOvlyCard(getOvlyTaskHTML(${index})), checkSubtasks(${index})"> 
+            <div class="group" style="background-color:${color}">${task['group']}</div>
+            <h3>${task['title']}</h3>
+            <p>${task['descr']}</p>
+            <div id="progress${index}" class="progress">
+                ${progress}
+            </div>
+            <div class="btm-line">
+                <div id='users${index}'>${useres}</div>
+                <img src="${prio}" alt="prio">
+            </div>
         </div>
-        <div class="btm-line">
-          <div id='users${index}'>${useres}</div>
-          <img src="${prio}" alt="prio">
+        <div class="cardControl">                        
+            ${cardControl}
         </div>
-       </div>
+    </div>
   `
+}
+
+function cardControlHTML(task, index) {
+    let svgUp = cardControlUpHTML(task, index);
+    let svgDown = cardControlDownHTML(task, index);
+    let svgMoveTo = /*html*/`
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+            <path d="M200-120q-33 0-56.5-23.5T120-200v-160h80v160h560v-560H200v160h-80v-160q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm220-160-56-58 102-102H120v-80h346L364-622l56-58 200 200-200 200Z"/>
+        </svg>
+    `
+    return svgUp + svgMoveTo + svgDown
+}
+function cardControlUpHTML(task, index) {
+    if (task.condit > 0) {
+        return/*html*/`
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" onclick="moveTo(${index},${task.condit - 1})">
+                <path d="m296-345-56-56 240-240 240 240-56 56-184-184-184 184Z"/>
+            </svg>
+        `
+    } else {
+        return/*html*/`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="noControl">
+            <path d="m296-345-56-56 240-240 240 240-56 56-184-184-184 184Z"/>
+        </svg>
+    `
+    }
+}
+function cardControlDownHTML(task, index) {
+    if (task.condit < 3) {
+        return/*html*/`
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" onclick="moveTo(${index},${task.condit + 1})">
+                <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
+            </svg>
+        `
+    } else {
+        return/*html*/`
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="noControl">
+                <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
+            </svg>
+    `
+    }
 }
 
 function progressHTML(showTasks, i) {
@@ -407,7 +459,7 @@ function getMemberListHTML(task) {
 
 function getEditSubtasksHTML(subTask) {
     let HTML = '';
-    if (subTask.length<=0) return HTML
+    if (subTask.length <= 0) return HTML
     for (let i = 0; i < subTask.length; i++) {
         HTML += getCreateSubtaskHTML(subTask[i].descr, i)
     }

@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="task">
-                        <div id="taskToDo" ondrop="moveTo(0)" ondragleave="deletHighlight('taskToDo')"
+                        <div id="taskToDo" ondrop="moveToDrop(0)" ondragleave="deletHighlight('taskToDo')"
                             ondragover="allowDrop(event);addHighlight('taskToDo')">
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div class="task">
-                        <div id="taskProgress" ondrop="moveTo(1)" ondragleave="deletHighlight('taskProgress')"
+                        <div id="taskProgress" ondrop="moveToDrop(1)" ondragleave="deletHighlight('taskProgress')"
                             ondragover="allowDrop(event);addHighlight('taskProgress')">
                         </div>
                     </div>
@@ -82,11 +82,11 @@
                 <div class="board">
                     <div class="task-Head">
                         <h2>Awaiting Feedback</h2>
-                        <div id="addAwaFeedb" onclick="addNewTask(2)">
+                        <div id="addAwaFeedb" onclick="addNewTaskDrop(2)">
                         </div>
                     </div>
                     <div class="task">
-                        <div id="taskAwaFeedb" ondrop="moveTo(2)" ondragleave="deletHighlight('taskAwaFeedb')"
+                        <div id="taskAwaFeedb" ondrop="moveToDrop(2)" ondragleave="deletHighlight('taskAwaFeedb')"
                             ondragover="allowDrop(event);addHighlight('taskAwaFeedb')"></div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                         <!-- <div id="addDone" onclick="showOvlyCard(AddTaskHTML)"></div> -->
                     </div>
                     <div class="task">
-                        <div id="taskDone" ondrop="moveTo(3)" ondragleave="deletHighlight('taskDone')"
+                        <div id="taskDone" ondrop="moveToDrop(3)" ondragleave="deletHighlight('taskDone')"
                             ondragover="allowDrop(event);addHighlight('taskDone')"></div>
                     </div>
                 </div>

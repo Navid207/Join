@@ -152,18 +152,23 @@ html {
 }
 
 /* -------- card -------- */
-
 .card {
+    display: flex;
     margin-top: 20px;
+    gap: 8px;
+}
+
+.cardContend {
     padding: 18px;
     border-radius: 30px;
     background-color: white;
     filter: var(--drop-shadow);
     cursor: grab;
     transition: transform 125ms ease-in-out;
+    width: 100%;
 }
 
-.card:active {
+.cardContend:active {
     transform: rotate(5deg);
     cursor: grabbing;
 }
@@ -182,7 +187,7 @@ html {
     text-align: left;
 }
 
-.card h3 {
+.cardContend h3 {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -190,11 +195,11 @@ html {
     overflow: hidden;
 }
 
-.card h3:hover {
+.cardContend h3:hover {
     display: flex;
 }
 
-.card p {
+.cardContend p {
     font-size: 16px;
     color: #A8A8A8;
     overflow: hidden;
@@ -205,7 +210,7 @@ html {
 
 }
 
-.card p:hover {
+.cardContend p:hover {
     font-size: 16px;
     color: #A8A8A8;
     display: flex;
@@ -247,6 +252,23 @@ html {
 
 .progress span {
     font-size: 12px;
+}
+
+.cardControl {
+    display: none;
+}
+
+.cardControl svg{
+    height: 35px;
+    width: 35px;
+    fill: var(--primcolor);
+    border: 2px solid var(--primcolor);
+    border-radius: 10px;
+}
+
+.noControl{
+    fill: none !important;
+    border: none !important;
 }
 
 /*---------------- overlay ----------------*/
@@ -771,6 +793,12 @@ html {
     #taskAwaFeedb,
     #taskDone {
         min-height: 80px;
+    }
+
+    .cardControl {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
     }
 
     /* Overlay task*/

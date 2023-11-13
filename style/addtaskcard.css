@@ -4,14 +4,14 @@
 
 #addtaskContainer h1 {
     text-align: left;
-    padding-block: 0 50px;
+    padding-block: 0 25px;
 }
 
 #addtaskContainer {
     width: 100%;
 }
 
-form {
+#addTask form {
     display: flex;
     flex-direction: column;
 }
@@ -168,7 +168,7 @@ form {
     display: flex;
     margin-top: 10px;
     align-items: center;
-    max-height: 100px;
+    max-height: 50px;
     overflow: auto;
 }
 
@@ -553,6 +553,10 @@ input[id="low"] {
     padding: 18px 21px;
 }
 
+#addTask li:not(:last-child) {
+    margin-bottom: unset !important;
+}
+
 .categoryBtnText {
     display: flex;
     align-items: center;
@@ -599,10 +603,6 @@ input[id="low"] {
 }
 
 @media only screen and (max-width: 1350px) {
-
-    #addtaskContainer {
-        padding-inline: 40px;
-    }
 
     #addTaskWrapper {
         flex-direction: column;
@@ -667,12 +667,7 @@ input[id="low"] {
         font-size: var(--fntsizebase);
     }
 
-    li {
+    #addTask li {
         font-size: var(--fntsizebase);
     }
-
-    li:not(:last-child) {
-        margin-bottom: unset !important;
-    }
-
 }

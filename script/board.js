@@ -82,7 +82,7 @@ function startDragging(id) {
 function allowDrop(ev) {
   ev.preventDefault();
 }
-function moveTo(condit) {
+function moveToDrop(condit) {
   tasks[currentDraggedElement]['condit'] = condit;
   setItem('tasks', tasks);
   render(tasks);
@@ -116,17 +116,6 @@ function setSerchTasks() {
   render(filtertTasks);
   //VisibilTasks=filtertTasks;
 }
-// function getArrayOfIncludes(ValueToSearch, valueToFind, dataArray) {
-//   let Indexs=[];
-//   for (let i = 0; i < dataArray.length; i++) {
-//     let toSearch = dataArray[i][ValueToSearch].toLowerCase();
-//     let toFind = valueToFind.toLowerCase();
-//     if (toSearch.includes(toFind)) {
-//       Indexs.push(i);
-//     }
-//   }
-//   return Indexs;
-// }
 
 function mergeArraysWithoutDuplicates(arr1, arr2) {
   const mergedArray = arr1;
@@ -188,7 +177,8 @@ function closeDropdown(ID) {
   document.getElementById('ovlyEditTaskwrapperAssignedToHL').setAttribute('onclick', 'openDropdown(["ovlyEditTaskWrapperMemberList"])');
 }
 
-// for moving tasks whith touchscreen
-function ContectMoveTo() {
-  //debugger  
+function moveTo(taskIdx,condit) {
+  tasks[taskIdx]['condit'] = condit;
+  setItem('tasks', tasks);
+  render(tasks);
 }
