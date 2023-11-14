@@ -22,12 +22,13 @@ const CATEGORY = [
         color: '#0038ff',
     },
 ]
-const HTML_NEW_CATEGORY_LI = /*html*/`
-                            <li id="newCategory" class="but-dark" onclick="newCategory()">
-                                <span>New category</span>
-                            </li>
-                            `;
 
+/**
+ * Initializes the 'Add Task' tab by performing several asynchronous tasks.
+ *
+ * @function
+ * @returns {Promise<void>} - A Promise that resolves after initializing the 'Add Task' tab.
+ */
 async function addtaskInit() {
     await init('tabaddtask');
     loadCategory();
@@ -36,9 +37,13 @@ async function addtaskInit() {
     setMinDate('addTaskDueDate');
 }
 
+/**
+ * Loads task categories into the specified HTML element based on available groups.
+ *
+ */
 function loadCategory() {
     let newCategoryListItems = document.getElementById('newCategoryListItems');
-    newCategoryListItems.innerHTML = HTML_NEW_CATEGORY_LI;
+    newCategoryListItems.innerHTML = newCategoryLiHTML();
     for (let j = 0; j < groups.length; j++) {
         const group = groups[j];
         newCategoryListItems.innerHTML += categoryLiHTML(group, j);
@@ -46,6 +51,12 @@ function loadCategory() {
     }
 }
 
+/**
+ * Loads user data into the specified HTML element based on the provided user array.
+ *
+ * @function
+ * @param {Array<Object>} UserrArray - The array of user objects to load into the HTML element.
+ */
 function loadUser(UserrArray) {
     if (!UserrArray) UserrArray = contactListSorted;
     let listItems = document.getElementsByClassName('userListItems');
@@ -53,30 +64,14 @@ function loadUser(UserrArray) {
     for (let i = 0; i < UserrArray.length; i++) {
         const user = UserrArray[i];
         const initials = getContactInitials(user.name);
-        listItems[0].innerHTML += /*html*/`
-        <li class="item">
-            <div class="item-user">
-                <div style="background-color: ${user['color']}">${initials}</div>
-                <span>${user['name']}</span>
-            </div>
-            <i class="fa-solid fa-check check-icon"></i>
-            <span class="checkbox"></span>
-        </li>`;
+        listItems[0].innerHTML += contactLiHTML(user, initials);
     }
 }
 
-function serchUsers() {
-    return
-    let contactListFiltered = [];
-    let serch = document.getElementById('userBtnText');
-    let indexFilteredUser = getArrayOfIncludes('name', serch.value, contactListSorted);
-    for (let i = 0; i < indexFilteredUser.length; i++) {
-        const j = indexFilteredUser[i]
-        contactListFiltered.push(contactListSorted[j]);
-    }
-    loadUser(contactListFiltered);
-}
-
+/**
+ * Loads selected users into the specified HTML element based on assigned user emails.
+ *
+ */
 function loadSelectetUsers() {
     let assignedUsers = loadAssignedUsers();
     let userSlot = document.getElementById('selectetUsers');
@@ -85,33 +80,58 @@ function loadSelectetUsers() {
         const userMail = assignedUsers[i];
         let userIndex = getArrayOfIncludes('email', userMail, contactListSorted)[0];
         let initials = getContactInitials(contactListSorted[userIndex].name);
-        userSlot.innerHTML += /*html*/`
-           <div style="background-color: ${contactListSorted[userIndex]['color']}">${initials}</div> 
-        `
+        userSlot.innerHTML += contectCircleHTML(contactListSorted[userIndex].color, initials)
     }
 }
 
-function createSubtask(subtaskId,ulId) {
+/**
+ * Creates a new subtask and appends it to the specified unordered list (ulId).
+ *
+ * @function
+ * @param {string} subtaskId - The ID of the input element containing the subtask text.
+ * @param {string} ulId - The ID of the unordered list where the subtask will be appended.
+ */
+function createSubtask(subtaskId, ulId) {
     let subtask = document.getElementById(subtaskId).value;
     let number = document.getElementsByClassName('subtaskWrapper').length;
     let subtaskContainer = document.getElementById(ulId);
     if (subtask == '') setMsg('msgSubTask', 'subtaskContainer');
     else {
-        subtaskContainer.innerHTML += getCreateSubtaskHTML(subtask,number);
+        subtaskContainer.innerHTML += getCreateSubtaskHTML(subtask, number);
         document.getElementById(subtaskId).value = ''
     }
 }
-
-function subtaskHideEdit(id){
+/**
+ * Hides the edit section of a subtask with the specified ID.
+ *
+ * @function
+ * @param {string} id - The ID of the subtask for which to hide the edit section.
+ */
+function subtaskHideEdit(id) {
     document.getElementById(`editSubtask${id}`).classList.add('d-none');
 }
-function subtaskShowEdit(id){
+/**
+ * Displays the edit section of a subtask with the specified ID.
+ *
+ * @function
+ * @param {string} id - The ID of the subtask for which to display the edit section.
+ */
+function subtaskShowEdit(id) {
     document.getElementById(`editSubtask${id}`).classList.remove('d-none');
 }
+/**
+ * Deletes a subtask with the specified ID by removing its corresponding HTML element.
+ *
+ * @function
+ * @param {string} id - The ID of the subtask to be deleted.
+ */
 function deletSubtask(id) {
-    document.getElementById(`Subtask${id}`).remove();   
+    document.getElementById(`Subtask${id}`).remove();
 }
-
+/**
+ * Removes the message and styling related to subtask validation.
+ *
+ */
 function removeMsg() {
     let msg = document.getElementById('msgSubTask');
     let input = document.getElementById('subtaskContainer')
@@ -119,6 +139,12 @@ function removeMsg() {
     input.classList.remove('redBoarder');
 }
 
+/**
+ * Creates a new task based on user input and adds it to the task list.
+ *
+ * @function
+ * @returns {Promise<void>} - A Promise that resolves after creating and storing the new task.
+ */
 async function createTask() {
     let taskTitle = document.getElementById('addTaskTitle').value;
     let taskDescription = document.getElementById('addTaskDescription').value;
@@ -137,43 +163,71 @@ async function createTask() {
     //setTimeout(function () { clearTask() }, 2000);
 }
 
+/**
+ * Checks and retrieves the priority status of a task from the selected radio button.
+ *
+ * @function
+ * @returns {number} - The priority status of the task (0 for low, 2 for medium, 3 for high).
+ */
 function checkPrioStatus() {
     let taskPrio = +document.querySelector(".prioContainer input[type='radio']:checked");
     if (taskPrio != 0) return +document.querySelector(".prioContainer input[type='radio']:checked").value;
-    else return taskPrio; // no Prio is located set Prio to LOW
+    else return taskPrio;
 }
 
+/**
+ * Retrieves the name of the chosen category from the input element.
+ *
+ * @function
+ * @returns {string} - The name of the chosen category.
+ */
 function loadChoosedCategory() {
     let categoryName = document.getElementById('choosedCatagory').value;
     return categoryName;
 }
 
+/**
+ * Retrieves an array of subtasks from the subtask wrappers.
+ *
+ * @function
+ * @returns {Array<Object>} - An array of subtask objects with description and initial state.
+ */
 function loadSubtasks() {
-let subtasks =[];
+    let subtasks = [];
     let subtasksTitles = document.getElementsByClassName('subtaskWrapper');
     for (let i = 0; i < subtasksTitles.length; i++) {
-            const subtaskTitle = subtasksTitles[i].innerText;
-            subtasks.push({ descr: subtaskTitle, state: 0 });
-        }
+        const subtaskTitle = subtasksTitles[i].innerText;
+        subtasks.push({ descr: subtaskTitle, state: 0 });
+    }
     return subtasks;
-
 }
 
+/**
+ * Renders a user list with selectable items.
+ *
+ * @function
+ * @param {string} bntClass - The class selector for the button triggering the user list.
+ * @param {string} listId - The ID of the HTML element representing the user list.
+ */
 function renderUserList(bntClass, listId) {
     const selectBtn = document.querySelector(bntClass);
     const listElement = document.getElementById(listId);
     const items = listElement.getElementsByClassName('item');
-
     selectBtn.classList.toggle("open");
     for (let i = 0; i < items.length; i++) {
         const item = items[i];
         item.addEventListener("click", () => {
             item.classList.toggle('checked');
-        }
-        )
+        })
     }
 }
 
+/**
+ * Retrieves an array of assigned users based on the checked items in the user list.
+ *
+ * @function
+ * @returns {Array<string>} - An array of email addresses of assigned users.
+ */
 function loadAssignedUsers() {
     let assignedUsers = [];
     let users = document.getElementById('userList').getElementsByClassName('item');
@@ -185,6 +239,10 @@ function loadAssignedUsers() {
     return assignedUsers;
 }
 
+/**
+ * Clears the input fields and resets the form for creating a new task.
+ *
+ */
 function clearTask() {
     document.getElementById('addTaskTitle').value = '';
     document.getElementById('addTaskDescription').value = '';
@@ -196,12 +254,20 @@ function clearTask() {
     loadSelectetUsers();
 }
 
+/**
+ * Clears the priority selection for a new task by unchecking all priority checkboxes.
+ *
+ */
 function clearPrio() {
     document.getElementById('urgent').checked = false;
     document.getElementById('medium').checked = false;
     document.getElementById('low').checked = false;
 }
 
+/**
+ * Clears the selection of assigned users for a new task by removing the "checked" class from all user list items.
+ *
+ */
 function clearAssignedTo() {
     let users = document.getElementById('userList').getElementsByClassName('item');
     for (let i = 0; i < users.length; i++) {
@@ -209,6 +275,12 @@ function clearAssignedTo() {
     }
 }
 
+/**
+ * Displays the input container for creating a new category and hides the existing category selection.
+ *
+ * @function
+ * @returns {Promise<void>} - A Promise that resolves once the operation is complete.
+ */
 async function newCategory() {
     let newCategoryInput = document.getElementById('newCategoryInputContainer');
     let categorySelect = document.getElementById('categorySelect');
@@ -218,18 +290,22 @@ async function newCategory() {
     categoryColoredDots.style = 'display:flex; justify-content:space-around;margin-block:10px -25px;';
 }
 
+/**
+ * Dynamically populates the new category input container with radio buttons and colored dots based on predefined categories.
+ *
+ */
 function loadNewCategoryInput() {
     for (let i = 0; i < CATEGORY.length; i++) {
         const group = CATEGORY[i];
-
-        categoryColoredDots.innerHTML += /*html*/`
-        <input type="radio" id="${group['color']}" name="newCatColor${i}" value="${group['color']}" onclick="animateDot(this.name)" />
-        <label id="newCatColor${i}" class="groupDotColors" for="${group['color']}"></label>        
-        `;
+        categoryColoredDots.innerHTML += newCategoryDotsHTML(group,i);
         document.getElementById(`newCatColor${i}`).style.backgroundColor = group['color'];
     }
 }
 
+/**
+ * Closes the new category input container and restores the visibility of the category selection.
+ *
+ */
 function closeNewCategory() {
     let newCategoryInput = document.getElementById('newCategoryInputContainer');
     let categorySelect = document.getElementById('categorySelect');
@@ -239,9 +315,14 @@ function closeNewCategory() {
     categoryColoredDots.style = 'display:none;';
     let closeMenu = document.getElementsByClassName('categorySelectBtn')[0];
     closeMenu.classList.remove('open');
-
 }
 
+/**
+ * Animates the selected colored dot by scaling it up and resets the scale for other colored dots.
+ *
+ * @function
+ * @param {string} value - The value representing the name of the radio button associated with the selected colored dot.
+ */
 function animateDot(value) {
     let baseScales = document.querySelectorAll('.groupDotColors');
     let colorChoosed = document.getElementById(value);
@@ -251,6 +332,13 @@ function animateDot(value) {
     colorChoosed.style.scale = '1.5';
 }
 
+/**
+ * Saves a new category with the specified name and chosen color, updates the category list, and closes the new category input container.
+ *
+ * @async
+ * @function
+ * @returns {Promise<void>} - A Promise that resolves once the operation is complete.
+ */
 async function saveNewCategory() {
     let newCategoryName = document.getElementById('newCategoryInput').value;
     let colorChoosed = document.querySelector('#categoryColoredDots input[type="radio"]:checked').value.toString();
@@ -258,26 +346,47 @@ async function saveNewCategory() {
     await setItem('groups', groups);
     loadCategory();
     closeNewCategory()
-
 }
 
+/**
+ * Sets the chosen category in the input field, toggles the visibility of the category selection button, and updates the display accordingly.
+ *
+ * @function
+ * @param {string} category - The name of the chosen category.
+ */
 function chooseCategory(category) {
     document.getElementById('choosedCatagory').value = category;
     const selectBtn = document.querySelector('.categorySelectBtn');
     selectBtn.classList.toggle("open");
 }
 
+/**
+ * Deletes the category at the specified index, updates the list of categories, and saves the changes to storage.
+ *
+ * @async
+ * @function
+ * @param {number} index - The index of the category to be deleted.
+ * @returns {Promise<void>} - A Promise that resolves once the operation is complete.
+ */
 async function deletCategory(index) {
     groups.splice(index, 1);
     await setItem('groups', groups);
     loadCategory();
 }
 
+/**
+ * Closes the open dropdown lists by removing the "open" class from the category and user selection buttons.
+ *
+ */
 function closeLists() {
     document.querySelector('.categorySelectBtn').classList.remove('open');
     document.querySelector('.userSelectBtn').classList.toggle('open');
 }
 
+/**
+ * Displays the overlay indicating that a task has been added to the board with a fade-in and fade-out animation.
+ *
+ */
 function showOvlyTaskAdded() {
     if (document.getElementById('ovlyTaskaddedToBoard')) {
         document.getElementById('ovlyTaskaddedToBoard').classList.add("addAnimtaion");
@@ -285,6 +394,11 @@ function showOvlyTaskAdded() {
     }
 }
 
+/**
+ * Checks the form inputs for the "Add Task" operation and displays error messages if any required field is missing.
+ * Submits the form if all required fields are filled.
+ *
+ */
 function checkForm() {
     let title = document.getElementById('addTaskTitle').value;
     let descr = document.getElementById('addTaskDescription').value;
@@ -297,18 +411,31 @@ function checkForm() {
     if (!categ) setMsg('msgCateg', 'addTaskCateg');
 }
 
+/**
+ * Sets an error message and adds a visual indicator (red border) to the specified input field.
+ *
+ * @function
+ * @param {string} idMsg - The ID of the element containing the error message.
+ * @param {string} idInput - The ID of the input field to which the visual indicator will be applied.
+ */
 function setMsg(idMsg, idInput) {
     document.getElementById(idMsg).classList.remove('d-none');
     document.getElementById(idInput).classList.add('redBoarder');
 }
 
+/**
+ * Sets the minimum date for the specified input field based on the current date.
+ *
+ * @function
+ * @param {string} id - The ID of the input field for which the minimum date will be set.
+ */
 function setMinDate(id) {
     let input = document.getElementById(id);
     let min = new Date().toLocaleDateString('fr-ca');
     input.setAttribute("min", min);
 }
 
-function openBoardPage(){
-    let currentURL = window.location.href;
-    console.log(currentURL);
-}
+// function openBoardPage() {
+//     let currentURL = window.location.href;
+//     console.log(currentURL);
+// }

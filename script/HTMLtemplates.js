@@ -468,6 +468,35 @@ function getEditSubtasksHTML(subTask) {
 
 // Add Task
 
+function newCategoryLiHTML() {
+    return /*html*/`
+    <li id="newCategory" class="but-dark" onclick="newCategory()">
+        <span>New category</span>
+    </li>
+    `;
+}
+
+function contactLiHTML(user, initials) {
+    return /*html*/`
+    <li class="item">
+        <div class="item-user">
+            <div style="background-color: ${user['color']}">${initials}</div>
+            <span>${user['name']}</span>
+        </div>
+        <i class="fa-solid fa-check check-icon"></i>
+        <span class="checkbox"></span>
+    </li>
+    `;
+}
+
+function contectCircleHTML(color, initials) {
+    return /*html*/`
+    <div style="background-color: ${color}">
+        ${initials}
+    </div> 
+    `
+}
+
 function categoryLiHTML(group, i) {
     return /*html*/`
     <li class="item">
@@ -476,7 +505,15 @@ function categoryLiHTML(group, i) {
             <span class = "groupDotColors" id="color${i}" ></span>
         </div>            
         <img src="../img/icons/bin.svg" alt="bin-img" onclick="deletCategory(${i})">
-    </li>`
+    </li>
+    `
+}
+
+function newCategoryDotsHTML(group, i) {
+    return/*html*/`
+        <input type="radio" id="${group['color']}" name="newCatColor${i}" value="${group['color']}" onclick="animateDot(this.name)" />
+        <label id="newCatColor${i}" class="groupDotColors" for="${group['color']}"></label>        
+    `
 }
 
 function getCreateSubtaskHTML(subtask, number) {

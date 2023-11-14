@@ -322,8 +322,6 @@ function goToStartPage() {
 
 //------------------------------------------------
 
-// move later to main.js!
-
 /**
  * Hides an HTML element with the specified ID by adding the 'display-none' class.
  *
