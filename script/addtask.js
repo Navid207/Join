@@ -23,7 +23,7 @@ const CATEGORY = [
     },
 ]
 const HTML_NEW_CATEGORY_LI = /*html*/`
-                            <li id="newCategory" onclick="newCategory()">
+                            <li id="newCategory" class="but-dark" onclick="newCategory()">
                                 <span>New category</span>
                             </li>
                             `;
@@ -213,7 +213,7 @@ async function newCategory() {
     let newCategoryInput = document.getElementById('newCategoryInputContainer');
     let categorySelect = document.getElementById('categorySelect');
     let categoryColoredDots = document.getElementById('categoryColoredDots');
-    newCategoryInput.style = 'display: flex;align-items: baseline;';
+    newCategoryInput.style = 'display: flex;';
     categorySelect.style.display = 'none';
     categoryColoredDots.style = 'display:flex; justify-content:space-around;margin-block:10px -25px;';
 }
@@ -269,6 +269,7 @@ function chooseCategory(category) {
 
 async function deletCategory(index) {
     groups.splice(index, 1);
+    await setItem('groups', groups);
     loadCategory();
 }
 

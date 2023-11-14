@@ -181,4 +181,11 @@ function moveTo(taskIdx,condit) {
   tasks[taskIdx]['condit'] = condit;
   setItem('tasks', tasks);
   render(tasks);
+  scrollToTask(taskIdx);
+}
+
+function scrollToTask(idx) {
+  let task = document.getElementById('task'+ idx);
+  task.scrollIntoView();
+  task.classList.add('animateShadow');
 }

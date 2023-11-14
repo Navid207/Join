@@ -148,7 +148,7 @@ function cardHTML(index, task, prio, progress, useres, color) {
                 ${progress}
             </div>
             <div class="btm-line">
-                <div id='users${index}'>${useres}</div>
+                <div id='users${index}' class="users">${useres}</div>
                 <img src="${prio}" alt="prio">
             </div>
         </div>
@@ -303,7 +303,7 @@ function getPriorityHTML(prio) {
 
 function getSubtasksHTML(task, idx) {
     let HTML = '';
-    if (task.subTask.length <= 0) return
+    if (task.subTask.length <= 0) return HTML
     else {
         Subtasks = getSubtasksListHTML(task.subTask, idx);
         HTML = /*html*/`<span><b>Subtasks:</b></span>` + Subtasks;
@@ -381,13 +381,13 @@ function getOvlyEditTaskHTML(idx) {
                 <input type="date" id="editTasktaskDate" required value="${task['deadline']}" onclick = "setMinDate('editTasktaskDate')">
             </div>
             <div>
-                <span>Prio</span>
+                <label>Prio</label>
                 <div id="editTaskwrapperPrio">
                     ${getPrioHTML(task['prio'])}
                 </div>
             </div>
             <div id="ovlyEditTaskWrapperAssignedTo">
-                <span>Assigned to</span>
+                <label>Assigned to</label>
                 <div class="" id="ovlyEditTaskwrapperAssignedToHL" onclick="openDropdown(['ovlyEditTaskWrapperMemberList'])">    
                     <span>Select contacts to assign</span>
                     <img id="ovlyEditTaskwrapperAssignedToHLImg" src="../img/icons/down-arrow.png" alt=""> 
@@ -400,13 +400,13 @@ function getOvlyEditTaskHTML(idx) {
                 </div>
             </div>
             <div id="ovlyEditTaskWrapperSubTask">
-                <span>Subtask</span>
-                     <div> <!--onmouseleave="removeMsg()" -->
+                <label>Subtask</label>
+                     <div id="subtaskContainer" onmouseleave="removeMsg()">
                         <input type="text" id="ovlyEditTaskSubtaskInp" placeholder="Add new subtask">
                         <img src="../img/icons/Add-Task-Subtask-Add-Icon.svg" alt=""
                             onclick="createSubtask('ovlyEditTaskSubtaskInp','ovlyEditTaskSubTaskUl')">
                     </div>
-                    <p id="ovlyEditTaskSubTaskmsg" class="d-none">Subtask missing</p>
+                    <p id="msgSubTask" class="d-none">Subtask missing</p>
                     <ul id="ovlyEditTaskSubTaskUl">
                         ${getEditSubtasksHTML(task.subTask)}
                     </ul>
