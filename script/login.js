@@ -23,7 +23,7 @@ let SingupHTML =/*html*/`
         <img class="arrow-back" src="./img/icons/arrow_left_line.svg" alt="Join Logo" onclick="renderHTML('content',LoginHTML); showElementID('signUp')">
         <h1>Sign up</h1>
         <div id="underline"></div>
-        <form onsubmit="checkPwd(addUser()); return false">
+        <form onsubmit="checkPwd(); return false">
             <input type="name" id="name" name="Name" placeholder="Name Lastname" pattern="[A-ZÄÖÜ][a-zäöüß]{1,} [A-ZÄÖÜ][a-zäöüß]{1,}" title="Name Lastname" required>
             <span id="msgName"></span>
             <input type="email" id="email" name="Email" placeholder="Email" required>
@@ -141,15 +141,14 @@ function mapUsers() {
 }
 
 /**
- * Checks if the passwords match and either returns a specified function or displays an error message.
+ * Checks if the passwords match and either returns add usere function or displays an error message.
  *
- * @param {Function} doFunction - The function to return or execute if the passwords match.
- * @returns {void|Function} - If passwords match, returns the specified function; otherwise, displays an error message.
+ * @returns {void|Function} - If passwords match, returns the add user function; otherwise, displays an error message.
  */
-function checkPwd(doFunction) {
+function checkPwd() {
     let pwd1 = document.getElementById('pwd');
     let pwd2 = document.getElementById('pwdCon');
-    if (pwd1.value === pwd2.value) return doFunction;
+    if (pwd1.value === pwd2.value) return addUser();
     else return addMsg('pwdCon', 'msgPwd', 'Password confirmation is wrong!');
 }
 
@@ -188,8 +187,9 @@ async function addUserToData(user) {
     users.push(user);
     setItem('users', users);
     sendWelcomMail(user);
-    await initLogin();
+    localStorage.removeItem('User');
     renderLogin();
+    await initLogin();
 }
 
 /**
