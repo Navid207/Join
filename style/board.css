@@ -304,7 +304,6 @@ html {
     box-sizing: border-box;
     max-height: calc((100vh - 90px - 90px) * 0.9);
     overflow: auto;
-    scrollbar-width: none;
 }
 
 #ovlyTaskGroup {
@@ -441,8 +440,8 @@ html {
 
 #ovlyBtnClose {
     position: absolute;
-    right: 46px;
-    top: 26px;
+    right: 20px;
+    top: 20px;
     background-color: white;
     border: none;
     border-radius: 100%;
@@ -464,17 +463,28 @@ html {
 
 
 /*Edit Task overlay*/
-#ovlyTaskEditform {
+.ovlyTaskEdit{
     background-color: #FFFFFF;
+    padding: 50px 0 50px 50px;
+    border-radius: 30px;
+}
+
+#ovlyTaskEditform {
     display: flex;
     flex-direction: column;
+    padding-right: 40px;
     gap: 25px;
-    padding: 50px;
-    border-radius: 30px;
     min-width: 400px;
     box-sizing: border-box;
     max-height: calc((100vh - 90px - 90px) * 0.9);
     overflow: auto;
+}
+#ovlyTaskEditform::-webkit-scrollbar {
+    width: 10px;
+}
+#ovlyTaskEditform::-webkit-scrollbar-thumb {
+    background: var(--fntcolor);
+    border-radius: 10px;
 }
 
 #ovlyTaskEditform div {
@@ -485,6 +495,10 @@ html {
 
 #ovlyTaskEditform label {
     font-size: var(--fntsize20);
+}
+
+#ovlyTaskEditform input{
+    width: unset;
 }
 
 #editTaskPrioUrgentlabel span,
@@ -683,6 +697,20 @@ html {
 
 #ovlyEditTaskWrapperSubTask #subtaskContainer{
     align-items: center;
+    justify-content: space-between;
+}
+
+#ovlyEditTaskSubTaskUl{
+    max-height: 65px;
+    overflow: auto;
+}
+
+#ovlyEditTaskSubTaskUl:hover::-webkit-scrollbar {
+    width: 10px;
+}
+#ovlyEditTaskSubTaskUl::-webkit-scrollbar-thumb {
+    background: var(--fntcolor);
+    border-radius: 10px;
 }
 
 #ovlyEditTaskSubTaskUl li{
@@ -713,8 +741,6 @@ html {
     margin-block: -5px;
 }
 
-
-/* Add task Overlay */
 #ovlyCardAddTask {
     background-color: #FFFFFF;
     border-radius: 30px;
@@ -886,8 +912,8 @@ html {
     }
 
     #ovlyBtnClose {
-        right: 46px;
-        top: 26px;
+        right: 20px;
+        top: 20px;
         background-color: var(--acccolor);
         -webkit-mask-image: url(../img/icons/arrow_left_line.svg);
         mask-image: url(../img/icons/arrow_left_line.svg);
@@ -922,9 +948,7 @@ html {
     }
 
     #ovlyEditTaskOkBtn {
-        position: absolute;
-        bottom: 50px;
-        right: 30px;
+        margin-bottom: 25px;
     }
 
 }

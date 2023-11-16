@@ -118,7 +118,8 @@ form span {
     background-size: 20px;
 }
 
-#pwd:focus,#pwdCon:focus {
+#pwd:focus,
+#pwdCon:focus {
     background-image: url("../img/icons/visibility_off.svg");
     background-size: 24px;
 }
@@ -133,16 +134,16 @@ form span {
     margin-left: 8px;
 }
 
-.pwd-input{
+.pwd-input {
     display: flex;
 }
 
-.pwd-input div{
+.pwd-input div {
     margin-left: -60px;
     width: 60px;
 }
 
-.pwd-input:hover{
+.pwd-input:hover {
     cursor: pointer;
 }
 
@@ -282,8 +283,10 @@ form span {
 }
 
 /*  responsive design */
-@media (max-height: 850px) and (min-width: 471px){
-    .logo, .logoW{
+@media (max-height: 850px) and (min-width: 471px) {
+
+    .logo,
+    .logoW {
         height: 80px;
         left: 30px;
         top: 30px;
@@ -318,12 +321,13 @@ form span {
         }
     }
 }
-@media (max-height: 800px)  {
-    h1{
+
+@media (max-height: 800px) {
+    h1 {
         font-size: var(--fntsize47);
     }
 
-    #content{
+    #content {
         margin-top: 18vh;
         max-height: 100%;
         gap: 16px;
@@ -341,8 +345,11 @@ form span {
         margin-bottom: 15px;
     }
 }
-@media (max-height: 730px) and (min-width: 471px){
-    .logo, .logoW{
+
+@media (max-height: 730px) and (min-width: 471px) {
+
+    .logo,
+    .logoW {
         height: 80px;
         left: 30px;
         top: 30px;
@@ -417,8 +424,10 @@ form span {
     }
 }
 
-@media (max-width: 600px){
-    .logo, .logoW{
+@media (max-width: 600px) {
+
+    .logo,
+    .logoW {
         height: 80px;
         left: 30px;
         top: 30px;
@@ -491,23 +500,27 @@ form span {
     p {
         width: 80vw;
     }
-    .but-area{
+
+    .but-area {
         display: grid;
         gap: 15px;
     }
 
-    @media (max-height: 800px)  {
-        h1{
+    @media (max-height: 800px) {
+        h1 {
             font-size: var(--fntsize47);
         }
-        #content{
+
+        #content {
             margin-top: 18vh;
             max-height: 100%;
             gap: 16px;
         }
+
         form {
             gap: 26px;
         }
+
         input {
             height: 40px;
         }
@@ -525,12 +538,12 @@ form span {
     }
 }
 
-@media (max-height: 640px){
-    body{
+@media (max-height: 640px) {
+    body {
         overflow: auto;
     }
-    #content{
+
+    #content {
         margin-top: 110px;
     }
 }
-

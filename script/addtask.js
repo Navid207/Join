@@ -1,4 +1,5 @@
 let conditNewTask = 0;
+let oldSubtask = '';
 const CATEGORY = [
     {
         name: 'Design',
@@ -61,10 +62,38 @@ function loadUser(UserrArray) {
     if (!UserrArray) UserrArray = contactListSorted;
     let listItems = document.getElementsByClassName('userListItems');
     listItems.innerHTML = '';
+    addUserToList(UserrArray, listItems);
+    addEventListenerForItems('userList');
+}
+
+/**
+ * Adds user information to a list of HTML list elements.
+ *
+ * @param {Array} UserrArray - An array of user objects.
+ * @param {HTMLLIElement[]} listItems - A list of HTML list elements to which users should be added.
+ */
+function addUserToList(UserrArray, listItems) {
     for (let i = 0; i < UserrArray.length; i++) {
         const user = UserrArray[i];
         const initials = getContactInitials(user.name);
-        listItems[0].innerHTML += contactLiHTML(user, initials);
+        listItems[0].innerHTML += contactLiHTML(i, user, initials);
+    }
+}
+
+/**
+ * Adds a click event listener to each item in a list identified by the provided ID.
+ * When an item is clicked, it toggles the 'checked' class.
+ *
+ * @param {string} listId - The ID of the HTML list element.
+ */
+function addEventListenerForItems(listId) {
+    const listElement = document.getElementById(listId);
+    const items = listElement.getElementsByClassName('item');
+    for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        item.addEventListener("click", () => {
+            item.classList.toggle('checked');
+        })
     }
 }
 
@@ -101,6 +130,7 @@ function createSubtask(subtaskId, ulId) {
         document.getElementById(subtaskId).value = ''
     }
 }
+
 /**
  * Hides the edit section of a subtask with the specified ID.
  *
@@ -110,6 +140,7 @@ function createSubtask(subtaskId, ulId) {
 function subtaskHideEdit(id) {
     document.getElementById(`editSubtask${id}`).classList.add('d-none');
 }
+
 /**
  * Displays the edit section of a subtask with the specified ID.
  *
@@ -119,6 +150,7 @@ function subtaskHideEdit(id) {
 function subtaskShowEdit(id) {
     document.getElementById(`editSubtask${id}`).classList.remove('d-none');
 }
+
 /**
  * Deletes a subtask with the specified ID by removing its corresponding HTML element.
  *
@@ -128,6 +160,46 @@ function subtaskShowEdit(id) {
 function deletSubtask(id) {
     document.getElementById(`Subtask${id}`).remove();
 }
+
+/**
+ * Initiates the editing process for a subtask with the specified ID.
+ * Stops event propagation, closes category and user lists, and switches the subtask content
+ * to an editable form for modification.
+ *
+ * @param {string} id - The ID of the subtask to be edited.
+ */
+function editSubtask(id) {
+    event.stopPropagation();
+    closeCategoryLists();
+    closeUserLists();
+    oldSubtask = document.getElementById('titleSubtask' + id).innerHTML;
+    document.getElementById('Subtask' + id).innerHTML = getSubtasksEditHTML(id);
+    document.getElementById('EditSubtask' + id).value = oldSubtask;
+}
+
+/**
+ * Saves the edited content of a subtask with the specified ID.
+ *
+ * @param {string} id - The ID of the subtask to be saved.
+ * @param {string} [subtask] - Optional. The edited content of the subtask. If not provided, it is retrieved from the input field.
+ */
+function saveSubtask(id, subtask) {
+    if (!subtask) subtask = document.getElementById('EditSubtask' + id).value;
+    document.getElementById('Subtask' + id).innerHTML = getSubtasksContentHTML(subtask, id);
+}
+
+/**
+ * Closes the editing interface for a subtask, saving the changes if applicable.
+ * 
+ */
+function closeSubtaskEdit() {
+    if (document.querySelector(".subtaskWrapperLineEdit")) {
+        let editSubtasks = document.querySelector(".subtaskWrapperLineEdit").firstChild;
+        id = +editSubtasks.nextElementSibling.id.replace(/^\D+/g, '');
+        saveSubtask(id, oldSubtask)
+    }
+}
+
 /**
  * Removes the message and styling related to subtask validation.
  *
@@ -203,23 +275,17 @@ function loadSubtasks() {
 }
 
 /**
- * Renders a user list with selectable items.
+ * Renders a user list with selectable items and manages the visibility of the list based on user interaction.
  *
  * @function
  * @param {string} bntClass - The class selector for the button triggering the user list.
- * @param {string} listId - The ID of the HTML element representing the user list.
+ * @param {Event} event - The event object representing the user interaction that triggered the function.
  */
-function renderUserList(bntClass, listId) {
+function renderUserList(bntClass, event) {
+    event.stopPropagation();
+    (bntClass == '.userSelectBtn') ? closeCategoryLists() : closeUserLists();
     const selectBtn = document.querySelector(bntClass);
-    const listElement = document.getElementById(listId);
-    const items = listElement.getElementsByClassName('item');
     selectBtn.classList.toggle("open");
-    for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        item.addEventListener("click", () => {
-            item.classList.toggle('checked');
-        })
-    }
 }
 
 /**
@@ -297,7 +363,7 @@ async function newCategory() {
 function loadNewCategoryInput() {
     for (let i = 0; i < CATEGORY.length; i++) {
         const group = CATEGORY[i];
-        categoryColoredDots.innerHTML += newCategoryDotsHTML(group,i);
+        categoryColoredDots.innerHTML += newCategoryDotsHTML(group, i);
         document.getElementById(`newCatColor${i}`).style.backgroundColor = group['color'];
     }
 }
@@ -369,18 +435,41 @@ function chooseCategory(category) {
  * @returns {Promise<void>} - A Promise that resolves once the operation is complete.
  */
 async function deletCategory(index) {
+    event.stopPropagation();
     groups.splice(index, 1);
     await setItem('groups', groups);
     loadCategory();
 }
 
 /**
- * Closes the open dropdown lists by removing the "open" class from the category and user selection buttons.
+ * Closes the open dropdown lists and Subtask Edit view.
  *
  */
 function closeLists() {
-    document.querySelector('.categorySelectBtn').classList.remove('open');
-    document.querySelector('.userSelectBtn').classList.toggle('open');
+    closeCategoryLists();
+    closeUserLists();
+    closeSubtaskEdit();
+}
+
+/**
+ * Closes the category selection list by removing the 'open' class.
+ * 
+ */
+function closeCategoryLists() {
+    let categorylist = document.querySelector('.categorySelectBtn');
+    if (categorylist) categorylist.classList.remove('open');
+}
+
+/**
+ * Closes the user list by removing the 'open' class.
+ * 
+ */
+function closeUserLists() {
+    let userlist = document.querySelector('.userSelectBtn');
+    if (userlist) {
+        userlist.classList.remove('open');
+        loadSelectetUsers();
+    }
 }
 
 /**
@@ -434,8 +523,3 @@ function setMinDate(id) {
     let min = new Date().toLocaleDateString('fr-ca');
     input.setAttribute("min", min);
 }
-
-// function openBoardPage() {
-//     let currentURL = window.location.href;
-//     console.log(currentURL);
-// }

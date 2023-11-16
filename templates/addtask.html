@@ -1,6 +1,6 @@
 <div id="addtaskContainer">
     <h1>Add Task</h1>
-    <form id="addTask" action="javascript:createTask()" autocomplete="off">
+    <form id="addTask" action="javascript:createTask()" onclick="closeLists()" autocomplete="off">
         <div class="inputAddTask">
             <div id="leftSideAddTask">
                 <section>
@@ -17,14 +17,13 @@
                 <section>
                     <h3>Assigned to</h3>
                     <div class="container">
-                        <div class="userSelectBtn" onkeydown="serchUsers()"
-                            onclick="renderUserList('.userSelectBtn', 'userList'),loadSelectetUsers()">
+                        <div class="userSelectBtn" onclick="renderUserList('.userSelectBtn',event),loadSelectetUsers()"> <!-- onkeydown="serchUsers()" -->
                             <input class="userBtnText" id="userBtnText" placeholder="Select contact">
                             <span class="arrow-dwn">
                                 <img src="../img/icons/down-arrow.png" alt="">
                             </span>
                         </div>
-                        <ul class="userListItems" id="userList"></ul>
+                        <ul class="userListItems" id="userList" onclick="event.stopPropagation()"></ul>
                     </div>
                     <div id="selectetUsers"></div>
                 </section>
@@ -62,7 +61,7 @@
                     <div class="container">
                         <div id="categorySelect">
                             <div id="addTaskCateg" class="categorySelectBtn"
-                                onclick="renderUserList('.categorySelectBtn','newCategoryListItems')">
+                                onclick="renderUserList('.categorySelectBtn',event)">
                                 <input id="choosedCatagory" type="text" placeholder="Select task category">
                                 <span class="arrow-dwn">
                                     <img src="../img/icons/down-arrow.png" alt="">

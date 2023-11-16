@@ -257,17 +257,39 @@ h3 {
     cursor: pointer;
 }
 
+.subtaskWrapperLineEdit{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--fntsize20);
+    height: 25px;
+    background-color: white;
+    border-bottom: 1px solid var(--acccolor);
+}
+.subtaskWrapperLineEdit input{
+    height: 25px;
+    border: none;
+    outline: none;
+}
+.subtaskWrapperLineEdit div {
+    display: flex;
+    gap: 20px;
+}
+.subtaskWrapperLineEdit svg {
+    height: 20px;
+    width: 20px;
+    fill: var(--primcolor);
+}
+.subtaskWrapperLineEdit svg:hover {
+    fill: var(--acccolor);
+    cursor: pointer;
+}
+
 #addTaskForm {
     display: flex;
     justify-content: space-evenly;
     width: 100vw;
 }
-
-/* .dot {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-} */
 
 .designColor {
     background-color: #FF7A00;
@@ -471,10 +493,20 @@ input[id="low"] {
 }
 
 #selectetUsers {
-    display: flex;
-    flex-wrap: wrap;
+    display: -webkit-box;
+    width: -webkit-fill-available;
+    overflow: auto;
     padding: 5px;
     gap: 5px;
+}
+
+#selectetUsers::-webkit-scrollbar {
+    height: 10px;
+}
+
+#selectetUsers::-webkit-scrollbar-thumb {
+    background: var(--fntcolor);
+    border-radius: 10px;
 }
 
 #selectetUsers div {
@@ -613,6 +645,20 @@ input[id="low"] {
 
     100% {
         bottom: -200px;
+    }
+}
+
+@media(max-height:830px) and (min-width: 841px){
+    #addtaskContainer form {
+        overflow: auto;
+        height: calc(100vh - 180px - 120px);
+    }
+}
+
+@media(max-height:830px) and (min-width: 1025px){
+    #addtaskContainer form {
+        overflow: auto;
+        height: calc(100vh - 90px - 120px);
     }
 }
 
