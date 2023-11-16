@@ -164,7 +164,7 @@ form span {
 
 .ovlyMsg {
     animation: slideUp 2s linear 0s 1 normal;
-    position: absolute;
+    position: fixed;
     bottom: -100vh;
     height: 100vh;
     width: 100%;

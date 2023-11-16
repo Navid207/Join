@@ -649,26 +649,39 @@ input[id="low"] {
 }
 
 @media(max-height:830px) and (min-width: 841px){
+    #addtaskContainer{
+        padding-right: 0;
+    }
+
     #addtaskContainer form {
         overflow: auto;
         height: calc(100vh - 180px - 120px);
+        padding-right: 40px;
+    }
+    #addtaskContainer form::-webkit-scrollbar {
+        width: 10px;
+    }
+    #addtaskContainer form::-webkit-scrollbar-thumb {
+        background: var(--fntcolor);
+        border-radius: 10px;
     }
 }
 
 @media(max-height:830px) and (min-width: 1025px){
+    #addtaskContainer{
+        padding-right: 0;
+    }
+
     #addtaskContainer form {
         overflow: auto;
-        height: calc(100vh - 90px - 120px);
+        height: calc(100vh - 90px - 175px);
+        padding-right: 40px;
     }
 }
 
 @media only screen and (max-width: 1350px) {
     #addtaskWrapper h1 {
         padding-block: 20px;
-    }
-
-    #addtaskContainer {
-        padding-inline: 40px;
     }
 
     #addTaskWrapper {

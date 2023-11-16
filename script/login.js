@@ -23,7 +23,7 @@ let SingupHTML =/*html*/`
         <img class="arrow-back" src="./img/icons/arrow_left_line.svg" alt="Join Logo" onclick="renderHTML('content',LoginHTML); showElementID('signUp')">
         <h1>Sign up</h1>
         <div id="underline"></div>
-        <form onsubmit="checkPwd(); return false">
+        <form onsubmit="checkSignIn(); return false">
             <input type="name" id="name" name="Name" placeholder="Name Lastname" pattern="[A-ZÄÖÜ][a-zäöüß]{1,} [A-ZÄÖÜ][a-zäöüß]{1,}" title="Name Lastname" required>
             <span id="msgName"></span>
             <input type="email" id="email" name="Email" placeholder="Email" required>
@@ -141,6 +141,38 @@ function mapUsers() {
 }
 
 /**
+ * Initiates the sign-in validation process by clearing all messages and checking the password.
+ *
+ */
+function checkSignIn() {
+    clearAllMsg();
+    checkPwd();
+}
+
+/**
+ * Clears the content of message elements and removes the 'border-wrg' class from corresponding input elements.
+ * 
+ */
+function clearAllMsg() {
+    clearMsg('msgName', 'name');
+    clearMsg('msgEmail', 'email');
+    clearMsg('msgPwd', 'pwdCon');
+}
+
+/**
+ * Clears the content of a message element and removes the 'border-wrg' class from an input element.
+ *
+ * @param {string} msgId - The ID of the message element to be cleared.
+ * @param {string} inpId - The ID of the input element from which to remove the 'border-wrg' class.
+ */
+function clearMsg(msgId, inpId) {
+    let msg = document.getElementById(msgId);
+    let inp = document.getElementById(inpId);
+    if (msg) msg.innerHTML = '';
+    if (inp) inp.classList.remove('border-wrg');
+}
+
+/**
  * Checks if the passwords match and either returns add usere function or displays an error message.
  *
  * @returns {void|Function} - If passwords match, returns the add user function; otherwise, displays an error message.
@@ -211,6 +243,25 @@ function renderLogin() {
     renderHTML('content', LoginHTML);
     showElementID('signUp');
     renderHTML('hidden', SendMailHTML);
+    removeElementByClassName('ovlyMsg', 2000);
+}
+
+/**
+ * Removes elements with a specified class name after a specified delay.
+ *
+ * @param {string} className - The class name of the elements to be removed.
+ * @param {number} delayTime - The delay time (in milliseconds) before removing each element.
+ */
+function removeElementByClassName(className, delayTime) {
+    let hidenMsg = document.getElementsByClassName(className);
+    if (hidenMsg) {
+        for (let i = 0; i < hidenMsg.length; i++) {
+            setTimeout(function() {
+                hidenMsg[i].remove();
+            },delayTime);
+        }
+    }
+    ;
 }
 
 /**
@@ -284,6 +335,7 @@ function forgotPwd() {
     let email = document.getElementById('email');
     if (users.find(u => u.email == email.value)) {
         renderHTML('hidden', SendMailHTML);
+        removeElementByClassName('ovlyMsg', 2000);
         renderHTML('content', LoginHTML);
         showElementID('signUp');
     } else addMsg('email', 'msgMail', 'Email not exist!');
@@ -296,7 +348,9 @@ function checkState() {
     const msg = URL_PARAMS.get('msg');
     if (msg == 'send_Mail') {
         renderHTML('hidden', SendMailHTML);
+        removeElementByClassName('ovlyMsg', 2000);
         hideElementID('SendMailHTML');
+        removeElementByClassName('ovlyMsg', 2000);
     }
 }
 
@@ -310,6 +364,7 @@ async function changePassword() {
     users[userID]['pwd'] = document.getElementById('pwd').value;
     setItem('users', users);
     renderHTML('hidden', ChangePwdHTML);
+    removeElementByClassName('ovlyMsg', 2000);
     setTimeout(function () { goToStartPage(); }, 2000);
 }
 
