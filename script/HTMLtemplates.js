@@ -163,9 +163,9 @@ function cardControlHTML(task, index) {
     let svgUp = cardControlUpHTML(task, index);
     let svgDown = cardControlDownHTML(task, index);
     let svgMoveTo = /*html*/`
-        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
             <path d="M200-120q-33 0-56.5-23.5T120-200v-160h80v160h560v-560H200v160h-80v-160q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm220-160-56-58 102-102H120v-80h346L364-622l56-58 200 200-200 200Z"/>
-        </svg>
+        </svg> -->
     `
     return svgUp + svgMoveTo + svgDown
 }
@@ -235,10 +235,20 @@ function useresHTML(showTasks, index) {
     return html
 }
 
+function emptySlotHTML(condit) {
+    let slot = document.getElementById(condit);
+    return slot.innerHTML = /*html*/`
+        <div class="emptyCard">
+            <Span>No tasks</Span>
+        </div>
+    `
+}
+
 function getOvlyTaskHTML(idx) {
     let task = tasks[idx];
     let assignedToHTML = getAssignedToHTML(task['users'], 'withName');
     return /*html*/`
+    <div class="ovlyTask">
         <div id="ovlyCardTask">
             <button id="ovlyBtnClose" onclick="hideOvlyCard()">
                 <svg viewBox="0 0 31 31" xmlns="http://www.w3.org/2000/svg">
@@ -275,6 +285,7 @@ function getOvlyTaskHTML(idx) {
                 </button>
             </div>
         </div>
+    </div>
     `
 }
 
@@ -306,7 +317,9 @@ function getSubtasksHTML(task, idx) {
     if (task.subTask.length <= 0) return HTML
     else {
         Subtasks = getSubtasksListHTML(task.subTask, idx);
-        HTML = /*html*/`<span><b>Subtasks:</b></span>` + Subtasks;
+        HTML = /*html*/`
+        <span><b>Subtasks:</b></span>
+        <ul>` + Subtasks + `</ul>`;
     }
     return HTML
 }
@@ -318,7 +331,7 @@ function getSubtasksListHTML(subTasks, idx) {
         <li>
             <input type="checkbox" id="subTask${i}" onclick="toggleSubtask(${idx},${i})">
             <label for="subTask${i}">${subTasks[i].descr}</label>
-    </li>
+        </li>
         `
     }
     return HTML

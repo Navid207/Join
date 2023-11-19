@@ -1,4 +1,14 @@
-// let VisibilTasks = tasks;
+const conditions = {
+  0: 'taskToDo',
+  1: 'taskProgress',
+  2: 'taskAwaFeedb',
+  3: 'taskDone',
+}
+const prios = {
+  0: '../img/icons/prio_low.svg',
+  1: '../img/icons/prio_medium.svg',
+  2: '../img/icons/prio_high.svg',
+}
 
 async function initBoard() {
   await init('tabboard');
@@ -15,22 +25,21 @@ function deleteAllCards() {
 
 function render(showTasks) {
   deleteAllCards();
+  let conditionsCounter = {
+    'taskToDo': 0,
+    'taskProgress': 0,
+    'taskAwaFeedb': 0,
+    'taskDone': 0,
+  };
   for (let i = 0; i < showTasks.length; i++) {
     const task = showTasks[i];
-    const condition = {
-      0: 'taskToDo',
-      1: 'taskProgress',
-      2: 'taskAwaFeedb',
-      3: 'taskDone',
-    }[task['condit']];
-    const prio = {
-      0: '../img/icons/prio_low.svg',
-      1: '../img/icons/prio_medium.svg',
-      2: '../img/icons/prio_high.svg',
-    }[task['prio']];
+    let condition = conditions[task['condit']];
+    let prio = prios[task['prio']];
+    conditionsCounter[condition] += 1;
     const slot = document.getElementById(condition);
     slot.innerHTML += cardHTML(i, task, prio, progressHTML(showTasks, i), useresHTML(showTasks, i), getGroupColor(showTasks, i));
   }
+  setEmptySlots(conditionsCounter);
 }
 
 function getGroupColor(showTasks, index) {
@@ -38,6 +47,15 @@ function getGroupColor(showTasks, index) {
   if (groupsId >= 0) return groups[groupsId]['color']
   else return "#9797a5"
 }
+
+function setEmptySlots(conditionsCounter) {
+  if (conditionsCounter.taskToDo == 0) emptySlotHTML('taskToDo');
+  if (conditionsCounter.taskProgress == 0) emptySlotHTML('taskProgress');
+  if (conditionsCounter.taskAwaFeedb == 0) emptySlotHTML('taskAwaFeedb');
+  if (conditionsCounter.taskDone == 0) emptySlotHTML('taskDone');
+}
+
+
 
 function findIndexByValue(ValueToSearch, valueToFind, dataArray) {
   for (let i = 0; i < dataArray.length; i++) {
@@ -65,7 +83,7 @@ function checkSubtasks(idx) {
   }
 }
 
-async function toggleSubtask(TaskIdx,SubtasksIdx){
+async function toggleSubtask(TaskIdx, SubtasksIdx) {
   let checkbox = document.getElementById('subTask' + SubtasksIdx).checked;
   (checkbox == true) ? tasks[TaskIdx].subTask[SubtasksIdx].state = 1 : tasks[TaskIdx].subTask[SubtasksIdx].state = 0;
   setItem('tasks', tasks);
@@ -177,15 +195,18 @@ function closeDropdown(ID) {
   document.getElementById('ovlyEditTaskwrapperAssignedToHL').setAttribute('onclick', 'openDropdown(["ovlyEditTaskWrapperMemberList"])');
 }
 
-function moveTo(taskIdx,condit) {
+function moveTo(taskIdx, condit) {
   tasks[taskIdx]['condit'] = condit;
   setItem('tasks', tasks);
   render(tasks);
-  scrollToTask(taskIdx);
+  // scrollToTask(taskIdx);
 }
 
-function scrollToTask(idx) {
-  let task = document.getElementById('task'+ idx);
-  task.scrollIntoView();
-  task.classList.add('animateShadow');
-}
+// function scrollToTask(idx) {
+//   let taskPos = document.getElementById('task'+ idx).getBoundingClientRect().y;
+//   let scrollArea = document.getElementsByClassName('board-content');
+//   console.log(taskPos);
+//   debugger
+//   scrollArea[0].scrollTop = taskPos-344;
+//   // task.classList.add('animateShadow');
+// }
