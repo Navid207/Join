@@ -5,11 +5,19 @@
         <img src="../img/icons/help.svg" alt="Help">
     </button>
     <div id="wrapperuser">
-        <button id="btnuser" onclick="showElement(['alogout'],event)">
+        <button id="btnuser" onclick="showElement(['menu'],event)">
             <span id="headerInitials"></span>
         </button>
-        <a id="alogout" class="display-none" onclick="logout(event)" href="../index.html">
-            <span>Log out</span>
-        </a>
+        <div id="menu" class="display-none">
+            <a onclick="logout(event)" href="../index.html">
+                <span>Log out</span>
+            </a>
+            <a onclick="showHelp(event)">
+                <span>Help</span>
+            </a>
+            <a onclick="showLegalNotice(event)">
+                <span>Legal notice</span>
+            </a>
+        </div>
     </div>
 </div>

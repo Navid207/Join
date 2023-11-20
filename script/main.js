@@ -268,3 +268,27 @@ function getArrayOfIncludes(ValueToSearch, valueToFind, dataArray) {
     }
     return Indexs;
 }
+
+/**
+ * Displays the legal notice content.
+ *
+ * @param {Event} event - The event triggering the function.
+ */
+function showLegalNotice(event) {
+    showElement(['contentImpressum'],event);
+    hideElement(['content','contentHelp']);
+    setActiveMenuTab('tabimpressum');
+    document.getElementById('menu').classList.add('display-none');
+}
+
+/**
+ * Displays the help content.
+ *
+ * @param {Event} event - The event triggering the function.
+ */
+function showHelp(event) {
+    showElement(['contentHelp'],event);
+    hideElement(['content','contentImpressum']);
+    setActiveMenuTab();
+    document.getElementById('menu').classList.add('display-none');
+}

@@ -795,12 +795,6 @@ html {
     margin-block: -5px;
 }
 
-#ovlyCardAddTask {
-    background-color: #FFFFFF;
-    border-radius: 30px;
-    padding: 60px 70px;
-}
-
 .headline {
     margin: unset !important;
 }

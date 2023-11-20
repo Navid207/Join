@@ -41,13 +41,12 @@
     cursor: pointer;
 }
 
-
 #btnuser span{
     color: var(--acccolor);
     font-weight: bold;
 }
 
-#alogout {
+#menu {
     position: absolute;
     right: 0;
     top: 70px;
@@ -59,16 +58,20 @@
     text-decoration: none;
 }
 
-#alogout span {
+#menu span {
     display: flex;
     align-items: center;
-    justify-content: center;
     color: var(--fntcolor);
     width: 94px;
     height: 17px;
+    padding: 8px;
+    cursor: pointer;
 }
 
-
+#menu span:hover {
+    color: var(--bg-color);
+    font-weight: bold;
+}
 
 /*------------------ set responsive design ------------------*/
 @media (max-width: 1024px){
