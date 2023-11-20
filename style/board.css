@@ -520,7 +520,7 @@ html {
     min-width: 400px;
     box-sizing: border-box;
     max-height: calc((100vh - 90px - 90px) * 0.9);
-    overflow: auto;
+    overflow-y: auto;
 }
 
 #ovlyTaskEditform::-webkit-scrollbar {
@@ -689,7 +689,8 @@ html {
 #ovlyEditTaskWrapperMemberListElement {
     flex-direction: row !important;
     justify-content: space-between;
-    padding: 8px 21px;
+    align-items: center;
+    padding: unset;
     cursor: pointer;
 }
 
@@ -698,33 +699,37 @@ html {
     transition: all var(--transtime) ease-in;
 }
 
-#ovlyEditTaskWrapperMemberListElement {
-    flex-direction: row !important;
-    justify-content: space-between;
-    padding: 8px 21px;
-    cursor: pointer;
-}
-
 #ovlyEditTaskWrapperMemberListElement:hover {
     background-color: #d3cfcf;
     transition: all var(--transtime) ease-in;
+}
+
+#ovlyEditTaskWrapperMemberListElement label {
+    width: 100%;
+    padding: 8px 21px;
+    font-size: var(--fntsizebase);
+}
+#ovlyEditTaskWrapperMemberListElement input {
+    margin: 8px 21px;
+    height: 100%;
 }
 
 #ovlyEditTaskWrapperAssignedToActual {
     flex-direction: row !important;
-    flex-wrap: wrap;
-    margin-top: 15px;
+    padding-block: 5px;
+    width: 350px;
+    overflow: auto;
 }
-
-#ovlyEditTaskWrapperMemberListElement {
-    flex-direction: row !important;
-    justify-content: space-between;
+#ovlyEditTaskWrapperAssignedToActual::-webkit-scrollbar {
+    height: 10px;
+}
+#ovlyEditTaskWrapperAssignedToActual::-webkit-scrollbar-thumb {
+    background: var(--fntcolor);
+    border-radius: 10px;
 }
 
 #ovlyEditTaskWrapperSubTask div {
     flex-direction: row !important;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
 }
 
 #ovlyEditTaskWrapperSubTask div:hover {
@@ -752,7 +757,7 @@ html {
     overflow: auto;
 }
 
-#ovlyEditTaskSubTaskUl:hover::-webkit-scrollbar {
+#ovlyEditTaskSubTaskUl::-webkit-scrollbar {
     width: 10px;
 }
 
@@ -761,17 +766,16 @@ html {
     border-radius: 10px;
 }
 
-#ovlyEditTaskSubTaskUl li {
-    height: 20px;
-}
-
 #ovlyEditTaskSubTaskUl li::marker {
     font-size: 16px;
 }
 
 #ovlyEditTaskSubTaskUl li div {
     padding-left: 4px;
-    border: none;
+}
+
+.subtaskWrapperLineEdit input{
+    padding-block: 0;
 }
 
 #ovlyEditTaskSubTaskUl .subtasksTitles {
@@ -1010,10 +1014,15 @@ html {
     #ovlyTaskEditform {
         max-height: calc(100vh - 150px);
         padding-right: 20px;
+        min-width: unset;
     }
 
     #editTaskwrapperPrio label span {
         font-size: var(--fntsizebase);
+    }
+
+    #ovlyEditTaskWrapperAssignedToActual {
+        width: 290px;
     }
 
 }
@@ -1060,6 +1069,7 @@ html {
         max-height: unset;
         width: 100vw;
         border-radius: unset;
+        padding-left: 8px;
     }
 
     #editTaskwrapperPrio {

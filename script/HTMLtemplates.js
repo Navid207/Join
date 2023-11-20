@@ -380,7 +380,7 @@ function getOvlyEditTaskHTML(idx) {
                 <path d="M22.8172 23.1061L7.50941 7.79832" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
             </svg>
         </button>
-        <div class="ovlyTaskEdit">
+        <div class="ovlyTaskEdit" onclick="closeLists()">
             <form id="ovlyTaskEditform" action="" onsubmit="return false">
                 <div>
                     <label for="editTasktaskTitle">Title</label>

@@ -186,6 +186,7 @@ function openDropdown(ID) {
   document.getElementById('ovlyEditTaskwrapperAssignedToHL').classList.add('styleOpen');
   document.getElementById('ovlyEditTaskwrapperAssignedToHLImg').classList.add('styleOpen');
   document.getElementById('ovlyEditTaskwrapperAssignedToHL').setAttribute('onclick', 'closeDropdown(["ovlyEditTaskWrapperMemberList"])');
+  document.getElementById('ovlyEditTaskWrapperAssignedToActual').classList.add('display-none');
 }
 
 function closeDropdown(ID) {
@@ -193,6 +194,8 @@ function closeDropdown(ID) {
   document.getElementById('ovlyEditTaskwrapperAssignedToHL').classList.remove('styleOpen');
   document.getElementById('ovlyEditTaskwrapperAssignedToHLImg').classList.remove('styleOpen');
   document.getElementById('ovlyEditTaskwrapperAssignedToHL').setAttribute('onclick', 'openDropdown(["ovlyEditTaskWrapperMemberList"])');
+  document.getElementById('ovlyEditTaskWrapperAssignedToActual').classList.remove('display-none');
+  document.getElementById('ovlyEditTaskWrapperAssignedToActual').innerHTML = getAssignedToHTML(getSelectedMembers());
 }
 
 function moveTo(taskIdx, condit) {
