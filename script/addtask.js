@@ -232,7 +232,7 @@ async function createTask() {
     hideOvlyCard();
     if (typeof (render) != "undefined") { render(tasks) };
     setTimeout(() => clearTask(), 1000);
-    //setTimeout(function () { clearTask() }, 2000);
+    setTimeout(function () { goToBoard() }, 2000);
 }
 
 /**
@@ -522,4 +522,13 @@ function setMinDate(id) {
     let input = document.getElementById(id);
     let min = new Date().toLocaleDateString('fr-ca');
     input.setAttribute("min", min);
+}
+
+/**
+ * Redirects the user to the board page by opening the board URL in the current tab.
+ *
+ */
+function goToBoard() {
+    const boardURL = document.getElementById("tabboard").href;
+    window.open(boardURL,"_self");
 }
