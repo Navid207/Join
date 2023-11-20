@@ -4,7 +4,7 @@ let LoginHTML = /*html*/`
         <form onsubmit="login(); return false">
             <input type="email" id="email" name="Email" placeholder="Email" required>
             <div class="pwd-input" onmouseleave="hidePwd('pwd')">
-                    <input onclick="showPwdBg('pwd')" type="password" id="pwd" name="Password" placeholder="Password" required>
+                    <input onclick="showPwdBg('pwd')" type="password" id="pwd" name="Password" placeholder="Password" autocomplete="off" required>
                     <div onclick="togglPwd('pwd')"></div>
             </div>
             <span id="msgPwd"></span>
@@ -29,11 +29,11 @@ let SingupHTML =/*html*/`
             <input type="email" id="email" name="Email" placeholder="Email" required>
             <span id="msgEmail"></span>
             <div class="pwd-input" onmouseleave="hidePwd('pwd')">
-                    <input onclick="showPwdBg('pwd')" type="password" id="pwd" name="Password" placeholder="Password" minlength="8" required>
+                    <input onclick="showPwdBg('pwd')" type="password" id="pwd" name="Password" placeholder="Password" minlength="8" autocomplete="off" required>
                     <div onclick="togglPwd('pwd')"></div>
             </div>
             <div class="pwd-input" onmouseleave="hidePwd('pwdCon')">
-                    <input onclick="showPwdBg('pwdCon')" type="password" id="pwdCon" name="Password" placeholder="Password" minlength="8" required>
+                    <input onclick="showPwdBg('pwdCon')" type="password" id="pwdCon" name="Password" placeholder="Password" minlength="8" autocomplete="off" required>
                     <div onclick="togglPwd('pwdCon')"></div>
             </div>
             <span id="msgPwd"></span>
@@ -45,7 +45,7 @@ let PwdHTML = /*html*/`
         <h1>I forgot my password</h1>
         <div id="underline"></div>
         <p>Don't worry! We will send you an email with the istructions to reset your password.</p>
-        <form action="https://join-615.developerakademie.net/php/send_mail_change_pwd.php" method="POST"> 
+        <form> <!-- action="https://join-615.developerakademie.net/php/send_mail_change_pwd.php" method="POST" -->
             <input type="email" id="email" name="Email" placeholder="Email" required>
             <span id="msgMail"></span>
             <button class="but-dark" onclick ="forgotPwd()" >Send me the email</button>
@@ -218,7 +218,7 @@ async function addUserToData(user) {
     user.id = users.length + 1;
     users.push(user);
     setItem('users', users);
-    sendWelcomMail(user);
+    //sendWelcomMail(user);   --> no PHP Server
     localStorage.removeItem('User');
     renderLogin();
     await initLogin();

@@ -38,7 +38,7 @@
             <form onsubmit="login(); return false">
                 <input type="email" id="email" name="Email" placeholder="Email" required>
                 <div class="pwd-input" onmouseleave="hidePwd('pwd')">
-                    <input onclick="showPwdBg('pwd')" type="password" id="pwd" name="Password" placeholder="Password" required>
+                    <input onclick="showPwdBg('pwd')" type="password" id="pwd" name="Password" placeholder="Password" autocomplete="off" required>
                     <div onclick="togglPwd('pwd')"></div>
                 </div>
                 <span id="msgPwd"></span>
