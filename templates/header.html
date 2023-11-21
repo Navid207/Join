@@ -5,10 +5,10 @@
         <img src="../img/icons/help.svg" alt="Help">
     </button>
     <div id="wrapperuser">
-        <button id="btnuser" onclick="showElement(['menu'],event)">
+        <button id="btnuser" onclick="toggleShowMenu(event)">
             <span id="headerInitials"></span>
         </button>
-        <div id="menu" class="display-none">
+        <div id="dropdownMenu" class="display-none" onmouseleave="toggleShowMenu(event)">
             <a onclick="logout(event)" href="../index.html">
                 <span>Log out</span>
             </a>

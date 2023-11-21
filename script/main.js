@@ -270,6 +270,16 @@ function getArrayOfIncludes(ValueToSearch, valueToFind, dataArray) {
 }
 
 /**
+ * Displays the dropdown menu.
+ *
+ */
+function toggleShowMenu(event) {
+    event.stopPropagation();
+    let dropdownMenu = document.getElementById('dropdownMenu').classList;
+    (dropdownMenu.value === '')? dropdownMenu.add('display-none') : dropdownMenu.remove('display-none');
+}
+
+/**
  * Displays the legal notice content.
  *
  * @param {Event} event - The event triggering the function.
@@ -278,7 +288,6 @@ function showLegalNotice(event) {
     showElement(['contentImpressum'],event);
     hideElement(['content','contentHelp']);
     setActiveMenuTab('tabimpressum');
-    document.getElementById('menu').classList.add('display-none');
 }
 
 /**
@@ -290,5 +299,4 @@ function showHelp(event) {
     showElement(['contentHelp'],event);
     hideElement(['content','contentImpressum']);
     setActiveMenuTab();
-    document.getElementById('menu').classList.add('display-none');
 }

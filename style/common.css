@@ -97,7 +97,6 @@ input:hover {
     border-radius: 8px;
     color: white;
     font-size: var(--fntsize21);
-    /* font-weight: 700; */
     height: 51px;
     padding: 0 16px;
     cursor: pointer;
@@ -115,7 +114,6 @@ input:hover {
     border-radius: 8px;
     color: var(--seccolor);
     font-size: var(--fntsize21);
-    /* font-weight: 700; */
     height: 51px;
     padding: 0 16px;
     cursor: pointer;

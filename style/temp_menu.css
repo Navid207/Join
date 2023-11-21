@@ -1,9 +1,9 @@
-#wrapperMenu{
+.wrapperMenu {
     display: flex;
     gap: 103px;
     flex-direction: column;
     align-items: center;
-    width: 100%; /*230px; */
+    width: 230px;
 }
 
 #menulogo {
@@ -44,29 +44,34 @@
 }
 
 /*------------------ set responsive design ------------------*/
-@media (max-width: 1350px){
-    #menulogo{
+@media (max-width: 1350px) {
+    .wrapperMenu {
+        width: 155px;
+    }
+
+    #menulogo {
         width: 80px;
         height: 96px;
     }
-    .menulink{
-        padding: 8px 30px;
-    }
- }
 
-@media (max-width: 1155px){
-    #menulogo{
+    .menulink {
+        padding: 8px 20px;
+    }
+}
+
+@media (max-width: 1155px) {
+    #menulogo {
         width: 48px;
         height: 57px;
     }
 
-    .menulink{
+    .menulink {
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    .menulink span{
+    .menulink span {
         display: none;
         justify-content: center;
         align-items: center;
@@ -81,31 +86,44 @@
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
     }
-    .menulink:hover span{
+
+    .menulink:hover span {
         display: flex;
     }
 }
 
-@media (max-width: 1024px){
-    #menulogo{
+@media (max-width: 1024px) {
+    .wrapperMenu {
+        width: 100%;
+    }
+
+    .wrapperMenu:nth-child(2) {
         display: none;
     }
-    #menulinks{
+
+    #menulogo {
+        display: none;
+    }
+
+    #menulinks {
         flex-direction: row;
         gap: 0px;
         justify-content: space-evenly;
     }
-    .menulink:hover{
+
+    .menulink:hover {
         background-color: grey;
     }
-    .menulink{
+
+    .menulink {
         flex-direction: column;
         padding: 0px;
         width: 20%;
         height: 76px;
         border-radius: 16px;
     }
-    .menulink span{
+
+    .menulink span {
         display: flex;
         padding: 0;
         position: static;
@@ -118,7 +136,8 @@
         border-radius: unset;
         font-size: var(--fntsize12);
     }
-    #tabimpressum{
+
+    #tabimpressum {
         display: none;
     }
 }

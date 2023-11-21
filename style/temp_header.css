@@ -46,7 +46,7 @@
     font-weight: bold;
 }
 
-#menu {
+#dropdownMenu {
     position: absolute;
     right: 0;
     top: 70px;
@@ -58,7 +58,7 @@
     text-decoration: none;
 }
 
-#menu span {
+#dropdownMenu span {
     display: flex;
     align-items: center;
     color: var(--fntcolor);
@@ -68,7 +68,7 @@
     cursor: pointer;
 }
 
-#menu span:hover {
+#dropdownMenu span:hover {
     color: var(--bg-color);
     font-weight: bold;
 }

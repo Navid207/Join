@@ -1,4 +1,4 @@
-<div id="wrapperMenu">
+<div class="wrapperMenu">
     <img id="menulogo" src="../img/logo.svg" alt="Join Logo">
     <div id="menulinks">
         <a id="tabsummary" class="menulink" href="../pages/summary.html">
@@ -19,7 +19,9 @@
         </a>
     </div>
 </div>
-<button id="tabimpressum" class="menulink" onclick="showElement(['contentImpressum'],event), hideElement(['content','contentHelp']), setActiveMenuTab('tabimpressum')">
-    <img class="menuicon" src="../img/icons/impressum.svg" alt="Icon">
-    <span>Legal notice</span>
-</button>
+<div class="wrapperMenu">
+    <button id="tabimpressum" class="menulink" onclick="showElement(['contentImpressum'],event), hideElement(['content','contentHelp']), setActiveMenuTab('tabimpressum')">
+        <img class="menuicon" src="../img/icons/impressum.svg" alt="Icon">
+        <span>Legal notice</span>
+    </button>
+</div>
