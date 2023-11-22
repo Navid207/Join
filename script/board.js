@@ -180,8 +180,8 @@ function setSerchTasks() {
   render(filtertTasks);
 }
 
-// function moveTo(taskIdx, condit) {
-//   tasks[taskIdx]['condit'] = condit;
-//   setItem('tasks', tasks);
-//   render(tasks);
-// }
+function moveTo(taskIdx, condit) {
+  tasks[taskIdx]['condit'] = condit;
+  setItem('tasks', tasks);
+  render(tasks);
+}
