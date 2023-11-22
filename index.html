@@ -18,6 +18,7 @@
 
     <!-- include script -->
     <script src="script/script.js"></script>
+    <script src="script/HTMLtemplates/loginHTML.js"></script>
     <script src="script/login.js"></script>
 </head>
 
@@ -28,7 +29,7 @@
         <header>
             <div id="signUp">
                 <p>Not a Join user?</p>
-                <button class="but-dark" onclick="renderHTML('content', SingupHTML);hideElementID('signUp')">Sign
+                <button class="but-dark" onclick="renderHTML('content', SingupHTML());hideElementID('signUp')">Sign
                     up</button>
             </div>
         </header>
@@ -45,7 +46,7 @@
                 <div class="pwd-ext">
                     <input type="checkbox" name="Remember" id="saveLogin">
                     <label for="saveLogin">Remember me</label>
-                    <a onclick="renderHTML('content',PwdHTML);hideElementID('signUp')">Forgot my password</a>
+                    <a onclick="renderHTML('content',PwdHTML());hideElementID('signUp')">Forgot my password</a>
                 </div>
                 <div class="but-area">
                     <button class="but-dark">Log in</button>

@@ -114,104 +114,6 @@ function loadSelectetUsers() {
 }
 
 /**
- * Creates a new subtask and appends it to the specified unordered list (ulId).
- *
- * @function
- * @param {string} subtaskId - The ID of the input element containing the subtask text.
- * @param {string} ulId - The ID of the unordered list where the subtask will be appended.
- */
-function createSubtask(subtaskId, ulId) {
-    let subtask = document.getElementById(subtaskId).value;
-    let number = document.getElementsByClassName('subtaskWrapper').length;
-    let subtaskContainer = document.getElementById(ulId);
-    if (subtask == '') setMsg('msgSubTask', 'subtaskContainer');
-    else {
-        subtaskContainer.innerHTML += getCreateSubtaskHTML(subtask, number);
-        document.getElementById(subtaskId).value = ''
-    }
-}
-
-/**
- * Hides the edit section of a subtask with the specified ID.
- *
- * @function
- * @param {string} id - The ID of the subtask for which to hide the edit section.
- */
-function subtaskHideEdit(id) {
-    document.getElementById(`editSubtask${id}`).classList.add('d-none');
-}
-
-/**
- * Displays the edit section of a subtask with the specified ID.
- *
- * @function
- * @param {string} id - The ID of the subtask for which to display the edit section.
- */
-function subtaskShowEdit(id) {
-    document.getElementById(`editSubtask${id}`).classList.remove('d-none');
-}
-
-/**
- * Deletes a subtask with the specified ID by removing its corresponding HTML element.
- *
- * @function
- * @param {string} id - The ID of the subtask to be deleted.
- */
-function deletSubtask(id) {
-    document.getElementById(`Subtask${id}`).remove();
-}
-
-/**
- * Initiates the editing process for a subtask with the specified ID.
- * Stops event propagation, closes category and user lists, and switches the subtask content
- * to an editable form for modification.
- *
- * @param {string} id - The ID of the subtask to be edited.
- */
-function editSubtask(id) {
-    event.stopPropagation();
-    closeCategoryLists();
-    closeUserLists();
-    oldSubtask = document.getElementById('titleSubtask' + id).innerHTML;
-    document.getElementById('Subtask' + id).innerHTML = getSubtasksEditHTML(id);
-    document.getElementById('EditSubtask' + id).value = oldSubtask;
-}
-
-/**
- * Saves the edited content of a subtask with the specified ID.
- *
- * @param {string} id - The ID of the subtask to be saved.
- * @param {string} [subtask] - Optional. The edited content of the subtask. If not provided, it is retrieved from the input field.
- */
-function saveSubtask(id, subtask) {
-    if (!subtask) subtask = document.getElementById('EditSubtask' + id).value;
-    document.getElementById('Subtask' + id).innerHTML = getSubtasksContentHTML(subtask, id);
-}
-
-/**
- * Closes the editing interface for a subtask, saving the changes if applicable.
- * 
- */
-function closeSubtaskEdit() {
-    if (document.querySelector(".subtaskWrapperLineEdit")) {
-        let editSubtasks = document.querySelector(".subtaskWrapperLineEdit").firstChild;
-        id = +editSubtasks.nextElementSibling.id.replace(/^\D+/g, '');
-        saveSubtask(id, oldSubtask)
-    }
-}
-
-/**
- * Removes the message and styling related to subtask validation.
- *
- */
-function removeMsg() {
-    let msg = document.getElementById('msgSubTask');
-    let input = document.getElementById('subtaskContainer')
-    msg.classList.add('d-none');
-    input.classList.remove('redBoarder');
-}
-
-/**
  * Creates a new task based on user input and adds it to the task list.
  *
  * @function
@@ -245,33 +147,6 @@ function checkPrioStatus() {
     let taskPrio = +document.querySelector(".prioContainer input[type='radio']:checked");
     if (taskPrio != 0) return +document.querySelector(".prioContainer input[type='radio']:checked").value;
     else return taskPrio;
-}
-
-/**
- * Retrieves the name of the chosen category from the input element.
- *
- * @function
- * @returns {string} - The name of the chosen category.
- */
-function loadChoosedCategory() {
-    let categoryName = document.getElementById('choosedCatagory').value;
-    return categoryName;
-}
-
-/**
- * Retrieves an array of subtasks from the subtask wrappers.
- *
- * @function
- * @returns {Array<Object>} - An array of subtask objects with description and initial state.
- */
-function loadSubtasks() {
-    let subtasks = [];
-    let subtasksTitles = document.getElementsByClassName('subtaskWrapper');
-    for (let i = 0; i < subtasksTitles.length; i++) {
-        const subtaskTitle = subtasksTitles[i].innerText;
-        subtasks.push({ descr: subtaskTitle, state: 0 });
-    }
-    return subtasks;
 }
 
 /**
@@ -342,106 +217,6 @@ function clearAssignedTo() {
 }
 
 /**
- * Displays the input container for creating a new category and hides the existing category selection.
- *
- * @function
- * @returns {Promise<void>} - A Promise that resolves once the operation is complete.
- */
-async function newCategory() {
-    let newCategoryInput = document.getElementById('newCategoryInputContainer');
-    let categorySelect = document.getElementById('categorySelect');
-    let categoryColoredDots = document.getElementById('categoryColoredDots');
-    newCategoryInput.style = 'display: flex;';
-    categorySelect.style.display = 'none';
-    categoryColoredDots.style = 'display:flex; justify-content:space-around;margin-block:10px -25px;';
-}
-
-/**
- * Dynamically populates the new category input container with radio buttons and colored dots based on predefined categories.
- *
- */
-function loadNewCategoryInput() {
-    for (let i = 0; i < CATEGORY.length; i++) {
-        const group = CATEGORY[i];
-        categoryColoredDots.innerHTML += newCategoryDotsHTML(group, i);
-        document.getElementById(`newCatColor${i}`).style.backgroundColor = group['color'];
-    }
-}
-
-/**
- * Closes the new category input container and restores the visibility of the category selection.
- *
- */
-function closeNewCategory() {
-    let newCategoryInput = document.getElementById('newCategoryInputContainer');
-    let categorySelect = document.getElementById('categorySelect');
-    let categoryColoredDots = document.getElementById('categoryColoredDots');
-    newCategoryInput.style = 'display: none;';
-    categorySelect.style.display = 'inline';
-    categoryColoredDots.style = 'display:none;';
-    let closeMenu = document.getElementsByClassName('categorySelectBtn')[0];
-    closeMenu.classList.remove('open');
-}
-
-/**
- * Animates the selected colored dot by scaling it up and resets the scale for other colored dots.
- *
- * @function
- * @param {string} value - The value representing the name of the radio button associated with the selected colored dot.
- */
-function animateDot(value) {
-    let baseScales = document.querySelectorAll('.groupDotColors');
-    let colorChoosed = document.getElementById(value);
-    baseScales.forEach(baseScale => {
-        baseScale.style.scale = '1';
-    })
-    colorChoosed.style.scale = '1.5';
-}
-
-/**
- * Saves a new category with the specified name and chosen color, updates the category list, and closes the new category input container.
- *
- * @async
- * @function
- * @returns {Promise<void>} - A Promise that resolves once the operation is complete.
- */
-async function saveNewCategory() {
-    let newCategoryName = document.getElementById('newCategoryInput').value;
-    let colorChoosed = document.querySelector('#categoryColoredDots input[type="radio"]:checked').value.toString();
-    groups.push({ name: newCategoryName, color: colorChoosed });
-    await setItem('groups', groups);
-    loadCategory();
-    closeNewCategory()
-}
-
-/**
- * Sets the chosen category in the input field, toggles the visibility of the category selection button, and updates the display accordingly.
- *
- * @function
- * @param {string} category - The name of the chosen category.
- */
-function chooseCategory(category) {
-    document.getElementById('choosedCatagory').value = category;
-    const selectBtn = document.querySelector('.categorySelectBtn');
-    selectBtn.classList.toggle("open");
-}
-
-/**
- * Deletes the category at the specified index, updates the list of categories, and saves the changes to storage.
- *
- * @async
- * @function
- * @param {number} index - The index of the category to be deleted.
- * @returns {Promise<void>} - A Promise that resolves once the operation is complete.
- */
-async function deletCategory(index) {
-    event.stopPropagation();
-    groups.splice(index, 1);
-    await setItem('groups', groups);
-    loadCategory();
-}
-
-/**
  * Closes the open dropdown lists and Subtask Edit view.
  *
  */
@@ -449,15 +224,6 @@ function closeLists() {
     closeCategoryLists();
     closeUserLists();
     closeSubtaskEdit();
-}
-
-/**
- * Closes the category selection list by removing the 'open' class.
- * 
- */
-function closeCategoryLists() {
-    let categorylist = document.querySelector('.categorySelectBtn');
-    if (categorylist) categorylist.classList.remove('open');
 }
 
 /**

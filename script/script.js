@@ -313,6 +313,17 @@ function showHelp(event) {
     setActiveMenuTab();
 }
 
+/**
+ * Removes the message and styling related to subtask validation.
+ *
+ */
+function removeMsg() {
+    let msg = document.getElementById('msgSubTask');
+    let input = document.getElementById('subtaskContainer')
+    msg.classList.add('d-none');
+    input.classList.remove('redBoarder');
+}
+
 function mergeArraysWithoutDuplicates(arr1, arr2) {
     const mergedArray = arr1;
     for (let i = 0; i < arr2.length; i++) {
