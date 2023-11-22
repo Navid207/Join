@@ -61,3 +61,13 @@ li::marker {
 li:not(:last-child) {
     margin-bottom: 10px;
 }
+
+@media (max-width:1024px){
+    #contentHelp {
+        padding: 25px 50px;
+    }
+
+    .numberListelement{
+        padding: 0;
+    }
+}

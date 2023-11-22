@@ -12,17 +12,17 @@
     padding-inline: 40px;
 }
 
-form {
+#addTask {
     display: flex;
     flex-direction: column;
 }
 
-input {
+#addTask input {
     width: 100%;
     outline-color: var(--acccolor);
 }
 
-textarea {
+#addTask textarea {
     width: -webkit-fill-available;
     min-height: 80px;
     resize: vertical;
@@ -33,7 +33,7 @@ textarea {
     margin: 0;
 }
 
-h3 {
+#addTask h3 {
     color: #000;
     font-family: Inter;
     font-size: var(--fntsize27);
@@ -178,11 +178,20 @@ h3 {
     display: flex;
     margin-top: 10px;
     align-items: center;
-    max-height: 100px;
+    height: 80px;
     overflow: auto;
 }
 
-li:not(:last-child){
+#subtaskCheckContainer::-webkit-scrollbar {
+    width: 10px;
+}
+
+#subtaskCheckContainer::-webkit-scrollbar-thumb {
+    background: var(--fntcolor);
+    border-radius: 10px;
+}
+
+#addTask li:not(:last-child){
     margin-bottom: unset;
 }
 
@@ -241,8 +250,9 @@ li:not(:last-child){
     align-items: center;
     justify-content: space-between;
     font-size: var(--fntsize20);
+    /* margin-right: 15px; */
     padding: 0 15px;
-    height: 25px;
+    height: 26px;
 }
 
 .subtaskWrapperLine:hover {
@@ -271,7 +281,8 @@ li:not(:last-child){
     align-items: center;
     justify-content: space-between;
     font-size: var(--fntsize20);
-    height: 25px;
+    padding-inline: 0 15px;
+    height: 26px;
     background-color: white;
     border-bottom: 1px solid var(--acccolor);
 }
@@ -658,7 +669,7 @@ input[id="low"] {
     }
 }
 
-@media(max-height:830px) and (min-width: 841px){
+@media(max-height:920px) and (min-width: 841px){
     #addtaskContainer{
         padding-right: 0;
     }
@@ -670,19 +681,24 @@ input[id="low"] {
     }
 }
 
-@media(max-height:830px) and (min-width: 1025px){
+@media(max-height:920px) and (min-width: 1025px){
     #addtaskContainer{
         padding-right: 0;
     }
 
     #addtaskContainer form {
         overflow: auto;
-        height: calc(100vh - 90px - 175px);
+        height: calc(100vh - 90px - 190px);
         padding-right: 40px;
     }
 }
 
 @media only screen and (max-width: 1350px) {
+
+    #addtaskContainer form {
+        height: calc(100vh - 90px - 130px);
+    }
+
     #addtaskWrapper h1 {
         padding-block: 20px;
     }
@@ -758,12 +774,12 @@ input[id="low"] {
         font-size: var(--fntsizebase);
     }
 
-    li {
+    #addTask li {
         font-size: var(--fntsizebase);
     }
 
-    li:not(:last-child) {
+    /* li:not(:last-child) {
         margin-bottom: unset !important;
-    }
+    } */
 
 }

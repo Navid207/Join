@@ -45,3 +45,9 @@ h2 {
 p{
     margin: 0;
 }
+
+@media (max-width:1024px){
+    #contentImpressum {
+        padding: 25px 50px;
+    }
+}

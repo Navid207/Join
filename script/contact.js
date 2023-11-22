@@ -1,11 +1,18 @@
-// contact page related functions
+/**
+ * Asynchronously initialization of the board.
+ * 
+ */
 async function initContact(tabID){
     await init(tabID);
     renderContactList(contactListSorted);
     await getAddTaskHTML();
 }
 
-
+/**
+ * Renders a contact list in the specified content element based on the sorted contact data.
+ *
+ * @param {Array} contactListsorted - An array of contact data sorted alphabetically.
+ */
 function renderContactList(contactListsorted){
     let content = document.getElementById('contactlist');
     if (contactListsorted.length > 0) {
@@ -22,22 +29,25 @@ function renderContactList(contactListsorted){
             }
             setInitialsColor(i,contactData['color']);
         }
-    } else {
-        content.innerHTML =/*html*/`
-            <div id="wrapperNoContacts">
-                <span>Your contact list is empty</span>
-            </div>
-        `;
-    }
-
+    } else content.innerHTML = getContactlistEmptyHTML();
 }
 
-
+/**
+ * Sets the background color of the initials element for a contact at the specified index.
+ *
+ * @param {number} idx - The index of the contact.
+ * @param {string} color - The color to be set as the background color.
+ */
 function setInitialsColor(idx,color){
     document.getElementById("contactinitialsList" + idx).style.backgroundColor = color;
 }
 
-
+/**
+ * Sets the contact details data in the corresponding HTML elements based on the contact index and sorted contact list.
+ *
+ * @param {number} idx - The index of the contact in the sorted contact list.
+ * @param {Array} contactListsorted - An array of contact data sorted alphabetically.
+ */
 function setContactDetailsData(idx,contactListsorted){
     let contactData = contactListsorted[idx];
     document.getElementById('contactinitials').innerHTML = contactData['initials'];
@@ -52,26 +62,37 @@ function setContactDetailsData(idx,contactListsorted){
     document.getElementById('btndeleteContactRes').setAttribute('onclick',`deleteContact(${idx})`);
 }
 
-
+/**
+ * Displays contact details based on the contact ID, sets data, shows the contact card, and applies styling.
+ *
+ * @param {Event} event - The event object triggering the function (optional).
+ * @param {number} contactID - The ID of the contact to display details for.
+ */
 function showContactDetails(event,contactID){
     hideContactDetails();
     if(event){stopHideElement(event)};
     setContactDetailsData(contactID,contactListSorted);
     setTimeout(function(){document.getElementById('contactCard').classList.add('showcontactCard')},1);
     setContactListActiveStyle(contactID);
-
     document.getElementById('wrappercontact').style.display = 'block';
     showElement(['wrappercontact'],);
 }
 
-
+/**
+ * Sets the active styling for the specified contact in the contact list.
+ *
+ * @param {number} contactID - The ID of the contact for which to apply active styling.
+ */
 function setContactListActiveStyle(contactID){
     setContactListPassivStyle();
     document.getElementById('contact'+contactID).classList.add('active');
     document.getElementById('contactNameList'+contactID).style.color = '#FFFFFF';
 }
 
-
+/**
+ * Sets the passive styling for the currently active contact in the contact list.
+ *
+ */
 function setContactListPassivStyle(){
     let contactID = document.getElementsByClassName('active Contactlistelement');
     if (contactID.length > 0) {
@@ -81,13 +102,21 @@ function setContactListPassivStyle(){
     }
 }
 
-
+/**
+ * Hides the contact details by setting passive styling and removing the 'showcontactCard' class.
+ *
+ */
 function hideContactDetails(){
     setContactListPassivStyle()
     document.getElementById('contactCard').classList.remove('showcontactCard');
 }
 
-
+/**
+ * Saves the contact details at the specified index.
+ *
+ * @param {number} idx - The index of the contact to be saved.
+ * @returns {Promise<void>} A promise that resolves after the contact data is updated, saved, and contact details are updated.
+ */
 async function saveContact(idx){
     if (document.getElementById('wrapperCardDetails').checkValidity()) {       
         hideOvlyCard();
@@ -102,7 +131,12 @@ async function saveContact(idx){
     }
 }
 
-
+/**
+ * Deletes the contact at the specified index.
+ *
+ * @param {number} idx - The index of the contact to be deleted.
+ * @returns {Promise<void>} A promise that resolves after the contact data is updated, saved, and contact list is rendered.
+ */
 async function deleteContact(idx){
     contactListSorted.splice(idx,1);
     await setItem('contacts',contactListSorted);
@@ -111,8 +145,13 @@ async function deleteContact(idx){
     hideContactDetails();
 }
 
-
-
+/**
+ * Creates a new contact with the provided form data, adds it to the contact list,
+ * sets initials, generates a random color, renders the updated contact list,
+ * shows the details of the newly created contact, hides the overlay card, and displays a success animation.
+ *
+ * @returns {Promise<void>} A promise that resolves after the contact is added, list is rendered, details are shown, and overlay is hidden.
+ */
 async function createContact(){
     if (document.getElementById('wrapperCardDetails').checkValidity()) {
         let contact =  {
@@ -131,7 +170,13 @@ async function createContact(){
     }
 }
 
-
+/**
+ * Adds a new contact to the sorted contact list, sorts the list alphabetically,
+ * saves the updated data in local storage, and returns the index of the newly added contact.
+ *
+ * @param {Object} contact - The contact data to be added to the list.
+ * @returns {Promise<number>} A promise that resolves with the index of the newly added contact in the sorted list.
+ */
 async function addContactToList(contact){
     contactListSorted.push(contact);
     contactListSorted.sort((a,b) => a['name'] < b['name'] ? -1 : a['name'] > b['name'] ? 1 : 0);
@@ -152,6 +197,7 @@ function hideBtnResContactDetails(){
 }
 
 // help functions
+
 /**
  * This Function generates a random hex color value
  * 

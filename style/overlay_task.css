@@ -1,0 +1,261 @@
+.ovlyTask {
+    background-color: #FFFFFF;
+    padding: 50px 0 50px 50px;
+    border-radius: 30px;
+}
+
+#ovlyCardTask {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background-color: #FFFFFF;
+    padding-right: 50px;
+    min-width: 400px;
+    max-width: 800px;
+    box-sizing: border-box;
+    max-height: calc((100vh - 90px - 90px) * 0.9);
+    /* overflow: auto; */
+}
+
+#ovlyCardTask::-webkit-scrollbar {
+    width: 10px;
+}
+
+#ovlyCardTask::-webkit-scrollbar-thumb {
+    background: var(--fntcolor);
+    border-radius: 10px;
+}
+
+#ovlyTaskGroup {
+    font-size: var(--fntsize27);
+    color: #FFFFFF;
+    padding: 4px 37px;
+    border-radius: 8px;
+    text-align: center;
+    width: fit-content;
+}
+
+#ovlyTaskTitle {
+    font-size: var(--fntsize61);
+    font-weight: bold;
+}
+
+#ovlyTaskDescription {
+    overflow: auto;
+    min-height: 35px;
+    scrollbar-width: thin;
+}
+
+#ovlyTaskWrapperDueDate {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+#ovlyTaskWrapperPrio {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+#ovlyTaskPrio {
+    display: flex;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 4px 18px;
+    color: #FFFFFF;
+}
+
+#ovlyTaskWrapperAssignedTo {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+#ovlyTaskWrapperAssignedToList {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-height: 80px;
+    overflow: auto;
+    scrollbar-width: thin;
+}
+
+#ovlyTaskWrapperAssignedToList::-webkit-scrollbar {
+    width: 10px;
+}
+
+#ovlyTaskWrapperAssignedToList::-webkit-scrollbar-thumb {
+    background: var(--fntcolor);
+    border-radius: 10px;
+}
+
+.ovlyAssignedToElement {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.ovlyAssignedToElement span:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    color: white;
+    width: 32px;
+    height: 32px;
+}
+
+#ovlySubTask {
+    display: flex;
+    flex-direction: column;
+}
+
+#ovlySubTask span {
+    margin-bottom: 8px;
+}
+
+#ovlySubTask ul {
+    padding-left: 0;
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+#ovlySubTask ul::-webkit-scrollbar {
+    width: 10px;
+}
+
+#ovlySubTask ul::-webkit-scrollbar-thumb {
+    background: var(--fntcolor);
+    border-radius: 10px;
+}
+
+#ovlySubTask li {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border-radius: 8px;
+    margin-bottom: 4px;
+}
+
+#ovlySubTask label {
+    padding-right: 16px;
+    cursor: pointer;
+}
+
+#ovlySubTask li:hover {
+    background-color: var(--fntcolor);
+}
+
+#ovlyTaskWrapperBtn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#ovlyTaskWrapperBtn button:first-child {
+    border-radius: 10px 0 0 10px;
+    margin-right: -2px;
+    padding: 0;
+}
+
+#ovlyTaskWrapperBtn button:first-child div {
+    -webkit-mask-image: url(../img/icons/bin.svg);
+    mask-image: url(../img/icons/bin.svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: 50%;
+    mask-position: 50%;
+    width: 51px;
+    height: 51px;
+    background-color: var(--primcolor);
+}
+
+#ovlyTaskWrapperBtn button:first-child div:hover {
+    background-color: var(--acccolor);
+    transition: all var(--transtime) ease-in-out;
+}
+
+#ovlyTaskWrapperBtn button:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+#ovlyBtnClose {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: white;
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+    width: 42px;
+    height: 42px;
+}
+
+#ovlyBtnClose:hover {
+    background-color: var(--fntcolor);
+}
+
+#ovlyBtnClose svg {
+    fill: var(--primcolor);
+    width: 30px;
+    height: 30px;
+}
+
+/*---------------- responsive ----------------*/
+@media (max-height:900px) {
+    #ovlyCardTask {
+        overflow: auto;
+    }
+}
+
+@media (max-width: 720px) {
+    #ovlyBtnClose {
+        right: 20px;
+        top: 20px;
+        background-color: var(--acccolor);
+        -webkit-mask-image: url(../img/icons/arrow_left_line.svg);
+        mask-image: url(../img/icons/arrow_left_line.svg);
+    }
+
+    #ovlyTaskDescription {
+        max-height: 30%;
+    }
+}
+
+@media (max-width: 500px) {
+    .ovlyCard {
+        width: calc(100vw - 50px);
+        height: calc(100vh - 50px);
+    }
+
+    #ovlyCardTask {
+        min-width: unset;
+    }
+}
+
+@media (max-width: 400px) {
+    #ovly {
+        display: unset;
+    }
+
+    .ovlyTask {
+        padding: unset;
+    }
+
+    .ovlyTask,
+    #ovlyCardTask {
+        height: 100vh;
+        max-height: unset;
+        width: 100vw;
+        border-radius: unset;
+    }
+
+    #ovlyCardTask {
+        padding: 50px 20px;
+    }
+
+    #ovlyTaskWrapperAssignedToList {
+        max-height: 150px;
+    }
+}

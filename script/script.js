@@ -134,6 +134,18 @@ function hideElement(ID) {
 }
 
 /**
+ * Sets an error message and adds a visual indicator (red border) to the specified input field.
+ *
+ * @function
+ * @param {string} idMsg - The ID of the element containing the error message.
+ * @param {string} idInput - The ID of the input field to which the visual indicator will be applied.
+ */
+function setMsg(idMsg, idInput) {
+    document.getElementById(idMsg).classList.remove('d-none');
+    document.getElementById(idInput).classList.add('redBoarder');
+}
+
+/**
  * Displays an overlay card with the provided HTML content.
  *
  * @param {string} cardHTML - The HTML content to be displayed within the overlay card.
@@ -300,3 +312,13 @@ function showHelp(event) {
     hideElement(['content','contentImpressum']);
     setActiveMenuTab();
 }
+
+function mergeArraysWithoutDuplicates(arr1, arr2) {
+    const mergedArray = arr1;
+    for (let i = 0; i < arr2.length; i++) {
+      if (!mergedArray.includes(arr2[i])) {
+        mergedArray.push(arr2[i]);
+      }
+    }
+    return mergedArray;
+  }

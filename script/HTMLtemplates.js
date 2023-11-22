@@ -1,5 +1,13 @@
 // contact page related templates
 
+function getContactlistEmptyHTML() {
+    return /*html*/`
+        <div id="wrapperNoContacts">
+            <span>Your contact list is empty</span>
+        </div>
+    `;
+}
+
 function getOvlyCardNewContactHTML() {
     return /*html*/`
         <div id="ovlyCardHeader">

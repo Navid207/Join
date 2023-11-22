@@ -232,7 +232,7 @@ async function createTask() {
     hideOvlyCard();
     if (typeof (render) != "undefined") { render(tasks) };
     setTimeout(() => clearTask(), 1000);
-    setTimeout(function () { goToBoard() }, 2000);
+    goDelaydToBoard(1500);
 }
 
 /**
@@ -501,18 +501,6 @@ function checkForm() {
 }
 
 /**
- * Sets an error message and adds a visual indicator (red border) to the specified input field.
- *
- * @function
- * @param {string} idMsg - The ID of the element containing the error message.
- * @param {string} idInput - The ID of the input field to which the visual indicator will be applied.
- */
-function setMsg(idMsg, idInput) {
-    document.getElementById(idMsg).classList.remove('d-none');
-    document.getElementById(idInput).classList.add('redBoarder');
-}
-
-/**
  * Sets the minimum date for the specified input field based on the current date.
  *
  * @function
@@ -525,10 +513,12 @@ function setMinDate(id) {
 }
 
 /**
- * Redirects the user to the board page by opening the board URL in the current tab.
+ * Delays the redirection to the board page by opening the board URL in the current tab after a specified delay.
  *
+ * @param {number} delayTime - The delay time (in milliseconds) before redirecting to the board page.
  */
-function goToBoard() {
+function goDelaydToBoard(delayTime) {
+    if (document.title != 'Join - Add Task') return
     const boardURL = document.getElementById("tabboard").href;
-    window.open(boardURL,"_self");
+    setTimeout(function () { window.open(boardURL,"_self") }, delayTime);
 }
