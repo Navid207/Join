@@ -89,8 +89,8 @@ async function setItem(key, value) {
 async function getItem(key) {
     const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
     let response = await fetch(url).then(res => res.json());
-    response = response['data']['value'].replace(/\'/g, '"');
-    return JSON.parse(response);
+    response = response.data.value.replace(/\'/g, '"');
+    if (response) return JSON.parse(response);
 }
 
 /**
@@ -288,7 +288,7 @@ function getArrayOfIncludes(ValueToSearch, valueToFind, dataArray) {
 function toggleShowMenu(event) {
     event.stopPropagation();
     let dropdownMenu = document.getElementById('dropdownMenu').classList;
-    (dropdownMenu.value === '')? dropdownMenu.add('display-none') : dropdownMenu.remove('display-none');
+    (dropdownMenu.value === '') ? dropdownMenu.add('display-none') : dropdownMenu.remove('display-none');
 }
 
 /**
@@ -297,8 +297,8 @@ function toggleShowMenu(event) {
  * @param {Event} event - The event triggering the function.
  */
 function showLegalNotice(event) {
-    showElement(['contentImpressum'],event);
-    hideElement(['content','contentHelp']);
+    showElement(['contentImpressum'], event);
+    hideElement(['content', 'contentHelp']);
     setActiveMenuTab('tabimpressum');
 }
 
@@ -308,8 +308,8 @@ function showLegalNotice(event) {
  * @param {Event} event - The event triggering the function.
  */
 function showHelp(event) {
-    showElement(['contentHelp'],event);
-    hideElement(['content','contentImpressum']);
+    showElement(['contentHelp'], event);
+    hideElement(['content', 'contentImpressum']);
     setActiveMenuTab();
 }
 
@@ -324,12 +324,32 @@ function removeMsg() {
     input.classList.remove('redBoarder');
 }
 
+/**
+ * Merges two arrays without duplicates.
+ * @param {Array} arr1 - The first array.
+ * @param {Array} arr2 - The second array.
+ * @returns {Array} - The merged array without duplicate elements.
+ */
 function mergeArraysWithoutDuplicates(arr1, arr2) {
     const mergedArray = arr1;
     for (let i = 0; i < arr2.length; i++) {
-      if (!mergedArray.includes(arr2[i])) {
-        mergedArray.push(arr2[i]);
-      }
+        if (!mergedArray.includes(arr2[i])) {
+            mergedArray.push(arr2[i]);
+        }
     }
     return mergedArray;
-  }
+}
+
+/**
+* Sanitizes the given value by replacing special characters with their corresponding HTML entities.
+* @param {string} value - The value to be sanitized.
+* @returns {string} - The sanitized value with special characters replaced.
+*/
+function verifyValue(value) {
+    value = value.replace(/"/g, '&#34;');
+    value = value.replace(/`/g, '&#96;');
+    value = value.replace(/'/g, '&#39;');
+    value = value.replace(/</g, '&lt;');
+    value = value.replace(/>/g, '&gt;');
+    return value
+}

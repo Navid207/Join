@@ -120,8 +120,8 @@ function loadSelectetUsers() {
  * @returns {Promise<void>} - A Promise that resolves after creating and storing the new task.
  */
 async function createTask() {
-    let taskTitle = document.getElementById('addTaskTitle').value;
-    let taskDescription = document.getElementById('addTaskDescription').value;
+    let taskTitle = setElementValue('addTaskTitle');
+    let taskDescription = setElementValue('addTaskDescription');
     let taskDueDate = document.getElementById('addTaskDueDate').value;
     let taskPrio = checkPrioStatus();
     let subtasks = loadSubtasks();
@@ -135,6 +135,17 @@ async function createTask() {
     if (typeof (render) != "undefined") { render(tasks) };
     setTimeout(() => clearTask(), 1000);
     goDelaydToBoard(1500);
+}
+
+/**
+ * Sets the value of an HTML element identified by its ID after verifying and sanitizing the input.
+ * @param {string} id - The ID of the HTML element.
+ * @returns {string} - The sanitized value of the HTML element.
+ */
+function setElementValue(id) {
+    let element = document.getElementById(id);
+    let value = verifyValue(element.value);
+    return value
 }
 
 /**
@@ -286,5 +297,5 @@ function setMinDate(id) {
 function goDelaydToBoard(delayTime) {
     if (document.title != 'Join - Add Task') return
     const boardURL = document.getElementById("tabboard").href;
-    setTimeout(function () { window.open(boardURL,"_self") }, delayTime);
+    setTimeout(function () { window.open(boardURL, "_self") }, delayTime);
 }

@@ -8,7 +8,7 @@ function loadSubtasks() {
     let subtasks = [];
     let subtasksTitles = document.getElementsByClassName('subtaskWrapper');
     for (let i = 0; i < subtasksTitles.length; i++) {
-        const subtaskTitle = subtasksTitles[i].innerText;
+        const subtaskTitle = verifyValue(subtasksTitles[i].innerText);
         subtasks.push({ descr: subtaskTitle, state: 0 });
     }
     return subtasks;

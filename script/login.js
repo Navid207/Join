@@ -149,7 +149,7 @@ async function addUserToData(user) {
     user.id = users.length + 1;
     users.push(user);
     setItem('users', users);
-    //sendWelcomMail(user);   --> no PHP Server
+    sendWelcomMail(user);
     localStorage.removeItem('User');
     renderLogin();
     await initLogin();
@@ -164,7 +164,7 @@ async function addUserToData(user) {
  */
 function sendWelcomMail(user) {
     const data = JSON.stringify({ name: user.name, mail: user.email });
-    fetch("https://join-615.developerakademie.net/php/send_mail_add_user.php", { method: 'POST', body: data });
+    fetch("https://navidpazoki.com/join.navidpazoki.com/php/send_mail_add_user.php", { method: 'POST', body: data });
 }
 
 /**
